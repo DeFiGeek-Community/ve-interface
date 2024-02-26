@@ -25,8 +25,8 @@ createWeb3Modal({
   projectId: projectId,
   enableAnalytics: false,
   themeVariables: {
-    "--w3m-accent" : "#5bad92",
-  }
+    "--w3m-accent": "#5bad92",
+  },
 });
 
 function MyApp({ Component, pageProps }: AppProps) {

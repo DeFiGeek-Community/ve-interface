@@ -1,10 +1,4 @@
-import {
-  Card,
-  CardHeader,
-  CardBody,
-  Heading,
-  Divider,
-} from "@chakra-ui/react";
+import { Card, CardHeader, CardBody, Heading, Divider } from "@chakra-ui/react";
 import { useTranslation } from "react-i18next";
 import LockStats from "components/votingEscrow/LockStats";
 import Reward from "components/votingEscrow/Rewards";
