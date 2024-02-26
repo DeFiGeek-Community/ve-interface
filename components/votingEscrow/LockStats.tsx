@@ -34,8 +34,8 @@ export default function LockStats({ address }: { address?: `0x${string}` }) {
 
       <HStack spacing={4} justifyContent={"flex-end"} mt={2}>
         <NewLockForm address={address} />
-        <IncreaseUnlockTimeForm address={address}/>
-        <IncreaseAmountForm address={address}/>
+        <IncreaseUnlockTimeForm address={address} />
+        <IncreaseAmountForm address={address} />
       </HStack>
     </>
   );

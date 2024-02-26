@@ -61,101 +61,105 @@ export default function FormModal({
             <ModalHeader>
               {type === LockType.CREATE_LOCK && t("VE_CREATE_LOCK")}
               {type === LockType.INCREASE_AMOUNT && t("VE_INCREASE_AMOUNT")}
-              {type === LockType.INCREASE_UNLOCK_TIME && t("VE_INCREASE_UNLOCK_TIME")}
+              {type === LockType.INCREASE_UNLOCK_TIME &&
+                t("VE_INCREASE_UNLOCK_TIME")}
               <ModalCloseButton />
             </ModalHeader>
 
             <ModalBody pb={6}>
               <form>
-                <HStack spacing={8} alignItems={"start"}>
-                  <Box w={"full"}>
-                    <FormControl mt={4}>
-                      <Flex justifyContent={"space-between"}>
-                        <FormLabel alignItems={"baseline"}>
-                          {t("INPUT_LOCK_AMOUNT")}{" "}
-                        </FormLabel>
-                      </Flex>
+                {type !== LockType.INCREASE_UNLOCK_TIME && (
+                  <HStack spacing={8} alignItems={"start"}>
+                    <Box w={"full"}>
+                      <FormControl mt={4}>
+                        <Flex justifyContent={"space-between"}>
+                          <FormLabel alignItems={"baseline"}>
+                            {t("INPUT_LOCK_AMOUNT")}{" "}
+                          </FormLabel>
+                        </Flex>
 
-                      <Flex alignItems={"center"}>
-                        <NumberInput
-                          flex="1"
-                          name="value"
-                          min={0}
-                          max={Number.MAX_SAFE_INTEGER}
-                        >
-                          <NumberInputField />
-                          <NumberInputStepper>
-                            <NumberIncrementStepper />
-                            <NumberDecrementStepper />
-                          </NumberInputStepper>
-                        </NumberInput>
-                        <Box px={2} minW={"3rem"}>
-                          YMT
-                        </Box>
-                      </Flex>
-                      <Text fontSize={"sm"}>{t("BALANCE")}: 0 YMT</Text>
-                    </FormControl>
-                  </Box>
-                </HStack>
-
-                <FormControl mt={4}>
-                  <FormLabel alignItems={"baseline"}>
-                    {t("SELECT_UNLOCK_DATE")}
-                  </FormLabel>
-                  <Flex alignItems={"center"}>
-                    <Box>
-                      <DatePicker
-                        oneTap={true}
-                        format="yyyy-MM-dd"
-                        placement="topStart"
-                        cleanable={false}
-                        defaultValue={null}
-                        value={null}
-                      />
+                        <Flex alignItems={"center"}>
+                          <NumberInput
+                            flex="1"
+                            name="value"
+                            min={0}
+                            max={Number.MAX_SAFE_INTEGER}
+                          >
+                            <NumberInputField />
+                            <NumberInputStepper>
+                              <NumberIncrementStepper />
+                              <NumberDecrementStepper />
+                            </NumberInputStepper>
+                          </NumberInput>
+                          <Box px={2} minW={"3rem"}>
+                            YMT
+                          </Box>
+                        </Flex>
+                        <Text fontSize={"sm"}>{t("BALANCE")}: 0 YMT</Text>
+                      </FormControl>
                     </Box>
-                    <chakra.span fontSize={"sm"} ml={2}>
-                      (UTC)
-                    </chakra.span>
-                  </Flex>
-                  <Grid
-                    mt={2}
-                    templateRows="repeat(2, 1fr)"
-                    templateColumns="repeat(3, 1fr)"
-                    gap={2}
-                  >
-                    <GridItem>
-                      <Button size="sm" w="full">
-                        1 week
-                      </Button>
-                    </GridItem>
-                    <GridItem>
-                      <Button size="sm" w="full">
-                        1 month
-                      </Button>
-                    </GridItem>
-                    <GridItem>
-                      <Button size="sm" w="full">
-                        3 months
-                      </Button>
-                    </GridItem>
-                    <GridItem>
-                      <Button size="sm" w="full">
-                        6 months
-                      </Button>
-                    </GridItem>
-                    <GridItem>
-                      <Button size="sm" w="full">
-                        1 year
-                      </Button>
-                    </GridItem>
-                    <GridItem>
-                      <Button size="sm" w="full">
-                        4 years
-                      </Button>
-                    </GridItem>
-                  </Grid>
-                </FormControl>
+                  </HStack>
+                )}
 
+                {type !== LockType.INCREASE_AMOUNT && (
+                  <FormControl mt={4}>
+                    <FormLabel alignItems={"baseline"}>
+                      {t("SELECT_UNLOCK_DATE")}
+                    </FormLabel>
+                    <Flex alignItems={"center"}>
+                      <Box>
+                        <DatePicker
+                          oneTap={true}
+                          format="yyyy-MM-dd"
+                          placement="topStart"
+                          cleanable={false}
+                          defaultValue={null}
+                          value={null}
+                        />
+                      </Box>
+                      <chakra.span fontSize={"sm"} ml={2}>
+                        (UTC)
+                      </chakra.span>
+                    </Flex>
+                    <Grid
+                      mt={2}
+                      templateRows="repeat(2, 1fr)"
+                      templateColumns="repeat(3, 1fr)"
+                      gap={2}
+                    >
+                      <GridItem>
+                        <Button size="sm" w="full">
+                          1 week
+                        </Button>
+                      </GridItem>
+                      <GridItem>
+                        <Button size="sm" w="full">
+                          1 month
+                        </Button>
+                      </GridItem>
+                      <GridItem>
+                        <Button size="sm" w="full">
+                          3 months
+                        </Button>
+                      </GridItem>
+                      <GridItem>
+                        <Button size="sm" w="full">
+                          6 months
+                        </Button>
+                      </GridItem>
+                      <GridItem>
+                        <Button size="sm" w="full">
+                          1 year
+                        </Button>
+                      </GridItem>
+                      <GridItem>
+                        <Button size="sm" w="full">
+                          4 years
+                        </Button>
+                      </GridItem>
+                    </Grid>
+                  </FormControl>
+                )}
                 <CustomButton
                   mt={4}
                   w={"full"}

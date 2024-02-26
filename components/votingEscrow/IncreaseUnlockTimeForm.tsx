@@ -13,12 +13,7 @@ export default function IncreaseUnlockTimeForm({
 
   return (
     <>
-      <CustomButton
-        variant={"solid"}
-        size={"sm"}
-        onClick={onOpen}
-        {...props}
-      >
+      <CustomButton variant={"solid"} size={"sm"} onClick={onOpen} {...props}>
         {t("VE_INCREASE_UNLOCK_TIME")}
       </CustomButton>
       {isOpen && (
