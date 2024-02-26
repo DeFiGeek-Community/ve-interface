@@ -26,6 +26,7 @@ import { DatePicker, CustomProvider } from "rsuite";
 import { useTranslation } from "react-i18next";
 import { jaJP, enUS } from "rsuite/locales";
 import "rsuite/dist/rsuite-no-reset.min.css";
+import { LockType } from "lib/types/VotingEscrow";
 import { CustomButton } from "components/shared/CustomButton";
 
 type FormModalProps = {
@@ -58,7 +59,9 @@ export default function FormModal({
           <ModalOverlay />
           <ModalContent>
             <ModalHeader>
-              {type}
+              {type === LockType.CREATE_LOCK && t("VE_CREATE_LOCK")}
+              {type === LockType.INCREASE_AMOUNT && t("VE_INCREASE_AMOUNT")}
+              {type === LockType.INCREASE_UNLOCK_TIME && t("VE_INCREASE_UNLOCK_TIME")}
               <ModalCloseButton />
             </ModalHeader>
 
