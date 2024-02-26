@@ -51,7 +51,6 @@ export default function FormModal({
         <Modal
           isOpen={isOpen}
           onClose={onClose}
-          closeOnOverlayClick={false}
           blockScrollOnMount={false}
           isCentered={true}
           size={"sm"}
