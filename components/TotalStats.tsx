@@ -39,6 +39,7 @@ export default function VotingEscrow({ address }: { address?: `0x${string}` }) {
             <Text>{t("VE_YMT")}</Text>
             <Tooltip
               hasArrow
+              bg={"#818181"}
               label={
                 <Text whiteSpace={"pre-wrap"}>{t("VE_YMT_REWARD_HELP")}</Text>
               }

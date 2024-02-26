@@ -38,6 +38,7 @@ export default function Footer() {
           >
             <Tooltip
               hasArrow
+              bg={"#818181"}
               label={
                 <Text whiteSpace={"pre-wrap"}>DeFiGeek Community JAPAN</Text>
               }
@@ -53,6 +54,7 @@ export default function Footer() {
             </Tooltip>
             <Tooltip
               hasArrow
+              bg={"#818181"}
               label={<Text whiteSpace={"pre-wrap"}>GitHub</Text>}
             >
               <Link
@@ -67,6 +69,7 @@ export default function Footer() {
             </Tooltip>
             <Tooltip
               hasArrow
+              bg={"#818181"}
               label={<Text whiteSpace={"pre-wrap"}>GitBook</Text>}
             >
               <Link

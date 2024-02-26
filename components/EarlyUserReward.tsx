@@ -43,6 +43,7 @@ export default function EarlyUserReward({
           {t("EARLY_USER_REWARD")}
           <Tooltip
             hasArrow
+            bg={"#818181"}
             label={
               <Text whiteSpace={"pre-wrap"}>{t("EARLY_USER_REWARD_HELP")}</Text>
             }

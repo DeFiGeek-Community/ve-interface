@@ -25,6 +25,7 @@ export default function Reward({ address }: { address?: `0x${string}` }) {
           {t("REWARDS")}
           <Tooltip
             hasArrow
+            bg={"#818181"}
             label={<Text whiteSpace={"pre-wrap"}>{t("REWARDS_HELP")}</Text>}
           >
             <QuestionIcon fontSize={"md"} mb={1} ml={1} />
