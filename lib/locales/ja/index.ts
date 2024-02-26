@@ -8,7 +8,9 @@ const ja = {
   EARLY_USER_REWARD: "初期ユーザリワード",
   EARLY_USER_REWARD_HELP:
     "初期ユーザは、YMTトークンを報酬として受け取る権利が付与されます。\n\n初期ユーザリワードの予算5000万YMTがなくなり次第終了となり、予算が尽きている場合は権利を保有していても請求は出来ません。",
-  CLAIMABLE: "請求可能額",
+  ALLOCATED: "割当量",
+  CLAIMED: "請求済み",
+  CLAIMABLE: "請求可能",
   VE_YMT: "veYMT",
   VE_YMT_REWARD: "veYMTリワード",
   VE_YMT_REWARD_HELP:

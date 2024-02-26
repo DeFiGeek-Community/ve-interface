@@ -35,7 +35,7 @@ export default function EarlyUserReward({
     >
       <CardHeader bg={"#f9aea5"} py={2}>
         <Heading size="md" color={"white"}>
-          Reward
+          Initial Reward
         </Heading>
       </CardHeader>
       <CardBody>
@@ -51,6 +51,24 @@ export default function EarlyUserReward({
           </Tooltip>
         </Heading>
         <Divider my={2} />
+        <HStack justifyContent={"space-between"}>
+          <chakra.div>{t("ALLOCATED")}</chakra.div>
+          <chakra.div fontSize={"2xl"}>
+            {"0.00"}
+            <chakra.span fontSize={"lg"} ml={1}>
+              YMT
+            </chakra.span>
+          </chakra.div>
+        </HStack>
+        <HStack justifyContent={"space-between"}>
+          <chakra.div>{t("CLAIMED")}</chakra.div>
+          <chakra.div fontSize={"2xl"}>
+            {"0.00"}
+            <chakra.span fontSize={"lg"} ml={1}>
+              YMT
+            </chakra.span>
+          </chakra.div>
+        </HStack>
         <HStack justifyContent={"space-between"}>
           <chakra.div>{t("CLAIMABLE")}</chakra.div>
           <chakra.div fontSize={"2xl"}>
