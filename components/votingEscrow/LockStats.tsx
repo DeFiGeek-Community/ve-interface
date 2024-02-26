@@ -1,6 +1,8 @@
 import { HStack, Text, chakra, Spinner } from "@chakra-ui/react";
 import { useTranslation } from "react-i18next";
 import NewLockForm from "./NewLockForm";
+import IncreaseUnlockTimeForm from "./IncreaseUnlockTimeForm";
+import IncreaseAmountForm from "./IncreaseAmountForm";
 
 export default function LockStats({ address }: { address?: `0x${string}` }) {
   const { t } = useTranslation();
@@ -32,6 +34,8 @@ export default function LockStats({ address }: { address?: `0x${string}` }) {
 
       <HStack spacing={4} justifyContent={"flex-end"} mt={2}>
         <NewLockForm address={address} />
+        <IncreaseUnlockTimeForm address={address}/>
+        <IncreaseAmountForm address={address}/>
       </HStack>
     </>
   );
