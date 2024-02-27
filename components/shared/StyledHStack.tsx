@@ -1,6 +1,6 @@
 import { HStack, StackProps, chakra } from "@chakra-ui/react";
 
-export const StyledHStack: React.FC<
+const StyledHStack: React.FC<
   StackProps & { title: string; value: string; unit: string }
 > = ({ title, value, unit, ...props }) => {
   return (
@@ -15,3 +15,5 @@ export const StyledHStack: React.FC<
     </HStack>
   );
 };
+
+export default StyledHStack;

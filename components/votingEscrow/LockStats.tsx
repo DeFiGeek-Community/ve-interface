@@ -4,7 +4,7 @@ import NewLockForm from "./NewLockForm";
 import IncreaseUnlockTimeForm from "./IncreaseUnlockTimeForm";
 import IncreaseAmountForm from "./IncreaseAmountForm";
 import WithdrawButton from "./WithdrawButton";
-import { StyledHStack } from "components/shared/StyledHStack";
+import StyledHStack from "components/shared/StyledHStack";
 
 export default function LockStats({ address }: { address?: `0x${string}` }) {
   const { t } = useTranslation();

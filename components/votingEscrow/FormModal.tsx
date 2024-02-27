@@ -32,7 +32,7 @@ import { useTranslation } from "react-i18next";
 import { jaJP, enUS } from "rsuite/locales";
 import "rsuite/dist/rsuite-no-reset.min.css";
 import { LockType } from "lib/types/VotingEscrow";
-import { StyledButton } from "components/shared/StyledButton";
+import StyledButton from "components/shared/StyledButton";
 
 export const StyledGrayButton: React.FC<ButtonProps & { label: string }> = ({
   label,

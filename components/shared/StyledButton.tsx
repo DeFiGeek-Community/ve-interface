@@ -1,11 +1,9 @@
 import { Button, ButtonProps } from "@chakra-ui/react";
 
-export function StyledButton(
-  props: {
-    isLoading?: boolean;
-    children: string;
-  } & ButtonProps,
-) {
+const StyledButton: React.FC<{
+  isLoading?: boolean;
+  children: string;
+} & ButtonProps> = (props) => {
   return (
     <Button
       {...props}
@@ -24,3 +22,5 @@ export function StyledButton(
     </Button>
   );
 }
+
+export default StyledButton;

@@ -3,7 +3,7 @@ import { AiFillGithub } from "react-icons/ai";
 import { useTranslation } from "react-i18next";
 import CommunityLogo from "../svgs/CommunityLogo";
 import GitBook from "../svgs/GitBook";
-import { StyledTooltip } from "components/shared/StyledTooltip";
+import StyledTooltip from "components/shared/StyledTooltip";
 
 export default function Footer() {
   const { t } = useTranslation();

@@ -1,6 +1,6 @@
 import { Card, CardProps } from "@chakra-ui/react";
 
-export const StyledCard: React.FC<CardProps> = ({ children, ...props }) => {
+const StyledCard: React.FC<CardProps> = ({ children, ...props }) => {
   return (
     <Card
       flex={1}
@@ -15,3 +15,5 @@ export const StyledCard: React.FC<CardProps> = ({ children, ...props }) => {
     </Card>
   );
 };
+
+export default StyledCard;

@@ -9,9 +9,9 @@ import {
 } from "@chakra-ui/react";
 import { QuestionIcon } from "@chakra-ui/icons";
 import { useTranslation } from "react-i18next";
-import { StyledCard } from "components/shared/StyledCard";
-import { StyledHStack } from "components/shared/StyledHStack";
-import { StyledTooltip } from "components/shared/StyledTooltip";
+import StyledCard from "components/shared/StyledCard";
+import StyledHStack from "components/shared/StyledHStack";
+import StyledTooltip from "components/shared/StyledTooltip";
 
 export default function VotingEscrow({ address }: { address?: `0x${string}` }) {
   const { t } = useTranslation();

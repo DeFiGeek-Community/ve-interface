@@ -1,6 +1,6 @@
 import { Button, HStack, Box, chakra } from "@chakra-ui/react";
 import { useTranslation } from "react-i18next";
-import { StyledButton } from "components/shared/StyledButton";
+import StyledButton from "components/shared/StyledButton";
 
 export default function Reward({
   address,

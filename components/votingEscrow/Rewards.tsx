@@ -2,8 +2,8 @@ import { HStack, VStack, Text, chakra, useToast, Box } from "@chakra-ui/react";
 import { QuestionIcon } from "@chakra-ui/icons";
 import { useTranslation } from "react-i18next";
 import FeeRewards from "components/votingEscrow/FeeReward";
-import { StyledButton } from "components/shared/StyledButton";
-import { StyledTooltip } from "components/shared/StyledTooltip";
+import StyledButton from "components/shared/StyledButton";
+import StyledTooltip from "components/shared/StyledTooltip";
 
 export default function Reward({ address }: { address?: `0x${string}` }) {
   const { t } = useTranslation();

@@ -7,10 +7,10 @@ import {
 } from "@chakra-ui/react";
 import { QuestionIcon } from "@chakra-ui/icons";
 import { useTranslation } from "react-i18next";
-import { StyledButton } from "components/shared/StyledButton";
-import { StyledCard } from "components/shared/StyledCard";
-import { StyledHStack } from "components/shared/StyledHStack";
-import { StyledTooltip } from "components/shared/StyledTooltip";
+import StyledButton from "components/shared/StyledButton";
+import StyledCard from "components/shared/StyledCard";
+import StyledHStack from "components/shared/StyledHStack";
+import StyledTooltip from "components/shared/StyledTooltip";
 
 export default function EarlyUserReward({
   address,

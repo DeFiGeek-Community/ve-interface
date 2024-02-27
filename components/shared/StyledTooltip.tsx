@@ -1,7 +1,7 @@
 import { Tooltip, Text, TooltipProps } from "@chakra-ui/react";
 import { useTranslation } from "react-i18next";
 
-export const StyledTooltip: React.FC<TooltipProps & { labelKey: string }> = ({
+const StyledTooltip: React.FC<TooltipProps & { labelKey: string }> = ({
   labelKey,
   ...props
 }) => {
@@ -16,3 +16,4 @@ export const StyledTooltip: React.FC<TooltipProps & { labelKey: string }> = ({
     />
   );
 };
+export default StyledTooltip;
