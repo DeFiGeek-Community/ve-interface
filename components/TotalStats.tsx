@@ -5,13 +5,13 @@ import {
   Tooltip,
   Divider,
   HStack,
-  chakra,
   Text,
   Image,
 } from "@chakra-ui/react";
 import { QuestionIcon } from "@chakra-ui/icons";
 import { useTranslation } from "react-i18next";
 import { StyledCard } from "components/shared/StyledCard";
+import { StyledHStack } from "components/shared/StyledHStack";
 
 export default function VotingEscrow({ address }: { address?: `0x${string}` }) {
   const { t } = useTranslation();
@@ -40,42 +40,25 @@ export default function VotingEscrow({ address }: { address?: `0x${string}` }) {
           </HStack>
         </Heading>
         <Divider variant="dashed" my={2} />
-        <HStack justifyContent={"space-between"}>
-          <chakra.p>{t("TOTAL_YMT")}</chakra.p>
-          <chakra.p fontSize={"2xl"}>
-            <>{"0.0"}</>
-            <chakra.span fontSize={"lg"} ml={1}>
-              YMT
-            </chakra.span>
-          </chakra.p>
-        </HStack>
-        <HStack justifyContent={"space-between"}>
-          <chakra.p>{t("TOTAL_YMT_VOTE_LOCKED")}</chakra.p>
-          <chakra.p fontSize={"2xl"}>
-            <>{"0.0"}</>
-            <chakra.span fontSize={"lg"} ml={1}>
-              YMT
-            </chakra.span>
-          </chakra.p>
-        </HStack>
-        <HStack justifyContent={"space-between"}>
-          <chakra.p>{t("PERCENTAGE_YMT_LOCKED")}</chakra.p>
-          <chakra.p fontSize={"2xl"}>
-            <>{"0.0"}</>
-            <chakra.span fontSize={"lg"} ml={1}>
-              %
-            </chakra.span>
-          </chakra.p>
-        </HStack>
-        <HStack justifyContent={"space-between"}>
-          <chakra.p>{t("TOTAL_VE_YMT")}</chakra.p>
-          <chakra.p fontSize={"2xl"}>
-            <>{"0.0"}</>
-            <chakra.span fontSize={"lg"} ml={1}>
-              veYMT
-            </chakra.span>
-          </chakra.p>
-        </HStack>
+        <StyledHStack title={t("TOTAL_YMT")} value={"0.0"} unit={"YMT"} />
+        <StyledHStack
+          title={t("TOTAL_YMT_VOTE_LOCKED")}
+          value={"0.0"}
+          unit={"YMT"}
+          mt={1}
+        />
+        <StyledHStack
+          title={t("PERCENTAGE_YMT_LOCKED")}
+          value={"0.0"}
+          unit={"%"}
+          mt={1}
+        />
+        <StyledHStack
+          title={t("TOTAL_VE_YMT")}
+          value={"0.0"}
+          unit={"veYMT"}
+          mt={1}
+        />
       </CardBody>
     </StyledCard>
   );

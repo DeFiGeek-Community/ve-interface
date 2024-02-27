@@ -4,8 +4,6 @@ import {
   Heading,
   Tooltip,
   Divider,
-  HStack,
-  chakra,
   CardFooter,
   Text,
 } from "@chakra-ui/react";
@@ -13,6 +11,7 @@ import { QuestionIcon } from "@chakra-ui/icons";
 import { useTranslation } from "react-i18next";
 import { CustomButton } from "components/shared/CustomButton";
 import { StyledCard } from "components/shared/StyledCard";
+import { StyledHStack } from "components/shared/StyledHStack";
 
 export default function EarlyUserReward({
   address,
@@ -42,33 +41,14 @@ export default function EarlyUserReward({
           </Tooltip>
         </Heading>
         <Divider my={2} />
-        <HStack justifyContent={"space-between"}>
-          <chakra.div>{t("ALLOCATED")}</chakra.div>
-          <chakra.div fontSize={"2xl"}>
-            {"0.00"}
-            <chakra.span fontSize={"lg"} ml={1}>
-              YMT
-            </chakra.span>
-          </chakra.div>
-        </HStack>
-        <HStack justifyContent={"space-between"}>
-          <chakra.div>{t("CLAIMED")}</chakra.div>
-          <chakra.div fontSize={"2xl"}>
-            {"0.00"}
-            <chakra.span fontSize={"lg"} ml={1}>
-              YMT
-            </chakra.span>
-          </chakra.div>
-        </HStack>
-        <HStack justifyContent={"space-between"}>
-          <chakra.div>{t("CLAIMABLE")}</chakra.div>
-          <chakra.div fontSize={"2xl"}>
-            {"0.00"}
-            <chakra.span fontSize={"lg"} ml={1}>
-              YMT
-            </chakra.span>
-          </chakra.div>
-        </HStack>
+        <StyledHStack title={t("ALLOCATED")} value={"0.00"} unit={"YMT"} />
+        <StyledHStack title={t("CLAIMED")} value={"0.00"} unit={"YMT"} mt={1} />
+        <StyledHStack
+          title={t("CLAIMABLE")}
+          value={"0.00"}
+          unit={"YMT"}
+          mt={1}
+        />
       </CardBody>
       <CardFooter pt={0} justifyContent={"flex-end"}>
         <CustomButton size={"sm"}>{t("CLAIM")}</CustomButton>
