@@ -1,6 +1,6 @@
 import { Button, HStack, Box, chakra } from "@chakra-ui/react";
 import { useTranslation } from "react-i18next";
-import { CustomButton } from "components/shared/CustomButton";
+import { StyledButton } from "components/shared/StyledButton";
 
 export default function Reward({
   address,
@@ -19,7 +19,7 @@ export default function Reward({
           {"ETH"}
         </chakra.span>
       </Box>
-      <CustomButton
+      <StyledButton
         variant={"solid"}
         size={"sm"}
         onClick={() => {
@@ -27,7 +27,7 @@ export default function Reward({
         }}
       >
         {t("CLAIM")}
-      </CustomButton>
+      </StyledButton>
     </HStack>
   );
 }

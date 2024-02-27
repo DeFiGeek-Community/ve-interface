@@ -32,9 +32,9 @@ import { useTranslation } from "react-i18next";
 import { jaJP, enUS } from "rsuite/locales";
 import "rsuite/dist/rsuite-no-reset.min.css";
 import { LockType } from "lib/types/VotingEscrow";
-import { CustomButton } from "components/shared/CustomButton";
+import { StyledButton } from "components/shared/StyledButton";
 
-export const StyledButton: React.FC<ButtonProps & { label: string }> = ({
+export const StyledGrayButton: React.FC<ButtonProps & { label: string }> = ({
   label,
   ...props
 }) => {
@@ -144,22 +144,22 @@ export default function FormModal({
                       gap={2}
                     >
                       <GridItem>
-                        <StyledButton label="1 week" />
+                        <StyledGrayButton label="1 week" />
                       </GridItem>
                       <GridItem>
-                        <StyledButton label="1 month" />
+                        <StyledGrayButton label="1 month" />
                       </GridItem>
                       <GridItem>
-                        <StyledButton label="3 months" />
+                        <StyledGrayButton label="3 months" />
                       </GridItem>
                       <GridItem>
-                        <StyledButton label="6 months" />
+                        <StyledGrayButton label="6 months" />
                       </GridItem>
                       <GridItem>
-                        <StyledButton label="1 year" />
+                        <StyledGrayButton label="1 year" />
                       </GridItem>
                       <GridItem>
-                        <StyledButton label="4 years" />
+                        <StyledGrayButton label="4 years" />
                       </GridItem>
                     </Grid>
                   </FormControl>
@@ -181,14 +181,14 @@ export default function FormModal({
                   </Alert>
                 </HStack>
 
-                <CustomButton
+                <StyledButton
                   mt={4}
                   w={"full"}
                   variant="solid"
                   colorScheme="green"
                 >
                   {t("VE_CREATE_LOCK")}
-                </CustomButton>
+                </StyledButton>
               </form>
             </ModalBody>
           </ModalContent>

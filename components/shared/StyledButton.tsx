@@ -1,6 +1,6 @@
 import { Button, ButtonProps } from "@chakra-ui/react";
 
-export function CustomButton(
+export function StyledButton(
   props: {
     isLoading?: boolean;
     children: string;
