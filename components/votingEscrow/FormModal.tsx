@@ -21,6 +21,10 @@ import {
   GridItem,
   Text,
   Box,
+  Alert,
+  AlertIcon,
+  AlertDescription,
+  VStack,
 } from "@chakra-ui/react";
 import { DatePicker, CustomProvider } from "rsuite";
 import { useTranslation } from "react-i18next";
@@ -54,7 +58,7 @@ export default function FormModal({
           onClose={onClose}
           blockScrollOnMount={false}
           isCentered={true}
-          size={"sm"}
+          size={"md"}
         >
           <ModalOverlay />
           <ModalContent>
@@ -63,17 +67,17 @@ export default function FormModal({
               {type === LockType.INCREASE_AMOUNT && t("VE_INCREASE_AMOUNT")}
               {type === LockType.INCREASE_UNLOCK_TIME &&
                 t("VE_INCREASE_UNLOCK_TIME")}
-              <ModalCloseButton />
+              <ModalCloseButton mt={1} mr={1} />
             </ModalHeader>
 
-            <ModalBody pb={6}>
+            <ModalBody pb={6} pt={0}>
               <form>
                 {type !== LockType.INCREASE_UNLOCK_TIME && (
                   <HStack spacing={8} alignItems={"start"}>
                     <Box w={"full"}>
                       <FormControl mt={4}>
                         <Flex justifyContent={"space-between"}>
-                          <FormLabel alignItems={"baseline"}>
+                          <FormLabel alignItems={"baseline"} fontWeight={"600"}>
                             {t("INPUT_LOCK_AMOUNT")}{" "}
                           </FormLabel>
                         </Flex>
@@ -103,7 +107,7 @@ export default function FormModal({
 
                 {type !== LockType.INCREASE_AMOUNT && (
                   <FormControl mt={4}>
-                    <FormLabel alignItems={"baseline"}>
+                    <FormLabel alignItems={"baseline"} fontWeight={"600"}>
                       {t("SELECT_UNLOCK_DATE")}
                     </FormLabel>
                     <Flex alignItems={"center"}>
@@ -128,38 +132,57 @@ export default function FormModal({
                       gap={2}
                     >
                       <GridItem>
-                        <Button size="sm" w="full">
+                        <Button size="sm" w="full" color="#818181">
                           1 week
                         </Button>
                       </GridItem>
                       <GridItem>
-                        <Button size="sm" w="full">
+                        <Button size="sm" w="full" color="#818181">
                           1 month
                         </Button>
                       </GridItem>
                       <GridItem>
-                        <Button size="sm" w="full">
+                        <Button size="sm" w="full" color="#818181">
                           3 months
                         </Button>
                       </GridItem>
                       <GridItem>
-                        <Button size="sm" w="full">
+                        <Button size="sm" w="full" color="#818181">
                           6 months
                         </Button>
                       </GridItem>
                       <GridItem>
-                        <Button size="sm" w="full">
+                        <Button size="sm" w="full" color="#818181">
                           1 year
                         </Button>
                       </GridItem>
                       <GridItem>
-                        <Button size="sm" w="full">
+                        <Button size="sm" w="full" color="#818181">
                           4 years
                         </Button>
                       </GridItem>
                     </Grid>
                   </FormControl>
                 )}
+                <HStack mt={6}>
+                  <Alert
+                    status="info"
+                    fontSize="14px"
+                    bg={"#fad9d6"}
+                    color={"#818181"}
+                  >
+                    <AlertIcon boxSize="15px" color="#818181" />
+                    <VStack spacing={2}>
+                      <AlertDescription>
+                        {t("YMT_LOCK_NOTE")}
+                      </AlertDescription>
+                      <AlertDescription>
+                        {t("VE_YMT_DECREASE_NOTE")}
+                      </AlertDescription>
+                    </VStack>
+                  </Alert>
+                </HStack>
+
                 <CustomButton
                   mt={4}
                   w={"full"}
