@@ -27,7 +27,6 @@ function createConfig() {
 
 export const config = createConfig();
 
-
 export const theme = extendTheme({
   styles: {
     global: {
