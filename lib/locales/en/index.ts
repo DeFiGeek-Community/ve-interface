@@ -1,6 +1,4 @@
 const en = {
-  APP_NAME: "VotingEscrow",
-  APP_DESCRIPTION: "Web3",
   CLAIM: "Claim",
   BALANCE: "Balance",
   CANCEL: "Cancel",

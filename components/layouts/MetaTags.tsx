@@ -1,6 +1,6 @@
 import Head from "next/head";
 import bgImage from "public/ogp.png";
-import { useTranslation } from "react-i18next";
+import { SITE_DESCRIPTION, SITE_NAME } from "lib/connector/site";
 
 type MetaTagProps = {
   title?: string;
@@ -11,14 +11,10 @@ type MetaTagProps = {
 };
 
 export default function MetaTags(props: MetaTagProps | undefined) {
-  const { t } = useTranslation();
   const defaultContents = {
-    title: `${t("APP_NAME")}`,
-    description: `${t("AN_INCLUSIVE_AND_TRANSPARENT_TOKEN_LAUNCHPAD")}`.replace(
-      /\n/g,
-      "",
-    ),
-    site_name: `${t("APP_NAME")}`,
+    title: `${SITE_NAME}`,
+    description: `${SITE_DESCRIPTION}`,
+    site_name: `${SITE_NAME}`,
     image: undefined,
     children: undefined,
   };

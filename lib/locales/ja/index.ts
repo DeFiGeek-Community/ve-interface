@@ -1,6 +1,4 @@
 const ja = {
-  APP_NAME: "VotingEscrow",
-  APP_DESCRIPTION: "Web3",
   CLAIM: "請求",
   BALANCE: "残高",
   CANCEL: "キャンセル",
