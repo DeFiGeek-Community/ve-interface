@@ -1,17 +1,18 @@
-import { ButtonProps, Button } from "@chakra-ui/react";
+import { ButtonProps } from "@chakra-ui/react";
+import { CustomButton } from "components/shared/CustomButton";
 
 export default function WithdrawButton(props: ButtonProps) {
   return (
     <>
-      <Button
+      <CustomButton
         variant={"solid"}
         colorScheme="green"
         size={"sm"}
-        isDisabled={true}
+        // isDisabled={true}
         {...props}
       >
-        Withdraw
-      </Button>
+        YMT引き出し
+      </CustomButton>
     </>
   );
 }

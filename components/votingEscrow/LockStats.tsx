@@ -3,6 +3,7 @@ import { useTranslation } from "react-i18next";
 import NewLockForm from "./NewLockForm";
 import IncreaseUnlockTimeForm from "./IncreaseUnlockTimeForm";
 import IncreaseAmountForm from "./IncreaseAmountForm";
+import WithdrawButton from "./WithdrawButton";
 
 export default function LockStats({ address }: { address?: `0x${string}` }) {
   const { t } = useTranslation();
@@ -36,6 +37,9 @@ export default function LockStats({ address }: { address?: `0x${string}` }) {
         <NewLockForm address={address} />
         <IncreaseUnlockTimeForm address={address} />
         <IncreaseAmountForm address={address} />
+      </HStack>
+      <HStack spacing={4} justifyContent={"flex-end"} mt={4}>
+        <WithdrawButton />
       </HStack>
     </>
   );
