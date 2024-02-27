@@ -30,7 +30,6 @@ export default function EarlyUserReward({
         <Heading fontSize={"xl"} pb={1}>
           {t("EARLY_USER_REWARD")}
           <StyledTooltip labelKey="EARLY_USER_REWARD_HELP">
-
             <QuestionIcon fontSize={"md"} mb={1} ml={1} />
           </StyledTooltip>
         </Heading>

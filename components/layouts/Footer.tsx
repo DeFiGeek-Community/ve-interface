@@ -1,11 +1,4 @@
-import {
-  Box,
-  Flex,
-  Container,
-  Link,
-  chakra,
-  Select,
-} from "@chakra-ui/react";
+import { Box, Flex, Container, Link, chakra, Select } from "@chakra-ui/react";
 import { AiFillGithub } from "react-icons/ai";
 import { useTranslation } from "react-i18next";
 import CommunityLogo from "../svgs/CommunityLogo";
@@ -45,7 +38,6 @@ export default function Footer() {
               </Link>
             </StyledTooltip>
             <StyledTooltip labelKey="GitHub">
-
               <Link
                 href="https://github.com/DeFiGeek-Community/"
                 target={"_blank"}

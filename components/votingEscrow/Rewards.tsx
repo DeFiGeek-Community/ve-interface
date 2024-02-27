@@ -1,11 +1,4 @@
-import {
-  HStack,
-  VStack,
-  Text,
-  chakra,
-  useToast,
-  Box,
-} from "@chakra-ui/react";
+import { HStack, VStack, Text, chakra, useToast, Box } from "@chakra-ui/react";
 import { QuestionIcon } from "@chakra-ui/icons";
 import { useTranslation } from "react-i18next";
 import FeeRewards from "components/votingEscrow/FeeReward";

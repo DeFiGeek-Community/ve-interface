@@ -6,10 +6,8 @@ export const StyledCard: React.FC<CardProps> = ({ children, ...props }) => {
       flex={1}
       maxW="xl"
       bg={"#fcfaf2"}
-      style={{
-        boxShadow: "rgba(0, 0, 0, 0.25) 3px 3px 0px",
-        borderRadius: "0px",
-      }}
+      boxShadow={"rgba(0, 0, 0, 0.25) 3px 3px 0px"}
+      borderRadius={"0px"}
       color={"#818181"}
       {...props}
     >
