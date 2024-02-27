@@ -2,16 +2,15 @@ import {
   CardHeader,
   CardBody,
   Heading,
-  Tooltip,
   Divider,
   CardFooter,
-  Text,
 } from "@chakra-ui/react";
 import { QuestionIcon } from "@chakra-ui/icons";
 import { useTranslation } from "react-i18next";
 import { CustomButton } from "components/shared/CustomButton";
 import { StyledCard } from "components/shared/StyledCard";
 import { StyledHStack } from "components/shared/StyledHStack";
+import { StyledTooltip } from "components/shared/StyledTooltip";
 
 export default function EarlyUserReward({
   address,
@@ -30,15 +29,10 @@ export default function EarlyUserReward({
       <CardBody>
         <Heading fontSize={"xl"} pb={1}>
           {t("EARLY_USER_REWARD")}
-          <Tooltip
-            hasArrow
-            bg={"#818181"}
-            label={
-              <Text whiteSpace={"pre-wrap"}>{t("EARLY_USER_REWARD_HELP")}</Text>
-            }
-          >
+          <StyledTooltip labelKey="EARLY_USER_REWARD_HELP">
+
             <QuestionIcon fontSize={"md"} mb={1} ml={1} />
-          </Tooltip>
+          </StyledTooltip>
         </Heading>
         <Divider my={2} />
         <StyledHStack title={t("ALLOCATED")} value={"0.00"} unit={"YMT"} />

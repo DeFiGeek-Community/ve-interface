@@ -2,7 +2,6 @@ import {
   CardHeader,
   CardBody,
   Heading,
-  Tooltip,
   Divider,
   HStack,
   Text,
@@ -12,6 +11,7 @@ import { QuestionIcon } from "@chakra-ui/icons";
 import { useTranslation } from "react-i18next";
 import { StyledCard } from "components/shared/StyledCard";
 import { StyledHStack } from "components/shared/StyledHStack";
+import { StyledTooltip } from "components/shared/StyledTooltip";
 
 export default function VotingEscrow({ address }: { address?: `0x${string}` }) {
   const { t } = useTranslation();
@@ -28,15 +28,9 @@ export default function VotingEscrow({ address }: { address?: `0x${string}` }) {
           <HStack>
             <Image src="/logo192.png" alt="Logo" boxSize="24px" />
             <Text>{t("VE_YMT")}</Text>
-            <Tooltip
-              hasArrow
-              bg={"#818181"}
-              label={
-                <Text whiteSpace={"pre-wrap"}>{t("VE_YMT_REWARD_HELP")}</Text>
-              }
-            >
+            <StyledTooltip labelKey="VE_YMT_REWARD_HELP">
               <QuestionIcon fontSize={"lg"} cursor="help" />
-            </Tooltip>
+            </StyledTooltip>
           </HStack>
         </Heading>
         <Divider variant="dashed" my={2} />

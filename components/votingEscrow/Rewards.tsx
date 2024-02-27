@@ -1,9 +1,6 @@
 import {
-  Button,
   HStack,
   VStack,
-  Spinner,
-  Tooltip,
   Text,
   chakra,
   useToast,
@@ -13,6 +10,7 @@ import { QuestionIcon } from "@chakra-ui/icons";
 import { useTranslation } from "react-i18next";
 import FeeRewards from "components/votingEscrow/FeeReward";
 import { CustomButton } from "components/shared/CustomButton";
+import { StyledTooltip } from "components/shared/StyledTooltip";
 
 export default function Reward({ address }: { address?: `0x${string}` }) {
   const { t } = useTranslation();
@@ -23,13 +21,9 @@ export default function Reward({ address }: { address?: `0x${string}` }) {
       <HStack justifyContent={"space-between"} alignItems={"baseline"} mt={4}>
         <Text>
           {t("REWARDS")}
-          <Tooltip
-            hasArrow
-            bg={"#818181"}
-            label={<Text whiteSpace={"pre-wrap"}>{t("REWARDS_HELP")}</Text>}
-          >
+          <StyledTooltip labelKey="REWARDS_HELP">
             <QuestionIcon fontSize={"md"} mb={1} ml={1} />
-          </Tooltip>
+          </StyledTooltip>
         </Text>
         <VStack spacing={4} alignItems={"end"}>
           <HStack spacing={2}>
