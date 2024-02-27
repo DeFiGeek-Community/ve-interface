@@ -25,6 +25,7 @@ import {
   AlertIcon,
   AlertDescription,
   VStack,
+  ButtonProps,
 } from "@chakra-ui/react";
 import { DatePicker, CustomProvider } from "rsuite";
 import { useTranslation } from "react-i18next";
@@ -32,6 +33,17 @@ import { jaJP, enUS } from "rsuite/locales";
 import "rsuite/dist/rsuite-no-reset.min.css";
 import { LockType } from "lib/types/VotingEscrow";
 import { CustomButton } from "components/shared/CustomButton";
+
+export const StyledButton: React.FC<ButtonProps & { label: string }> = ({
+  label,
+  ...props
+}) => {
+  return (
+    <Button size="sm" w="full" color="#818181" {...props}>
+      {label}
+    </Button>
+  );
+};
 
 type FormModalProps = {
   address?: `0x${string}`;
@@ -132,34 +144,22 @@ export default function FormModal({
                       gap={2}
                     >
                       <GridItem>
-                        <Button size="sm" w="full" color="#818181">
-                          1 week
-                        </Button>
+                        <StyledButton label="1 week" />
                       </GridItem>
                       <GridItem>
-                        <Button size="sm" w="full" color="#818181">
-                          1 month
-                        </Button>
+                        <StyledButton label="1 month" />
                       </GridItem>
                       <GridItem>
-                        <Button size="sm" w="full" color="#818181">
-                          3 months
-                        </Button>
+                        <StyledButton label="3 months" />
                       </GridItem>
                       <GridItem>
-                        <Button size="sm" w="full" color="#818181">
-                          6 months
-                        </Button>
+                        <StyledButton label="6 months" />
                       </GridItem>
                       <GridItem>
-                        <Button size="sm" w="full" color="#818181">
-                          1 year
-                        </Button>
+                        <StyledButton label="1 year" />
                       </GridItem>
                       <GridItem>
-                        <Button size="sm" w="full" color="#818181">
-                          4 years
-                        </Button>
+                        <StyledButton label="4 years" />
                       </GridItem>
                     </Grid>
                   </FormControl>
