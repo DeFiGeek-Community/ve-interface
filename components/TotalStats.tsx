@@ -1,5 +1,4 @@
 import {
-  Card,
   CardHeader,
   CardBody,
   Heading,
@@ -12,21 +11,13 @@ import {
 } from "@chakra-ui/react";
 import { QuestionIcon } from "@chakra-ui/icons";
 import { useTranslation } from "react-i18next";
+import { StyledCard } from "components/shared/StyledCard";
 
 export default function VotingEscrow({ address }: { address?: `0x${string}` }) {
   const { t } = useTranslation();
 
   return (
-    <Card
-      flex={1}
-      maxW="xl"
-      bg={"#fcfaf2"}
-      style={{
-        boxShadow: "rgba(0, 0, 0, 0.25) 3px 3px 0px",
-        borderRadius: "0px",
-      }}
-      color={"#818181"}
-    >
+    <StyledCard>
       <CardHeader bg={"#5bad92"} py={2}>
         <Heading size="md" color={"white"}>
           Total YMT Overview
@@ -86,6 +77,6 @@ export default function VotingEscrow({ address }: { address?: `0x${string}` }) {
           </chakra.p>
         </HStack>
       </CardBody>
-    </Card>
+    </StyledCard>
   );
 }

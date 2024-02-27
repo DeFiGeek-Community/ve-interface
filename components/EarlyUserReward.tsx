@@ -1,6 +1,4 @@
 import {
-  Button,
-  Card,
   CardHeader,
   CardBody,
   Heading,
@@ -14,6 +12,7 @@ import {
 import { QuestionIcon } from "@chakra-ui/icons";
 import { useTranslation } from "react-i18next";
 import { CustomButton } from "components/shared/CustomButton";
+import { StyledCard } from "components/shared/StyledCard";
 
 export default function EarlyUserReward({
   address,
@@ -23,16 +22,7 @@ export default function EarlyUserReward({
   const { t } = useTranslation();
 
   return (
-    <Card
-      flex={1}
-      maxW="xl"
-      bg={"#fcfaf2"}
-      style={{
-        boxShadow: "rgba(0, 0, 0, 0.25) 3px 3px 0px",
-        borderRadius: "0px",
-      }}
-      color={"#818181"}
-    >
+    <StyledCard>
       <CardHeader bg={"#f9aea5"} py={2}>
         <Heading size="md" color={"white"}>
           Initial Reward
@@ -83,6 +73,6 @@ export default function EarlyUserReward({
       <CardFooter pt={0} justifyContent={"flex-end"}>
         <CustomButton size={"sm"}>{t("CLAIM")}</CustomButton>
       </CardFooter>
-    </Card>
+    </StyledCard>
   );
 }

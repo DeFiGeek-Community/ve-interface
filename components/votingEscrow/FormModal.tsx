@@ -173,9 +173,7 @@ export default function FormModal({
                   >
                     <AlertIcon boxSize="15px" color="#818181" />
                     <VStack spacing={2}>
-                      <AlertDescription>
-                        {t("YMT_LOCK_NOTE")}
-                      </AlertDescription>
+                      <AlertDescription>{t("YMT_LOCK_NOTE")}</AlertDescription>
                       <AlertDescription>
                         {t("VE_YMT_DECREASE_NOTE")}
                       </AlertDescription>
