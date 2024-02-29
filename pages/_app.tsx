@@ -6,6 +6,8 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { createWeb3Modal } from "@web3modal/wagmi/react";
 import { config, theme, createWeb3ModalConfig } from "lib/connector";
 import "lib/i18nConfig";
+import { SystemProvider } from "components/providers/SystemProvider";
+import { ContractProvider } from "components/providers/ContractProvider";
 
 const queryClient = new QueryClient();
 
@@ -16,8 +18,12 @@ function MyApp({ Component, pageProps }: AppProps) {
     <ChakraProvider theme={theme}>
       <WagmiProvider config={config}>
         <QueryClientProvider client={queryClient}>
-          <ColorModeScript initialColorMode={"light"} />
-          <Component {...pageProps} />
+          <SystemProvider>
+            <ContractProvider>
+              <ColorModeScript initialColorMode={"light"} />
+              <Component {...pageProps} />
+            </ContractProvider>
+          </SystemProvider>
         </QueryClientProvider>
       </WagmiProvider>
     </ChakraProvider>
