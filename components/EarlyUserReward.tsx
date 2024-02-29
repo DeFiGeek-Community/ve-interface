@@ -34,14 +34,15 @@ export default function EarlyUserReward({
           </StyledTooltip>
         </Heading>
         <Divider my={2} />
-        <StyledHStack title={t("ALLOCATED")} value={"0.00"} unit={"YMT"} />
-        <StyledHStack title={t("CLAIMED")} value={"0.00"} unit={"YMT"} mt={1} />
-        <StyledHStack
-          title={t("CLAIMABLE")}
-          value={"0.00"}
-          unit={"YMT"}
-          mt={1}
-        />
+        <StyledHStack title={t("ALLOCATED")} unit={"YMT"}>
+          {"0.0"}
+        </StyledHStack>
+        <StyledHStack title={t("CLAIMED")} unit={"YMT"} mt={1}>
+          {"0.0"}
+        </StyledHStack>
+        <StyledHStack title={t("CLAIMABLE")} unit={"YMT"} mt={1}>
+          {"0.0"}
+        </StyledHStack>
       </CardBody>
       <CardFooter pt={0} justifyContent={"flex-end"}>
         <StyledButton size={"sm"}>{t("CLAIM")}</StyledButton>

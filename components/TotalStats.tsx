@@ -34,25 +34,18 @@ export default function VotingEscrow({ address }: { address?: `0x${string}` }) {
           </HStack>
         </Heading>
         <Divider variant="dashed" my={2} />
-        <StyledHStack title={t("TOTAL_YMT")} value={"0.0"} unit={"YMT"} />
-        <StyledHStack
-          title={t("TOTAL_YMT_VOTE_LOCKED")}
-          value={"0.0"}
-          unit={"YMT"}
-          mt={1}
-        />
-        <StyledHStack
-          title={t("PERCENTAGE_YMT_LOCKED")}
-          value={"0.0"}
-          unit={"%"}
-          mt={1}
-        />
-        <StyledHStack
-          title={t("TOTAL_VE_YMT")}
-          value={"0.0"}
-          unit={"veYMT"}
-          mt={1}
-        />
+        <StyledHStack title={t("TOTAL_YMT")} unit={"YMT"}>
+          {"0.0"}
+        </StyledHStack>
+        <StyledHStack title={t("TOTAL_YMT_VOTE_LOCKED")} unit={"YMT"} mt={1}>
+          {"0.0"}
+        </StyledHStack>
+        <StyledHStack title={t("PERCENTAGE_YMT_LOCKED")} unit={"%"} mt={1}>
+          {"0.0"}
+        </StyledHStack>
+        <StyledHStack title={t("TOTAL_VE_YMT")} unit={"veYMT"} mt={1}>
+          {"0.0"}
+        </StyledHStack>
       </CardBody>
     </StyledCard>
   );

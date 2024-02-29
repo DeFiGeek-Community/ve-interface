@@ -11,14 +11,15 @@ export default function LockStats({ address }: { address?: `0x${string}` }) {
 
   return (
     <>
-      <StyledHStack title={t("BALANCE")} value={"0.0"} unit={"veYMT"} />
-      <StyledHStack title={t("YMT_LOCKED")} value={"0.0"} unit={"YMT"} mt={1} />
-      <StyledHStack
-        title={t("LOCKED_UNTIL")}
-        value={"-- / -- / --"}
-        unit={""}
-        mt={1}
-      />
+      <StyledHStack title={t("BALANCE")} unit={"veYMT"}>
+        {"0.0"}
+      </StyledHStack>
+      <StyledHStack title={t("YMT_LOCKED")} unit={"YMT"} mt={1}>
+        {"0.0"}
+      </StyledHStack>
+      <StyledHStack title={t("LOCKED_UNTIL")} unit={""} mt={1}>
+        {"-- / -- / --"}
+      </StyledHStack>
 
       <HStack spacing={4} justifyContent={"flex-end"} mt={2}>
         <NewLockForm address={address} />
