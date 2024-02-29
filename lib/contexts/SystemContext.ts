@@ -5,7 +5,9 @@ interface ISystemContext {
   chainId: number;
 }
 
-export const SystemContext = createContext<ISystemContext | undefined>(undefined);
+export const SystemContext = createContext<ISystemContext | undefined>(
+  undefined,
+);
 
 export function useSystemContext() {
   const context = useContext(SystemContext);

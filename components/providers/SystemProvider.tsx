@@ -1,6 +1,6 @@
-import { useChainId } from 'wagmi';
+import { useChainId } from "wagmi";
 import { SystemContext } from "lib/contexts/SystemContext";
-import { ReactNode } from 'react';
+import { ReactNode } from "react";
 
 interface SystemProviderProps {
   children: ReactNode;

@@ -7,12 +7,16 @@ interface IContractContext {
   addresses: ISystemContractAddresses;
 }
 
-export const ContractContext = createContext<IContractContext | undefined>(undefined);
+export const ContractContext = createContext<IContractContext | undefined>(
+  undefined,
+);
 
 export function useContractContext() {
   const context = useContext(ContractContext);
   if (!context) {
-    throw new Error("useContractContext must be used within a ContractProvider");
+    throw new Error(
+      "useContractContext must be used within a ContractProvider",
+    );
   }
   return context;
 }

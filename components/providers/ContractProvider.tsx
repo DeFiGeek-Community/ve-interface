@@ -2,7 +2,7 @@ import { useSystemContext } from "lib/contexts/SystemContext";
 import { ContractContext } from "lib/contexts/ContractContext";
 import { veSystemContracts } from "lib/constants/address";
 import { veSystemAbis } from "lib/constants/abi";
-import { ReactNode } from 'react';
+import { ReactNode } from "react";
 
 interface ContractProviderProps {
   children: ReactNode;
