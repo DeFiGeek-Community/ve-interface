@@ -1,21 +1,19 @@
 import { useReadContract } from "wagmi";
-import VotingEscrowABI from "lib/abis/yamato/veYMT.json";
+import { useContractContext } from "lib/contexts/ContractContext";
 
-export default function useBalanceOf(address?: `0x${string}`): {
-  readFn: ReturnType<
-    typeof useReadContract<
-      typeof VotingEscrowABI,
-      "balanceOf",
-      readonly unknown[]
-    >
-  >;
-} {
+export default function useBalanceOf(
+  address?: `0x${string}`,
+): ReturnType<
+  typeof useReadContract<readonly unknown[], "balanceOf", readonly unknown[]>
+> {
+  const { addresses, abis } = useContractContext();
+
   const config = {
-    address: process.env.NEXT_PUBLIC_VE_ADDRESS as `0x${string}`,
-    abi: VotingEscrowABI,
+    address: addresses.VotingEscrow as `0x${string}`,
+    abi: abis.VotingEscrow,
   };
   const readFn = useReadContract<
-    typeof VotingEscrowABI,
+    readonly unknown[],
     "balanceOf",
     readonly unknown[]
   >({
@@ -27,7 +25,5 @@ export default function useBalanceOf(address?: `0x${string}`): {
     },
   });
 
-  return {
-    readFn,
-  };
+  return readFn;
 }
