@@ -41,15 +41,26 @@ export default function LockStats({ address }: { address?: `0x${string}` }) {
           <>{format(new Date(Number(locked[1]) * 1000), "yyyy / MM / dd")}</>
         )}
       </StyledHStack>
-
       <HStack spacing={4} justifyContent={"flex-end"} mt={2}>
-        <NewLockForm address={address} />
-        <IncreaseUnlockTimeForm address={address} />
-        <IncreaseAmountForm address={address} />
+        {!!locked && locked[1] === BigInt(0) && (
+          <NewLockForm address={address} />
+        )}
+        {!!locked &&
+          locked[1] !== BigInt(0) &&
+          Number(locked[1]) > new Date().getTime() / 1000 && (
+            <>
+              <IncreaseAmountForm address={address} />
+              <IncreaseUnlockTimeForm address={address} />
+            </>
+          )}
       </HStack>
-      <HStack spacing={4} justifyContent={"flex-end"} mt={4}>
-        <WithdrawButton />
-      </HStack>
+      {!!locked &&
+        locked[1] !== BigInt(0) &&
+        Number(locked[1]) <= new Date().getTime() / 1000 && (
+          <HStack spacing={4} justifyContent={"flex-end"} mt={4}>
+            <WithdrawButton />
+          </HStack>
+        )}
     </>
   );
 }
