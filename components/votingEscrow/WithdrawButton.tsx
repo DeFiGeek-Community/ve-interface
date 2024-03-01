@@ -8,7 +8,6 @@ export default function WithdrawButton(props: ButtonProps) {
     <>
       <StyledButton
         variant={"solid"}
-        colorScheme="green"
         size={"sm"}
         {...props}
       >

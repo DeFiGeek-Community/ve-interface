@@ -185,7 +185,6 @@ export default function FormModal({
                   mt={4}
                   w={"full"}
                   variant="solid"
-                  colorScheme="green"
                 >
                   {t("VE_CREATE_LOCK")}
                 </StyledButton>
