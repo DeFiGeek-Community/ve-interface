@@ -5,7 +5,7 @@ const en = {
   CONFIRMATION: "Confirmation",
   EARLY_USER_REWARD: "Early user rewards",
   EARLY_USER_REWARD_HELP:
-    "The amount of early rewards starts from 0% at a certain time in 2024. As time passes, this reward amount gradually increases, and by a certain time in 2025, it is possible to receive 100% of the total amount. The amount of rewards that can be received increases linearly over time.",
+    "Early User Rewards: 1-year linear vesting from DD MM 2024",
   ALLOCATED: "Allocated",
   CLAIMED: "Claimed",
   CLAIMABLE: "Claimable",
