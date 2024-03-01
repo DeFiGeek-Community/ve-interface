@@ -6,11 +6,7 @@ export default function WithdrawButton(props: ButtonProps) {
   const { t } = useTranslation();
   return (
     <>
-      <StyledButton
-        variant={"solid"}
-        size={"sm"}
-        {...props}
-      >
+      <StyledButton variant={"solid"} size={"sm"} {...props}>
         {t("VE_WITHDRAW")}
       </StyledButton>
     </>

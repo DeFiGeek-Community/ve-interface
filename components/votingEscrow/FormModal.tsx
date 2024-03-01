@@ -181,11 +181,7 @@ export default function FormModal({
                   </Alert>
                 </HStack>
 
-                <StyledButton
-                  mt={4}
-                  w={"full"}
-                  variant="solid"
-                >
+                <StyledButton mt={4} w={"full"} variant="solid">
                   {t("VE_CREATE_LOCK")}
                 </StyledButton>
               </form>
