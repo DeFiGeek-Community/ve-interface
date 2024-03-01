@@ -11,7 +11,7 @@ export interface ISystemContractAbis {
   Gauge: any[];
   Minter: any[];
   VotingEscrow: any[];
-  ERC20: any[];
+  Token: any[];
 }
 
 export interface IVeSystemAbis {
@@ -28,7 +28,7 @@ export const veSystemAbis: IVeSystemAbis = {
       Gauge: ScoreRegistry,
       Minter: YmtMinter,
       VotingEscrow: veYMT,
-      ERC20: YMT,
+      Token: YMT,
     },
     11155111: {
       FeeDistributor: FeePoolV2,
@@ -36,7 +36,7 @@ export const veSystemAbis: IVeSystemAbis = {
       Gauge: ScoreRegistry,
       Minter: YmtMinter,
       VotingEscrow: veYMT,
-      ERC20: YMT,
+      Token: YMT,
     },
   },
 };
