@@ -1,4 +1,4 @@
-import { useSystemContext } from "lib/contexts/SystemContext";
+import { useChainId } from "wagmi";
 import { ContractContext } from "lib/contexts/ContractContext";
 import { veSystemContracts } from "lib/constants/address";
 import { veSystemAbis } from "lib/constants/abi";
@@ -9,7 +9,8 @@ interface ContractProviderProps {
 }
 
 export function ContractProvider({ children }: ContractProviderProps) {
-  const { systemName, chainId } = useSystemContext();
+  const chainId = useChainId();
+  const systemName = "yamato";
   const addresses = veSystemContracts[systemName][chainId];
   const abis = veSystemAbis[systemName][chainId];
 
