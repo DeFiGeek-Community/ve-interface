@@ -10,7 +10,7 @@ import {
 } from "@chakra-ui/react";
 import { QuestionIcon } from "@chakra-ui/icons";
 import { useTranslation } from "react-i18next";
-import { tokenAmountFormat } from "lib/utils";
+import { tokenAmountFormat, calculatePercentage } from "lib/utils";
 import { useContractContext } from "lib/contexts/ContractContext";
 
 import StyledCard from "components/shared/StyledCard";
@@ -32,6 +32,7 @@ export default function VotingEscrow({ address }: { address?: `0x${string}` }) {
   const { data: totalSupply } = useTotalSupply(address) as {
     data: bigint | undefined;
   };
+  let percentageLocked = calculatePercentage(balance, tokenTotalSupply);
   return (
     <StyledCard>
       <CardHeader bg={"#5bad92"} py={2}>
@@ -65,7 +66,11 @@ export default function VotingEscrow({ address }: { address?: `0x${string}` }) {
           )}
         </StyledHStack>
         <StyledHStack title={t("PERCENTAGE_YMT_LOCKED")} unit={"%"} mt={1}>
-          {"0.0"}
+          {typeof percentageLocked === "undefined" ? (
+            <Spinner />
+          ) : (
+            <>{percentageLocked}</>
+          )}
         </StyledHStack>
         <StyledHStack title={t("TOTAL_VE_YMT")} unit={"veYMT"} mt={1}>
           {typeof totalSupply === "undefined" ? (
