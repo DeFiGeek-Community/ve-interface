@@ -5,6 +5,7 @@ export interface ISystemContractAddresses {
   Minter: `0x${string}`;
   VotingEscrow: `0x${string}`;
   Token: `0x${string}`;
+  Vesting: `0x${string}`;
 }
 
 export interface IVeSystemContracts {
@@ -22,6 +23,7 @@ export const veSystemContracts: IVeSystemContracts = {
       Minter: "0x",
       VotingEscrow: "0x",
       Token: "0x",
+      Vesting: "0x",
     },
     11155111: {
       FeeDistributor: "0x9F1624Ccd194568a50e8c7E87e4cCb4c7FC43f6a",
@@ -30,6 +32,7 @@ export const veSystemContracts: IVeSystemContracts = {
       Minter: "0xc2458303110abc9588D554e09089D6C5e56aa173",
       VotingEscrow: "0x7E74696d17A99dF06a902b69b6925B4D92C8311D",
       Token: "0x0159623e92D6a06Bb591d8A03832D1410cf76772",
+      Vesting: "0x9CfF5F2198966F95cB5D6AEA38e1E2eF802b04e4",
     },
   },
 };
