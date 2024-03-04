@@ -8,8 +8,8 @@ export default function useVestingAmounts(
 > {
   const { addresses, abis } = useContractContext();
   const config = {
-    address: addresses.VotingEscrow as `0x${string}`,
-    abi: abis.VotingEscrow,
+    address: addresses.Vesting as `0x${string}`,
+    abi: abis.Vesting,
   };
   const readFn = useReadContract<
     readonly unknown[],

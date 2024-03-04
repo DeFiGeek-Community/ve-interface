@@ -13,8 +13,8 @@ export default function useClaimedAmounts(
   const { addresses, abis } = useContractContext();
 
   const config = {
-    address: addresses.Token as `0x${string}`,
-    abi: abis.Token,
+    address: addresses.Vesting as `0x${string}`,
+    abi: abis.Vesting,
   };
   const readFn = useReadContract<
     readonly unknown[],
