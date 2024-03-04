@@ -2,6 +2,7 @@ import { useChainId } from "wagmi";
 import { ContractContext } from "lib/contexts/ContractContext";
 import { veSystemContracts } from "lib/constants/address";
 import { veSystemAbis } from "lib/constants/abi";
+import { environmentConfig } from "lib/constants/config";
 import { ReactNode } from "react";
 
 interface ContractProviderProps {
@@ -13,9 +14,10 @@ export function ContractProvider({ children }: ContractProviderProps) {
   const systemName = "yamato";
   const addresses = veSystemContracts[systemName][chainId];
   const abis = veSystemAbis[systemName][chainId];
+  const config = environmentConfig[systemName][chainId];
 
   return (
-    <ContractContext.Provider value={{ addresses, abis }}>
+    <ContractContext.Provider value={{ addresses, abis, config }}>
       {children}
     </ContractContext.Provider>
   );
