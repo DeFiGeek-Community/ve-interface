@@ -6,16 +6,32 @@ import {
   HStack,
   Text,
   Image,
+  Spinner,
 } from "@chakra-ui/react";
 import { QuestionIcon } from "@chakra-ui/icons";
 import { useTranslation } from "react-i18next";
+import { tokenAmountFormat } from "lib/utils";
+import { useContractContext } from "lib/contexts/ContractContext";
+
 import StyledCard from "components/shared/StyledCard";
 import StyledHStack from "components/shared/StyledHStack";
 import StyledTooltip from "components/shared/StyledTooltip";
+import useTokenTotalSupply from "hooks/Token/useTotalSupply";
+import useBalanceOf from "hooks/Token/useBalanceOf";
+import useTotalSupply from "hooks/VotingEscrow/useTotalSupply";
 
 export default function VotingEscrow({ address }: { address?: `0x${string}` }) {
   const { t } = useTranslation();
-
+  const { addresses } = useContractContext();
+  const { data: tokenTotalSupply } = useTokenTotalSupply() as {
+    data: bigint | undefined;
+  };
+  const { data: balance } = useBalanceOf(addresses.VotingEscrow) as {
+    data: bigint | undefined;
+  };
+  const { data: totalSupply } = useTotalSupply(address) as {
+    data: bigint | undefined;
+  };
   return (
     <StyledCard>
       <CardHeader bg={"#5bad92"} py={2}>
@@ -35,16 +51,28 @@ export default function VotingEscrow({ address }: { address?: `0x${string}` }) {
         </Heading>
         <Divider variant="dashed" my={2} />
         <StyledHStack title={t("TOTAL_YMT")} unit={"YMT"}>
-          {"0.0"}
+          {typeof tokenTotalSupply === "undefined" ? (
+            <Spinner />
+          ) : (
+            <>{tokenAmountFormat(tokenTotalSupply, 18, 2)}</>
+          )}
         </StyledHStack>
         <StyledHStack title={t("TOTAL_YMT_VOTE_LOCKED")} unit={"YMT"} mt={1}>
-          {"0.0"}
+          {typeof balance === "undefined" ? (
+            <Spinner />
+          ) : (
+            <>{tokenAmountFormat(balance, 18, 2)}</>
+          )}
         </StyledHStack>
         <StyledHStack title={t("PERCENTAGE_YMT_LOCKED")} unit={"%"} mt={1}>
           {"0.0"}
         </StyledHStack>
         <StyledHStack title={t("TOTAL_VE_YMT")} unit={"veYMT"} mt={1}>
-          {"0.0"}
+          {typeof totalSupply === "undefined" ? (
+            <Spinner />
+          ) : (
+            <>{tokenAmountFormat(totalSupply, 18, 2)}</>
+          )}
         </StyledHStack>
       </CardBody>
     </StyledCard>
