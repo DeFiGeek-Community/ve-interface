@@ -4,7 +4,11 @@ import { useContractContext } from "lib/contexts/ContractContext";
 export default function useVestingAmounts(
   address?: `0x${string}`,
 ): ReturnType<
-  typeof useReadContract<readonly unknown[], "vestingAmounts", readonly unknown[]>
+  typeof useReadContract<
+    readonly unknown[],
+    "vestingAmounts",
+    readonly unknown[]
+  >
 > {
   const { addresses, abis } = useContractContext();
   const config = {
