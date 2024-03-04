@@ -4,13 +4,17 @@ import {
   Heading,
   Divider,
   CardFooter,
+  Spinner,
 } from "@chakra-ui/react";
 import { QuestionIcon } from "@chakra-ui/icons";
 import { useTranslation } from "react-i18next";
+import { tokenAmountFormat } from "lib/utils";
 import StyledButton from "components/shared/StyledButton";
 import StyledCard from "components/shared/StyledCard";
 import StyledHStack from "components/shared/StyledHStack";
 import StyledTooltip from "components/shared/StyledTooltip";
+import useVestingAmounts from "hooks/Vesting/useVestingAmounts";
+import useClaimedAmounts from "hooks/Vesting/useClaimedAmounts";
 
 export default function EarlyUserReward({
   address,
@@ -18,6 +22,12 @@ export default function EarlyUserReward({
   address?: `0x${string}`;
 }) {
   const { t } = useTranslation();
+  const { data: vestingAmounts } = useVestingAmounts(address) as {
+    data: bigint | undefined;
+  };
+  const { data: claimedAmounts } = useClaimedAmounts(address) as {
+    data: bigint | undefined;
+  };
 
   return (
     <StyledCard>
@@ -35,10 +45,18 @@ export default function EarlyUserReward({
         </Heading>
         <Divider my={2} />
         <StyledHStack title={t("ALLOCATED")} unit={"YMT"}>
-          {"0.0"}
+          {typeof vestingAmounts === "undefined" ? (
+            <Spinner />
+          ) : (
+            <>{tokenAmountFormat(vestingAmounts, 18, 2)}</>
+          )}
         </StyledHStack>
         <StyledHStack title={t("CLAIMED")} unit={"YMT"} mt={1}>
-          {"0.0"}
+          {typeof claimedAmounts === "undefined" ? (
+            <Spinner />
+          ) : (
+            <>{tokenAmountFormat(claimedAmounts, 18, 2)}</>
+          )}
         </StyledHStack>
         <StyledHStack title={t("CLAIMABLE")} unit={"YMT"} mt={1}>
           {"0.0"}
