@@ -1,3 +1,4 @@
+import { useState, useLayoutEffect } from "react";
 import {
   CardHeader,
   CardBody,
@@ -9,6 +10,7 @@ import {
 import { QuestionIcon } from "@chakra-ui/icons";
 import { useTranslation } from "react-i18next";
 import { tokenAmountFormat } from "lib/utils";
+import { useContractContext } from "lib/contexts/ContractContext";
 import StyledButton from "components/shared/StyledButton";
 import StyledCard from "components/shared/StyledCard";
 import StyledHStack from "components/shared/StyledHStack";
@@ -22,12 +24,40 @@ export default function EarlyUserReward({
   address?: `0x${string}`;
 }) {
   const { t } = useTranslation();
+  const { config } = useContractContext();
+
+  const [claimableAmount, setClaimableAmount] = useState<bigint | undefined>(
+    undefined,
+  );
+
   const { data: vestingAmounts } = useVestingAmounts(address) as {
     data: bigint | undefined;
   };
   const { data: claimedAmounts } = useClaimedAmounts(address) as {
     data: bigint | undefined;
   };
+
+  const now = Date.now();
+
+  useLayoutEffect(() => {
+    if (vestingAmounts !== undefined && claimedAmounts !== undefined) {
+      const distributionStart = config.TokenStartTimestamp;
+      const timeElapsed = now / 1000 - distributionStart;
+      const period = config.VestingPeriod;
+      let calculatedClaimableAmount;
+      if (now / 1000 >= distributionStart + period) {
+        calculatedClaimableAmount = vestingAmounts;
+      } else {
+        const timeElapsedBigInt = BigInt(Math.floor(timeElapsed));
+        const vestingAmountsPerPeriod = vestingAmounts / BigInt(period);
+        calculatedClaimableAmount =
+          timeElapsedBigInt *
+          BigInt(Math.floor(Number(vestingAmountsPerPeriod)));
+      }
+      const availableToClaim = calculatedClaimableAmount - claimedAmounts;
+      setClaimableAmount(availableToClaim);
+    }
+  }, [vestingAmounts, claimedAmounts, config]);
 
   return (
     <StyledCard>
@@ -59,7 +89,11 @@ export default function EarlyUserReward({
           )}
         </StyledHStack>
         <StyledHStack title={t("CLAIMABLE")} unit={"YMT"} mt={1}>
-          {"0.0"}
+          {claimableAmount === undefined ? (
+            <Spinner />
+          ) : (
+            <>{tokenAmountFormat(claimableAmount, config.TokenDecimals, 2)}</>
+          )}
         </StyledHStack>
       </CardBody>
       <CardFooter pt={0} justifyContent={"flex-end"}>
