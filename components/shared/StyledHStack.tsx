@@ -1,4 +1,4 @@
-import { HStack, StackProps, chakra } from "@chakra-ui/react";
+import { HStack, StackProps, chakra, Box } from "@chakra-ui/react";
 
 const StyledHStack: React.FC<StackProps & { title: string; unit: string }> = ({
   title,
@@ -8,13 +8,13 @@ const StyledHStack: React.FC<StackProps & { title: string; unit: string }> = ({
 }) => {
   return (
     <HStack justifyContent={"space-between"} {...props}>
-      <chakra.p>{title}</chakra.p>
-      <chakra.p fontSize={"2xl"}>
+      <Box>{title}</Box>
+      <Box fontSize={"2xl"}>
         {children}
         <chakra.span fontSize={"lg"} ml={1}>
           {unit}
         </chakra.span>
-      </chakra.p>
+      </Box>
     </HStack>
   );
 };
