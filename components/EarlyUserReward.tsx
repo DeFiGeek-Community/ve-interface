@@ -1,4 +1,4 @@
-import { useState, useLayoutEffect } from "react";
+import { useState, useEffect } from "react";
 import {
   CardHeader,
   CardBody,
@@ -37,10 +37,13 @@ export default function EarlyUserReward({
     data: bigint | undefined;
   };
 
-  const now = Date.now();
-
-  useLayoutEffect(() => {
-    if (vestingAmounts !== undefined && claimedAmounts !== undefined) {
+  useEffect(() => {
+    if (
+      vestingAmounts !== undefined &&
+      claimedAmounts !== undefined &&
+      config
+    ) {
+      const now = Date.now();
       const distributionStart = config.TokenStartTimestamp;
       const timeElapsed = now / 1000 - distributionStart;
       const period = config.VestingPeriod;
@@ -59,6 +62,14 @@ export default function EarlyUserReward({
     }
   }, [vestingAmounts, claimedAmounts, config]);
 
+  const renderAmount = (amount: bigint | undefined) => {
+    return typeof amount === "undefined" ? (
+      <Spinner />
+    ) : (
+      <>{tokenAmountFormat(amount, config.TokenDecimals, 2)}</>
+    );
+  };
+
   return (
     <StyledCard>
       <CardHeader bg={"#f9aea5"} py={2}>
@@ -75,25 +86,13 @@ export default function EarlyUserReward({
         </Heading>
         <Divider my={2} />
         <StyledHStack title={t("ALLOCATED")} unit={"YMT"}>
-          {typeof vestingAmounts === "undefined" ? (
-            <Spinner />
-          ) : (
-            <>{tokenAmountFormat(vestingAmounts, 18, 2)}</>
-          )}
+          {renderAmount(vestingAmounts)}
         </StyledHStack>
         <StyledHStack title={t("CLAIMED")} unit={"YMT"} mt={1}>
-          {typeof claimedAmounts === "undefined" ? (
-            <Spinner />
-          ) : (
-            <>{tokenAmountFormat(claimedAmounts, 18, 2)}</>
-          )}
+          {renderAmount(claimedAmounts)}
         </StyledHStack>
         <StyledHStack title={t("CLAIMABLE")} unit={"YMT"} mt={1}>
-          {claimableAmount === undefined ? (
-            <Spinner />
-          ) : (
-            <>{tokenAmountFormat(claimableAmount, config.TokenDecimals, 2)}</>
-          )}
+          {renderAmount(claimableAmount)}
         </StyledHStack>
       </CardBody>
       <CardFooter pt={0} justifyContent={"flex-end"}>
