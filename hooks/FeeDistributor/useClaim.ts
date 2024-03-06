@@ -8,13 +8,11 @@ import { useContractContext } from "lib/contexts/ContractContext";
 
 export default function useClaim({
   address,
-  token,
   onSuccessWrite,
   onError,
   onSuccessConfirm,
 }: {
-  address: `0x${string}`;
-  token: `0x${string}`;
+  address?: `0x${string}`;
   onSuccessWrite?: (data: any) => void;
   onError?: (error: Error) => void;
   onSuccessConfirm?: (data: any) => void;
@@ -29,8 +27,10 @@ export default function useClaim({
     address: addresses.FeeDistributor as `0x${string}`,
     abi: abis.FeeDistributor,
     functionName: "claim",
-    args: [address, token],
-    account: address,
+    args: [address || "0x0"],
+    query: {
+      enabled: !!address,
+    },
   });
 
   const writeFn = useWriteContract({
