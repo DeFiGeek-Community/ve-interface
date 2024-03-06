@@ -23,12 +23,9 @@ export default function useMint({
 } {
   const { addresses, abis } = useContractContext();
 
-  const config = {
+  const prepareFn = useSimulateContract({
     address: addresses.Minter as `0x${string}`,
     abi: abis.Minter,
-  };
-  const prepareFn = useSimulateContract({
-    ...config,
     functionName: "mint",
     args: [addresses.Gauge],
     query: {

@@ -1,10 +1,10 @@
+import { useEffect } from "react";
 import {
   useSimulateContract,
   useWriteContract,
   useWaitForTransactionReceipt,
 } from "wagmi";
 import { useContractContext } from "lib/contexts/ContractContext";
-import { useEffect } from "react";
 
 export default function useClaim({
   address,
@@ -25,15 +25,11 @@ export default function useClaim({
 } {
   const { addresses, abis } = useContractContext();
 
-  const config = {
+  const prepareFn = useSimulateContract({
     address: addresses.FeeDistributor as `0x${string}`,
     abi: abis.FeeDistributor,
     functionName: "claim",
     args: [address, token],
-  };
-
-  const prepareFn = useSimulateContract({
-    ...config,
     account: address,
   });
 
