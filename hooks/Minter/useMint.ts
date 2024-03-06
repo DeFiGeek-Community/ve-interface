@@ -17,6 +17,7 @@ export default function useMint({
   onError?: (error: Error) => void;
   onSuccessConfirm?: (data: any) => void;
 }): {
+  prepareFn: ReturnType<typeof useSimulateContract>;
   writeFn: ReturnType<typeof useWriteContract>;
   waitFn: ReturnType<typeof useWaitForTransactionReceipt>;
 } {
@@ -26,7 +27,7 @@ export default function useMint({
     address: addresses.Minter as `0x${string}`,
     abi: abis.Minter,
   };
-  const { data: claimConfig } = useSimulateContract({
+  const prepareFn = useSimulateContract({
     ...config,
     functionName: "mint",
     args: [addresses.Gauge],
@@ -36,7 +37,6 @@ export default function useMint({
   });
 
   const writeFn = useWriteContract({
-    ...claimConfig,
     mutation: {
       onSuccess(data) {
         onSuccessWrite && onSuccessWrite(data);
@@ -64,6 +64,7 @@ export default function useMint({
   }, [waitFn, onSuccessConfirm, onError]);
 
   return {
+    prepareFn,
     writeFn,
     waitFn,
   };
