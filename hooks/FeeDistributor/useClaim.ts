@@ -3,34 +3,31 @@ import {
   useWriteContract,
   useWaitForTransactionReceipt,
 } from "wagmi";
-import { veSystemAbis } from "lib/constants/abi";
+import { useContractContext } from "lib/contexts/ContractContext";
+import { useEffect } from "react";
 
 export default function useClaim({
   address,
   token,
   onSuccessWrite,
-  onErrorWrite,
+  onError,
   onSuccessConfirm,
-  onErrorConfirm,
 }: {
   address: `0x${string}`;
   token: `0x${string}`;
   onSuccessWrite?: (data: any) => void;
-  onErrorWrite?: (error: Error) => void;
+  onError?: (error: Error) => void;
   onSuccessConfirm?: (data: any) => void;
-  onErrorConfirm?: (error: Error) => void;
 }): {
   prepareFn: ReturnType<typeof useSimulateContract>;
   writeFn: ReturnType<typeof useWriteContract>;
   waitFn: ReturnType<typeof useWaitForTransactionReceipt>;
 } {
-  const chainId = 1;
-  const systemName = "yamato";
+  const { addresses, abis } = useContractContext();
 
-  const FeeDistributorABI = veSystemAbis[systemName][chainId].FeeDistributor;
   const config = {
-    address: process.env.NEXT_PUBLIC_FEE_DISTRIBUTOR_ADDRESS as `0x${string}`,
-    abi: FeeDistributorABI,
+    address: addresses.FeeDistributor as `0x${string}`,
+    abi: abis.FeeDistributor,
     functionName: "claim",
     args: [address, token],
   };
@@ -42,29 +39,30 @@ export default function useClaim({
 
   const writeFn = useWriteContract({
     mutation: {
-      onSuccess: (data) => onSuccessWrite && onSuccessWrite(data),
-      onError: (e: Error) => onErrorWrite && onErrorWrite(e),
+      onSuccess(data) {
+        onSuccessWrite && onSuccessWrite(data);
+      },
+      onError(e: Error) {
+        onError && onError(e);
+      },
     },
   });
-
-  if (!!address && !!token) {
-    writeFn.writeContract({
-      ...config,
-    });
-  }
 
   const waitFn = useWaitForTransactionReceipt({
     hash: writeFn?.data,
-    onReplaced: (replacement) => {
-      console.log(replacement);
-    },
   });
 
-  if (waitFn.status === "success" && onSuccessConfirm) {
-    onSuccessConfirm(waitFn.status);
-  } else if (waitFn.status === "error" && onErrorConfirm) {
-    onErrorConfirm(waitFn.error);
-  }
+  useEffect(() => {
+    // 成功時
+    if (waitFn.isSuccess) {
+      onSuccessConfirm && onSuccessConfirm(waitFn.data);
+    }
+
+    // エラー時
+    if (waitFn.isError) {
+      onError && onError(waitFn.error);
+    }
+  }, [waitFn, onSuccessConfirm, onError]);
 
   return {
     prepareFn,
