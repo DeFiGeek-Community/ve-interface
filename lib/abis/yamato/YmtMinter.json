@@ -206,7 +206,7 @@
       { "internalType": "address", "name": "scoreAddr_", "type": "address" }
     ],
     "name": "mint",
-    "outputs": [],
+    "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
     "stateMutability": "nonpayable",
     "type": "function"
   },
@@ -216,7 +216,7 @@
       { "internalType": "address", "name": "for_", "type": "address" }
     ],
     "name": "mintFor",
-    "outputs": [],
+    "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
     "stateMutability": "nonpayable",
     "type": "function"
   },
