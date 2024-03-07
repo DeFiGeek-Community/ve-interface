@@ -175,7 +175,6 @@ export default function FormModal({
                             )}{" "}
                             YMT
                           </Text>
-                          {typeof balance === "undefined" && <Spinner />}
                         </Box>
                       </FormControl>
                     </Box>
