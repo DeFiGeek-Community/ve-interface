@@ -26,7 +26,6 @@ import {
   AlertIcon,
   AlertDescription,
   VStack,
-  ButtonProps,
 } from "@chakra-ui/react";
 import { DatePicker, CustomProvider } from "rsuite";
 import { useTranslation } from "react-i18next";
@@ -34,17 +33,6 @@ import { jaJP, enUS } from "rsuite/locales";
 import "rsuite/dist/rsuite-no-reset.min.css";
 import { LockType } from "lib/types/VotingEscrow";
 import StyledButton from "components/shared/StyledButton";
-
-export const StyledGrayButton: React.FC<ButtonProps & { label: string }> = ({
-  label,
-  ...props
-}) => {
-  return (
-    <Button size="sm" w="full" color="#818181" {...props}>
-      {label}
-    </Button>
-  );
-};
 
 type FormModalProps = {
   address?: `0x${string}`;
@@ -185,10 +173,14 @@ export default function FormModal({
                     >
                       {buttonOptions.map((option) => (
                         <GridItem key={option.label}>
-                          <StyledGrayButton
-                            label={option.label}
+                          <Button
+                            size="sm"
+                            w="full"
+                            color="#818181"
                             onClick={() => setDaysLater(option.days)}
-                          />
+                          >
+                            {option.label}
+                          </Button>
                         </GridItem>
                       ))}
                     </Grid>
