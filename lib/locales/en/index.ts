@@ -31,6 +31,7 @@ const en = {
   VE_WITHDRAW: "Withdraw YMT",
   INPUT_LOCK_AMOUNT: "Lock amount",
   SELECT_UNLOCK_DATE: "Select lock period",
+  UNABLE_TO_LOCK_DATE: "The entered date cannot be locked.",
 
   TOTAL_YMT: "Total YMT supply",
   TOTAL_YMT_VOTE_LOCKED: "Total vote-locked YMT",

@@ -1,3 +1,4 @@
+import React, { useState, useEffect } from "react";
 import {
   Button,
   HStack,
@@ -61,6 +62,27 @@ export default function FormModal({
   const { colorMode } = useColorMode();
   const locale = "ja"; // Mock locale
   const { t } = useTranslation();
+
+  const [date, setDate] = useState<Date | null>(null);
+  const [isDateError, setIsDateError] = useState<boolean>(false);
+
+  const setDaysLater = (days: number) => {
+    const newDate = new Date();
+    newDate.setDate(newDate.getDate() + days);
+    setDate(newDate);
+  };
+
+  useEffect(() => {
+    const now = new Date();
+    const fourYearsLater = new Date();
+    fourYearsLater.setFullYear(now.getFullYear() + 4);
+
+    if (date && date > fourYearsLater) {
+      setIsDateError(true);
+    } else {
+      setIsDateError(false);
+    }
+  }, [date]);
 
   return (
     <>
@@ -130,13 +152,22 @@ export default function FormModal({
                           placement="topStart"
                           cleanable={false}
                           defaultValue={null}
-                          value={null}
+                          value={date}
+                          onChange={setDate}
                         />
                       </Box>
                       <chakra.span fontSize={"sm"} ml={2}>
                         (UTC)
                       </chakra.span>
                     </Flex>
+                    {isDateError && (
+                      <Alert fontSize="14px" status="error" mt={2}>
+                        <AlertIcon boxSize="15px"/>
+                        <AlertDescription>
+                          {t("UNABLE_TO_LOCK_DATE")}
+                        </AlertDescription>
+                      </Alert>
+                    )}
                     <Grid
                       mt={2}
                       templateRows="repeat(2, 1fr)"
@@ -144,22 +175,40 @@ export default function FormModal({
                       gap={2}
                     >
                       <GridItem>
-                        <StyledGrayButton label="1 week" />
+                        <StyledGrayButton
+                          label="1 week"
+                          onClick={() => setDaysLater(7)}
+                        />
                       </GridItem>
                       <GridItem>
-                        <StyledGrayButton label="1 month" />
+                        <StyledGrayButton
+                          label="1 month"
+                          onClick={() => setDaysLater(30)}
+                        />
                       </GridItem>
                       <GridItem>
-                        <StyledGrayButton label="3 months" />
+                        <StyledGrayButton
+                          label="3 months"
+                          onClick={() => setDaysLater(90)}
+                        />
                       </GridItem>
                       <GridItem>
-                        <StyledGrayButton label="6 months" />
+                        <StyledGrayButton
+                          label="6 months"
+                          onClick={() => setDaysLater(180)}
+                        />
                       </GridItem>
                       <GridItem>
-                        <StyledGrayButton label="1 year" />
+                        <StyledGrayButton
+                          label="1 year"
+                          onClick={() => setDaysLater(365)}
+                        />
                       </GridItem>
                       <GridItem>
-                        <StyledGrayButton label="4 years" />
+                        <StyledGrayButton
+                          label="4 years"
+                          onClick={() => setDaysLater(1460)}
+                        />
                       </GridItem>
                     </Grid>
                   </FormControl>
@@ -192,3 +241,4 @@ export default function FormModal({
     </>
   );
 }
+
