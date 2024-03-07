@@ -7,6 +7,14 @@ export const tokenAmountFormat = (
   return (Number(amount) / Number(numerator)).toFixed(precision);
 };
 
+export const formatTokenAmountToNumber = (
+  amount: bigint,
+  decimals: number,
+): number => {
+  const numerator = BigInt(10 ** decimals);
+  return parseFloat((Number(amount) / Number(numerator)).toString());
+};
+
 export const convertToBigIntWithDecimals = (
   num: number,
   decimals: number,
