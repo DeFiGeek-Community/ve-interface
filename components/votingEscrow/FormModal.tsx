@@ -32,7 +32,10 @@ import { DatePicker, CustomProvider } from "rsuite";
 import { useTranslation } from "react-i18next";
 import { jaJP, enUS } from "rsuite/locales";
 import "rsuite/dist/rsuite-no-reset.min.css";
-import { tokenAmountFormat, convertToBigIntWithDecimals } from "lib/utils";
+import {
+  tokenAmountFormat,
+  formatTokenAmountToNumber,
+} from "lib/utils";
 import { LockType } from "lib/types/VotingEscrow";
 import StyledButton from "components/shared/StyledButton";
 import useBalanceOf from "hooks/Token/useBalanceOf";
@@ -66,8 +69,17 @@ export default function FormModal({
   };
 
   const [date, setDate] = useState<Date | null>(null);
+  const [inputValue, setInputValue] = useState<number | null>(null);
   const [isDateError, setIsDateError] = useState<boolean>(false);
-  const [inputValue, setInputValue] = useState<bigint | null>(null);
+  const [isInputError, setIsInputError] = useState<boolean>(false);
+
+  useEffect(() => {
+    if (inputValue && balance && inputValue > formatTokenAmountToNumber(balance, 16)) {
+      setIsInputError(true);
+    } else {
+      setIsInputError(false);
+    }
+  }, [inputValue, balance]);
 
   const setDaysLater = (days: number) => {
     const newDate = new Date();
@@ -128,15 +140,8 @@ export default function FormModal({
                             name="value"
                             min={0}
                             // max={Number.MAX_SAFE_INTEGER}
-                            value={Number(inputValue) || undefined}
-                            onChange={(valueString) =>
-                              setInputValue(
-                                convertToBigIntWithDecimals(
-                                  Number(valueString),
-                                  18,
-                                ),
-                              )
-                            }
+                            value={inputValue || undefined}
+                            onChange={(valueString) => setInputValue(Number(valueString))}
                           >
                             <NumberInputField />
                             <NumberInputStepper>
@@ -148,10 +153,19 @@ export default function FormModal({
                             YMT
                           </Box>
                         </Flex>
+                        {isInputError && (
+                          <Alert fontSize="14px" status="error" mt={2}>
+                            <AlertIcon boxSize="15px" />
+                            <AlertDescription>
+                              {t("INPUT_EXCEEDS_BALANCE")}
+                            </AlertDescription>
+                          </Alert>
+                        )}
                         <Box>
                           <Text
                             fontSize={"sm"}
-                            onClick={() => setInputValue(balance || null)}
+                            cursor="pointer"
+                            onClick={() => setInputValue(formatTokenAmountToNumber(balance || BigInt(0), 16))}
                           >
                             {t("BALANCE")}:{" "}
                             {typeof balance === "undefined" ? (
@@ -235,7 +249,7 @@ export default function FormModal({
                   </Alert>
                 </HStack>
 
-                <StyledButton mt={4} w={"full"} variant="solid">
+                <StyledButton mt={4} w={"full"} variant="solid" isDisabled={isDateError || isInputError}>
                   {t("VE_CREATE_LOCK")}
                 </StyledButton>
               </form>
