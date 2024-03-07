@@ -9,8 +9,8 @@ export default function useBalanceOf(
   const { addresses, abis } = useContractContext();
   const { address: accentAddress } = useAccount();
   const config = {
-    address: addresses.VotingEscrow as `0x${string}`,
-    abi: abis.VotingEscrow,
+    address: addresses.Token as `0x${string}`,
+    abi: abis.Token,
   };
   const readFn = useReadContract<
     readonly unknown[],

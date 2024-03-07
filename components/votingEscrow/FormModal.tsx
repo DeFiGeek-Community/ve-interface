@@ -26,13 +26,16 @@ import {
   AlertIcon,
   AlertDescription,
   VStack,
+  Spinner,
 } from "@chakra-ui/react";
 import { DatePicker, CustomProvider } from "rsuite";
 import { useTranslation } from "react-i18next";
 import { jaJP, enUS } from "rsuite/locales";
 import "rsuite/dist/rsuite-no-reset.min.css";
+import { tokenAmountFormat } from "lib/utils";
 import { LockType } from "lib/types/VotingEscrow";
 import StyledButton from "components/shared/StyledButton";
+import useBalanceOf from "hooks/Token/useBalanceOf";
 
 type FormModalProps = {
   address?: `0x${string}`;
@@ -59,6 +62,10 @@ export default function FormModal({
   const { colorMode } = useColorMode();
   const locale = "ja"; // Mock locale
   const { t } = useTranslation();
+
+  const { data: balance } = useBalanceOf(address) as {
+    data: bigint | undefined;
+  };
 
   const [date, setDate] = useState<Date | null>(null);
   const [isDateError, setIsDateError] = useState<boolean>(false);
@@ -130,7 +137,18 @@ export default function FormModal({
                             YMT
                           </Box>
                         </Flex>
-                        <Text fontSize={"sm"}>{t("BALANCE")}: 0 YMT</Text>
+                        <Box>
+                          <Text fontSize={"sm"}>
+                            {t("BALANCE")}:{" "}
+                            {typeof balance === "undefined" ? (
+                              "Loading..."
+                            ) : (
+                              <>{tokenAmountFormat(balance, 18, 2)}</>
+                            )}{" "}
+                            YMT
+                          </Text>
+                          {typeof balance === "undefined" && <Spinner />}
+                        </Box>
                       </FormControl>
                     </Box>
                   </HStack>
