@@ -60,9 +60,7 @@ export default function FormModal({
   onClose,
 }: FormModalProps) {
   const { colorMode } = useColorMode();
-  const locale = "ja"; // Mock locale
-  const { t } = useTranslation();
-
+  const { t, i18n } = useTranslation();
   const { data: balance } = useBalanceOf(address) as {
     data: bigint | undefined;
   };
@@ -90,7 +88,7 @@ export default function FormModal({
 
   return (
     <>
-      <CustomProvider theme={colorMode} locale={locale === "ja" ? jaJP : enUS}>
+      <CustomProvider theme={colorMode} locale={i18n.language === "ja" ? jaJP : enUS}>
         <Modal
           isOpen={isOpen}
           onClose={onClose}
