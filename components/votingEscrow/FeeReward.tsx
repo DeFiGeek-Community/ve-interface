@@ -41,13 +41,14 @@ export default function Reward({ address }: { address?: `0x${string}` }) {
     writeFn: any;
     waitFn: any;
   };
+  const result = prepareFn.data?.result;
 
   return (
     <HStack spacing={2}>
       <Box fontSize={"2xl"}>
-        {typeof prepareFn.data === "undefined" && <Spinner />}
-        {!!prepareFn.data && typeof prepareFn.data.result === "bigint" && (
-          <>{tokenAmountFormat(prepareFn.data.result, 18, 2)}</>
+        {typeof result === "undefined" && <Spinner />}
+        {!!result && typeof result === "bigint" && (
+          <>{tokenAmountFormat(result, 18, 2)}</>
         )}
         <chakra.span fontSize={"lg"} ml={1}>
           {"ETH"}
@@ -56,7 +57,7 @@ export default function Reward({ address }: { address?: `0x${string}` }) {
       <StyledButton
         variant={"solid"}
         size={"sm"}
-        isDisabled={!prepareFn.data || !writeFn.writeContract}
+        isDisabled={!result || !writeFn.writeContract}
         isLoading={writeFn.isPending || waitFn.isLoading}
         onClick={() => writeFn.writeContract!(prepareFn.data!.request)}
       >
