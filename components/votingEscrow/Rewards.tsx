@@ -82,7 +82,7 @@ export default function Reward({ address }: { address?: `0x${string}` }) {
               {t("CLAIM")}
             </StyledButton>
           </HStack>
-          <FeeRewards />
+          <FeeRewards address={address} />
         </VStack>
       </HStack>
     </>
