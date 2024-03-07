@@ -32,7 +32,7 @@ const ja = {
   INPUT_LOCK_AMOUNT: "ロック額",
   SELECT_UNLOCK_DATE: "ロック期間を選択",
   UNABLE_TO_LOCK_DATE: "入力された日付はロックできません。",
-
+  INPUT_EXCEEDS_BALANCE: "入力が利用可能な残高を超えています。",
   TOTAL_YMT: "YMT総供給量",
   TOTAL_YMT_VOTE_LOCKED: "投票ロックされたYMTの合計",
   PERCENTAGE_YMT_LOCKED: "YMTロックの割合",

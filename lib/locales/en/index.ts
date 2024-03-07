@@ -32,7 +32,7 @@ const en = {
   INPUT_LOCK_AMOUNT: "Lock amount",
   SELECT_UNLOCK_DATE: "Select lock period",
   UNABLE_TO_LOCK_DATE: "The entered date cannot be locked.",
-
+  INPUT_EXCEEDS_BALANCE: "Input exceeds available balance.",
   TOTAL_YMT: "Total YMT supply",
   TOTAL_YMT_VOTE_LOCKED: "Total vote-locked YMT",
   PERCENTAGE_YMT_LOCKED: "Percentage of YMT locked",
