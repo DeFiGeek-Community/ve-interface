@@ -96,7 +96,9 @@ export default function EarlyUserReward({
         </StyledHStack>
       </CardBody>
       <CardFooter pt={0} justifyContent={"flex-end"}>
-        <StyledButton size={"sm"}>{t("CLAIM")}</StyledButton>
+        <StyledButton size={"sm"} isDisabled={!claimableAmount}>
+          {t("CLAIM")}
+        </StyledButton>
       </CardFooter>
     </StyledCard>
   );
