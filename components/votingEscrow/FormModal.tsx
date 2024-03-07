@@ -53,6 +53,15 @@ type FormModalProps = {
   onClose: () => void;
 };
 
+const buttonOptions = [
+  { label: "1 week", days: 7 },
+  { label: "1 month", days: 30 },
+  { label: "3 months", days: 90 },
+  { label: "6 months", days: 180 },
+  { label: "1 year", days: 365 },
+  { label: "4 years", days: 1460 },
+];
+
 export default function FormModal({
   address,
   type,
@@ -162,7 +171,7 @@ export default function FormModal({
                     </Flex>
                     {isDateError && (
                       <Alert fontSize="14px" status="error" mt={2}>
-                        <AlertIcon boxSize="15px"/>
+                        <AlertIcon boxSize="15px" />
                         <AlertDescription>
                           {t("UNABLE_TO_LOCK_DATE")}
                         </AlertDescription>
@@ -174,42 +183,14 @@ export default function FormModal({
                       templateColumns="repeat(3, 1fr)"
                       gap={2}
                     >
-                      <GridItem>
-                        <StyledGrayButton
-                          label="1 week"
-                          onClick={() => setDaysLater(7)}
-                        />
-                      </GridItem>
-                      <GridItem>
-                        <StyledGrayButton
-                          label="1 month"
-                          onClick={() => setDaysLater(30)}
-                        />
-                      </GridItem>
-                      <GridItem>
-                        <StyledGrayButton
-                          label="3 months"
-                          onClick={() => setDaysLater(90)}
-                        />
-                      </GridItem>
-                      <GridItem>
-                        <StyledGrayButton
-                          label="6 months"
-                          onClick={() => setDaysLater(180)}
-                        />
-                      </GridItem>
-                      <GridItem>
-                        <StyledGrayButton
-                          label="1 year"
-                          onClick={() => setDaysLater(365)}
-                        />
-                      </GridItem>
-                      <GridItem>
-                        <StyledGrayButton
-                          label="4 years"
-                          onClick={() => setDaysLater(1460)}
-                        />
-                      </GridItem>
+                      {buttonOptions.map((option) => (
+                        <GridItem key={option.label}>
+                          <StyledGrayButton
+                            label={option.label}
+                            onClick={() => setDaysLater(option.days)}
+                          />
+                        </GridItem>
+                      ))}
                     </Grid>
                   </FormControl>
                 )}
@@ -241,4 +222,3 @@ export default function FormModal({
     </>
   );
 }
-
