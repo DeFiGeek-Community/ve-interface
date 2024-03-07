@@ -7,6 +7,14 @@ export const tokenAmountFormat = (
   return (Number(amount) / Number(numerator)).toFixed(precision);
 };
 
+export const convertToBigIntWithDecimals = (
+  num: number,
+  decimals: number,
+): bigint => {
+  const multiplier = 10 ** decimals;
+  return BigInt(Math.floor(num * multiplier));
+};
+
 export const calculatePercentage = (
   balance: bigint | undefined,
   tokenTotalSupply: bigint | undefined,

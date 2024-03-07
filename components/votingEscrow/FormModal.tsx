@@ -32,7 +32,7 @@ import { DatePicker, CustomProvider } from "rsuite";
 import { useTranslation } from "react-i18next";
 import { jaJP, enUS } from "rsuite/locales";
 import "rsuite/dist/rsuite-no-reset.min.css";
-import { tokenAmountFormat } from "lib/utils";
+import { tokenAmountFormat, convertToBigIntWithDecimals } from "lib/utils";
 import { LockType } from "lib/types/VotingEscrow";
 import StyledButton from "components/shared/StyledButton";
 import useBalanceOf from "hooks/Token/useBalanceOf";
@@ -67,6 +67,7 @@ export default function FormModal({
 
   const [date, setDate] = useState<Date | null>(null);
   const [isDateError, setIsDateError] = useState<boolean>(false);
+  const [inputValue, setInputValue] = useState<bigint | null>(null);
 
   const setDaysLater = (days: number) => {
     const newDate = new Date();
@@ -88,7 +89,10 @@ export default function FormModal({
 
   return (
     <>
-      <CustomProvider theme={colorMode} locale={i18n.language === "ja" ? jaJP : enUS}>
+      <CustomProvider
+        theme={colorMode}
+        locale={i18n.language === "ja" ? jaJP : enUS}
+      >
         <Modal
           isOpen={isOpen}
           onClose={onClose}
@@ -123,7 +127,16 @@ export default function FormModal({
                             flex="1"
                             name="value"
                             min={0}
-                            max={Number.MAX_SAFE_INTEGER}
+                            // max={Number.MAX_SAFE_INTEGER}
+                            value={Number(inputValue) || undefined}
+                            onChange={(valueString) =>
+                              setInputValue(
+                                convertToBigIntWithDecimals(
+                                  Number(valueString),
+                                  18,
+                                ),
+                              )
+                            }
                           >
                             <NumberInputField />
                             <NumberInputStepper>
@@ -136,10 +149,13 @@ export default function FormModal({
                           </Box>
                         </Flex>
                         <Box>
-                          <Text fontSize={"sm"}>
+                          <Text
+                            fontSize={"sm"}
+                            onClick={() => setInputValue(balance || null)}
+                          >
                             {t("BALANCE")}:{" "}
                             {typeof balance === "undefined" ? (
-                              "Loading..."
+                              "..."
                             ) : (
                               <>{tokenAmountFormat(balance, 18, 2)}</>
                             )}{" "}
