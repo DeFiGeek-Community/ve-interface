@@ -26,16 +26,12 @@ import {
   AlertIcon,
   AlertDescription,
   VStack,
-  Spinner,
 } from "@chakra-ui/react";
 import { DatePicker, CustomProvider } from "rsuite";
 import { useTranslation } from "react-i18next";
 import { jaJP, enUS } from "rsuite/locales";
 import "rsuite/dist/rsuite-no-reset.min.css";
-import {
-  tokenAmountFormat,
-  formatTokenAmountToNumber,
-} from "lib/utils";
+import { tokenAmountFormat, formatTokenAmountToNumber } from "lib/utils";
 import { LockType } from "lib/types/VotingEscrow";
 import StyledButton from "components/shared/StyledButton";
 import useBalanceOf from "hooks/Token/useBalanceOf";
@@ -74,7 +70,11 @@ export default function FormModal({
   const [isInputError, setIsInputError] = useState<boolean>(false);
 
   useEffect(() => {
-    if (inputValue && balance && inputValue > formatTokenAmountToNumber(balance, 16)) {
+    if (
+      inputValue &&
+      balance &&
+      inputValue > formatTokenAmountToNumber(balance, 16)
+    ) {
       setIsInputError(true);
     } else {
       setIsInputError(false);
@@ -141,7 +141,9 @@ export default function FormModal({
                             min={0}
                             // max={Number.MAX_SAFE_INTEGER}
                             value={inputValue || undefined}
-                            onChange={(valueString) => setInputValue(Number(valueString))}
+                            onChange={(valueString) =>
+                              setInputValue(Number(valueString))
+                            }
                           >
                             <NumberInputField />
                             <NumberInputStepper>
@@ -165,7 +167,14 @@ export default function FormModal({
                           <Text
                             fontSize={"sm"}
                             cursor="pointer"
-                            onClick={() => setInputValue(formatTokenAmountToNumber(balance || BigInt(0), 16))}
+                            onClick={() =>
+                              setInputValue(
+                                formatTokenAmountToNumber(
+                                  balance || BigInt(0),
+                                  16,
+                                ),
+                              )
+                            }
                           >
                             {t("BALANCE")}:{" "}
                             {typeof balance === "undefined" ? (
@@ -248,7 +257,12 @@ export default function FormModal({
                   </Alert>
                 </HStack>
 
-                <StyledButton mt={4} w={"full"} variant="solid" isDisabled={isDateError || isInputError}>
+                <StyledButton
+                  mt={4}
+                  w={"full"}
+                  variant="solid"
+                  isDisabled={isDateError || isInputError}
+                >
                   {t("VE_CREATE_LOCK")}
                 </StyledButton>
               </form>
