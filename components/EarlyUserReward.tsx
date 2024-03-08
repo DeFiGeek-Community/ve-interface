@@ -5,17 +5,16 @@ import {
   Heading,
   Divider,
   CardFooter,
-  Spinner,
   useToast,
 } from "@chakra-ui/react";
 import { QuestionIcon } from "@chakra-ui/icons";
 import { useTranslation } from "react-i18next";
-import { tokenAmountFormat } from "lib/utils";
 import { useContractContext } from "lib/contexts/ContractContext";
 import StyledButton from "components/shared/StyledButton";
 import StyledCard from "components/shared/StyledCard";
 import StyledHStack from "components/shared/StyledHStack";
 import StyledTooltip from "components/shared/StyledTooltip";
+import AmountRenderer from "components/shared/AmountRenderer";
 import useVestingAmounts from "hooks/Vesting/useVestingAmounts";
 import useClaimedAmounts from "hooks/Vesting/useClaimedAmounts";
 import useClaimRewards from "hooks/Vesting/useClaimRewards";
@@ -100,14 +99,6 @@ export default function EarlyUserReward({
     }
   }, [vestingAmounts, claimedAmounts, config]);
 
-  const renderAmount = (amount: bigint | undefined) => {
-    return typeof amount === "undefined" ? (
-      <Spinner />
-    ) : (
-      <>{tokenAmountFormat(amount, config.TokenDecimals, 2)}</>
-    );
-  };
-
   return (
     <StyledCard>
       <CardHeader bg={"#f9aea5"} py={2}>
@@ -124,13 +115,13 @@ export default function EarlyUserReward({
         </Heading>
         <Divider my={2} />
         <StyledHStack title={t("ALLOCATED")} unit={"YMT"}>
-          {renderAmount(vestingAmounts)}
+          <AmountRenderer amount={vestingAmounts} />
         </StyledHStack>
         <StyledHStack title={t("CLAIMED")} unit={"YMT"} mt={1}>
-          {renderAmount(claimedAmounts)}
+          <AmountRenderer amount={claimedAmounts} />
         </StyledHStack>
         <StyledHStack title={t("CLAIMABLE")} unit={"YMT"} mt={1}>
-          {renderAmount(claimableAmount)}
+          <AmountRenderer amount={claimableAmount} />
         </StyledHStack>
       </CardBody>
       <CardFooter pt={0} justifyContent={"flex-end"}>

@@ -1,12 +1,12 @@
 import { HStack, Spinner } from "@chakra-ui/react";
 import { useTranslation } from "react-i18next";
 import { format } from "date-fns";
-import { tokenAmountFormat } from "lib/utils";
 import NewLockForm from "./NewLockForm";
 import IncreaseUnlockTimeForm from "./IncreaseUnlockTimeForm";
 import IncreaseAmountForm from "./IncreaseAmountForm";
 import WithdrawButton from "./WithdrawButton";
 import StyledHStack from "components/shared/StyledHStack";
+import AmountRenderer from "components/shared/AmountRenderer";
 import useBalanceOf from "hooks/VotingEscrow/useBalanceOf";
 import useLocked from "hooks/VotingEscrow/useLocked";
 
@@ -19,18 +19,10 @@ export default function LockStats({ address }: { address?: `0x${string}` }) {
   return (
     <>
       <StyledHStack title={t("BALANCE")} unit={"veYMT"}>
-        {typeof balance === "undefined" ? (
-          <Spinner />
-        ) : (
-          <>{tokenAmountFormat(balance, 18, 2)}</>
-        )}
+        <AmountRenderer amount={balance} />
       </StyledHStack>
       <StyledHStack title={t("YMT_LOCKED")} unit={"YMT"} mt={1}>
-        {typeof locked === "undefined" ? (
-          <Spinner />
-        ) : (
-          <>{tokenAmountFormat(locked[0], 18, 2)}</>
-        )}
+        <AmountRenderer amount={locked ? locked[0] : undefined} />
       </StyledHStack>
       <StyledHStack title={t("LOCKED_UNTIL")} unit={""} mt={1}>
         {typeof locked === "undefined" ? (

@@ -10,12 +10,12 @@ import {
 } from "@chakra-ui/react";
 import { QuestionIcon } from "@chakra-ui/icons";
 import { useTranslation } from "react-i18next";
-import { tokenAmountFormat, calculatePercentage } from "lib/utils";
+import { calculatePercentage } from "lib/utils";
 import { useContractContext } from "lib/contexts/ContractContext";
-
 import StyledCard from "components/shared/StyledCard";
 import StyledHStack from "components/shared/StyledHStack";
 import StyledTooltip from "components/shared/StyledTooltip";
+import AmountRenderer from "components/shared/AmountRenderer";
 import useTokenTotalSupply from "hooks/Token/useTotalSupply";
 import useBalanceOf from "hooks/Token/useBalanceOf";
 import useTotalSupply from "hooks/VotingEscrow/useTotalSupply";
@@ -52,18 +52,10 @@ export default function VotingEscrow({ address }: { address?: `0x${string}` }) {
         </Heading>
         <Divider variant="dashed" my={2} />
         <StyledHStack title={t("TOTAL_YMT")} unit={"YMT"}>
-          {typeof tokenTotalSupply === "undefined" ? (
-            <Spinner />
-          ) : (
-            <>{tokenAmountFormat(tokenTotalSupply, 18, 2)}</>
-          )}
+          <AmountRenderer amount={tokenTotalSupply} />
         </StyledHStack>
         <StyledHStack title={t("TOTAL_YMT_VOTE_LOCKED")} unit={"YMT"} mt={1}>
-          {typeof balance === "undefined" ? (
-            <Spinner />
-          ) : (
-            <>{tokenAmountFormat(balance, 18, 2)}</>
-          )}
+          <AmountRenderer amount={balance} />
         </StyledHStack>
         <StyledHStack title={t("PERCENTAGE_YMT_LOCKED")} unit={"%"} mt={1}>
           {typeof percentageLocked === "undefined" ? (
@@ -73,11 +65,7 @@ export default function VotingEscrow({ address }: { address?: `0x${string}` }) {
           )}
         </StyledHStack>
         <StyledHStack title={t("TOTAL_VE_YMT")} unit={"veYMT"} mt={1}>
-          {typeof totalSupply === "undefined" ? (
-            <Spinner />
-          ) : (
-            <>{tokenAmountFormat(totalSupply, 18, 2)}</>
-          )}
+          <AmountRenderer amount={totalSupply} />
         </StyledHStack>
       </CardBody>
     </StyledCard>

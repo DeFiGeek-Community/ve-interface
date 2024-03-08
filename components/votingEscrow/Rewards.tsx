@@ -1,18 +1,10 @@
-import {
-  HStack,
-  VStack,
-  Text,
-  chakra,
-  useToast,
-  Box,
-  Spinner,
-} from "@chakra-ui/react";
+import { HStack, VStack, Text, chakra, useToast, Box } from "@chakra-ui/react";
 import { QuestionIcon } from "@chakra-ui/icons";
 import { useTranslation } from "react-i18next";
-import { tokenAmountFormat } from "lib/utils";
 import FeeRewards from "components/votingEscrow/FeeReward";
 import StyledButton from "components/shared/StyledButton";
 import StyledTooltip from "components/shared/StyledTooltip";
+import AmountRenderer from "components/shared/AmountRenderer";
 import useMint from "hooks/Minter/useMint";
 
 interface MintData {
@@ -63,11 +55,7 @@ export default function Reward({ address }: { address?: `0x${string}` }) {
         <VStack spacing={4} alignItems={"end"}>
           <HStack spacing={2}>
             <Box fontSize={"2xl"}>
-              {result === undefined ? (
-                <Spinner />
-              ) : (
-                <>{tokenAmountFormat(result, 18, 2)}</>
-              )}
+              <AmountRenderer amount={result} />
               <chakra.span fontSize={"lg"} ml={1}>
                 YMT
               </chakra.span>

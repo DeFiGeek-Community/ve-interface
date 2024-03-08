@@ -1,7 +1,7 @@
-import { HStack, Box, chakra, Spinner, useToast } from "@chakra-ui/react";
+import { HStack, Box, chakra, useToast } from "@chakra-ui/react";
 import { useTranslation } from "react-i18next";
-import { tokenAmountFormat } from "lib/utils";
 import StyledButton from "components/shared/StyledButton";
+import AmountRenderer from "components/shared/AmountRenderer";
 import useClaim from "hooks/FeeDistributor/useClaim";
 
 type PrepareFnData = {
@@ -46,10 +46,7 @@ export default function Reward({ address }: { address?: `0x${string}` }) {
   return (
     <HStack spacing={2}>
       <Box fontSize={"2xl"}>
-        {typeof result === "undefined" && <Spinner />}
-        {typeof result === "bigint" && (
-          <>{tokenAmountFormat(result, 18, 2)}</>
-        )}
+        <AmountRenderer amount={result} />
         <chakra.span fontSize={"lg"} ml={1}>
           {"ETH"}
         </chakra.span>
