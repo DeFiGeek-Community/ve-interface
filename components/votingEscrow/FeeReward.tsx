@@ -47,7 +47,7 @@ export default function Reward({ address }: { address?: `0x${string}` }) {
     <HStack spacing={2}>
       <Box fontSize={"2xl"}>
         {typeof result === "undefined" && <Spinner />}
-        {!!result && typeof result === "bigint" && (
+        {typeof result === "bigint" && (
           <>{tokenAmountFormat(result, 18, 2)}</>
         )}
         <chakra.span fontSize={"lg"} ml={1}>
