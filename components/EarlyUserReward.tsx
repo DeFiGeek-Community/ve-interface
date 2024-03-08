@@ -6,6 +6,7 @@ import {
   Divider,
   CardFooter,
   Spinner,
+  useToast,
 } from "@chakra-ui/react";
 import { QuestionIcon } from "@chakra-ui/icons";
 import { useTranslation } from "react-i18next";
@@ -17,6 +18,12 @@ import StyledHStack from "components/shared/StyledHStack";
 import StyledTooltip from "components/shared/StyledTooltip";
 import useVestingAmounts from "hooks/Vesting/useVestingAmounts";
 import useClaimedAmounts from "hooks/Vesting/useClaimedAmounts";
+import useClaimRewards from "hooks/Vesting/useClaimRewards";
+
+type PrepareFnData = {
+  request: any;
+  result?: bigint;
+};
 
 export default function EarlyUserReward({
   address,
@@ -25,6 +32,7 @@ export default function EarlyUserReward({
 }) {
   const { t } = useTranslation();
   const { config } = useContractContext();
+  const toast = useToast({ position: "top-right", isClosable: true });
 
   const [claimableAmount, setClaimableAmount] = useState<bigint | undefined>(
     undefined,
@@ -35,6 +43,36 @@ export default function EarlyUserReward({
   };
   const { data: claimedAmounts } = useClaimedAmounts(address) as {
     data: bigint | undefined;
+  };
+
+  const { prepareFn, writeFn, waitFn } = useClaimRewards({
+    address,
+    onSuccessWrite(data) {
+      toast({
+        title: t("TRANSACTION_SENT"),
+        status: "success",
+        duration: 5000,
+        // render: (props) => <TxSentToast txid={data.hash} {...props} />,
+      });
+    },
+    onError(e) {
+      toast({
+        description: e.message,
+        status: "error",
+        duration: 5000,
+      });
+    },
+    onSuccessConfirm(data) {
+      toast({
+        title: t("TRANSACTION_CONFIRMED"),
+        status: "success",
+        duration: 5000,
+      });
+    },
+  }) as {
+    prepareFn: { data: PrepareFnData | null };
+    writeFn: any;
+    waitFn: any;
   };
 
   useEffect(() => {
@@ -96,7 +134,12 @@ export default function EarlyUserReward({
         </StyledHStack>
       </CardBody>
       <CardFooter pt={0} justifyContent={"flex-end"}>
-        <StyledButton size={"sm"} isDisabled={!claimableAmount}>
+        <StyledButton
+          size={"sm"}
+          isDisabled={!claimableAmount || !writeFn.writeContract}
+          isLoading={writeFn.isPending || waitFn.isLoading}
+          onClick={() => writeFn.writeContract!(prepareFn.data!.request)}
+        >
           {t("CLAIM")}
         </StyledButton>
       </CardFooter>
