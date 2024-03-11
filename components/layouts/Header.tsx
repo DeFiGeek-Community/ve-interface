@@ -1,10 +1,4 @@
-import {
-  Box,
-  Container,
-  Flex,
-  Link,
-  HStack,
-} from "@chakra-ui/react";
+import { Box, Container, Flex, Link, HStack } from "@chakra-ui/react";
 import SvgYamatoLogWithTitle from "../svgs/YamatoLogo";
 
 type HeaderProps = {
