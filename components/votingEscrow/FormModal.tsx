@@ -26,6 +26,7 @@ import {
   AlertIcon,
   AlertDescription,
   VStack,
+  useToast,
 } from "@chakra-ui/react";
 import { DatePicker, CustomProvider } from "rsuite";
 import { useTranslation } from "react-i18next";
@@ -35,6 +36,7 @@ import { tokenAmountFormat, formatTokenAmountToNumber } from "lib/utils";
 import { LockType } from "lib/types/VotingEscrow";
 import StyledButton from "components/shared/StyledButton";
 import useBalanceOf from "hooks/Token/useBalanceOf";
+import useApprove from "hooks/Token/useApprove";
 
 type FormModalProps = {
   address?: `0x${string}`;
@@ -60,9 +62,37 @@ export default function FormModal({
 }: FormModalProps) {
   const { colorMode } = useColorMode();
   const { t, i18n } = useTranslation();
+  const toast = useToast({ position: "top-right", isClosable: true });
   const { data: balance } = useBalanceOf(address) as {
     data: bigint | undefined;
   };
+  const approve = useApprove({
+    amount: BigInt(100),
+    onSuccessWrite(data) {
+      toast({
+        title: t("TRANSACTION_SENT"),
+        status: "success",
+        duration: 5000,
+        // render: (props) => <TxSentToast txid={data.hash} {...props} />,
+      });
+    },
+    onError(e) {
+      toast({
+        description: e.message,
+        status: "error",
+        duration: 5000,
+      });
+    },
+    onSuccessConfirm(data) {
+      toast({
+        title: t("TRANSACTION_CONFIRMED"),
+        status: "success",
+        duration: 5000,
+      });
+    },
+    enabled: true,
+  });
+  const allowance = approve.readFn.data;
 
   const [date, setDate] = useState<Date | null>(null);
   const [inputValue, setInputValue] = useState<number | null>(null);
