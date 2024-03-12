@@ -7,7 +7,6 @@ import {
   useReadContract,
 } from "wagmi";
 import { erc20Abi } from "viem";
-import { useState } from "react";
 import { useContractContext } from "lib/contexts/ContractContext";
 
 export default function useApprove({
@@ -26,12 +25,10 @@ export default function useApprove({
   prepareFn: any;
   writeFn: any;
   waitFn: ReturnType<typeof useWaitForTransactionReceipt>;
-  allowance: bigint;
-  refetchAllowance: () => Promise<any>;
+  readFn: ReturnType<typeof useReadContract>;
 } {
   const { chain, address: owner } = useAccount();
   const { addresses } = useContractContext();
-  const [allowance, setAllowance] = useState<bigint>(BigInt(0));
   const spender = addresses.VotingEscrow;
   const approveArgs: [`0x${string}`, bigint] = [
     addresses.VotingEscrow,
@@ -96,7 +93,6 @@ export default function useApprove({
     prepareFn,
     writeFn,
     waitFn,
-    allowance,
-    refetchAllowance: readFn.refetch,
+    readFn,
   };
 }
