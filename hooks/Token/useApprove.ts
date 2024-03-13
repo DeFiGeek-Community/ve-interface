@@ -22,8 +22,8 @@ export default function useApprove({
   onSuccessConfirm?: (data: any) => void;
   enabled: boolean;
 }): {
-  prepareFn: any;
-  writeFn: any;
+  prepareFn: ReturnType<typeof useSimulateContract>;
+  writeFn: ReturnType<typeof useWriteContract>;
   waitFn: ReturnType<typeof useWaitForTransactionReceipt>;
   readFn: ReturnType<typeof useReadContract>;
 } {
