@@ -18,9 +18,9 @@ export default function useLock({
   onSuccessConfirm,
 }: {
   type: LockType;
-  value: Big;
+  value: bigint; // BigからBigIntに変更
   unlockTime: number;
-  allowance?: Big;
+  allowance?: bigint; // BigからBigIntに変更
   onSuccessWrite?: (data: any) => void;
   onError?: (error: Error) => void;
   onSuccessConfirm?: (data: any) => void;
@@ -33,13 +33,13 @@ export default function useLock({
     switch (type) {
       case LockType.CREATE_LOCK:
         return (
-          value.gt(0) &&
-          (!allowance || allowance.gte(value)) &&
+          value > BigInt(0) &&
+          (!allowance || allowance >= value) &&
           !!unlockTime &&
           unlockTime > new Date().getTime() / 1000
         );
       case LockType.INCREASE_AMOUNT:
-        return value.gt(0) && (!allowance || allowance.gte(value));
+        return value > BigInt(0) && (!allowance || allowance >= value);
       case LockType.INCREASE_UNLOCK_TIME:
         return !!unlockTime && unlockTime > new Date().getTime() / 1000;
     }
@@ -48,9 +48,9 @@ export default function useLock({
   const args = (): (string | number)[] => {
     switch (type) {
       case LockType.CREATE_LOCK:
-        return [value.toString(), unlockTime];
+        return [value.toString(), unlockTime]; // BigIntを文字列に変換
       case LockType.INCREASE_AMOUNT:
-        return [value.toString()];
+        return [value.toString()]; // BigIntを文字列に変換
       case LockType.INCREASE_UNLOCK_TIME:
         return [unlockTime];
     }
