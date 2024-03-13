@@ -1,14 +1,17 @@
 import { useEffect } from "react";
-import { useAccount, useSimulateContract, useWriteContract, useWaitForTransactionReceipt } from "wagmi";
+import {
+  useAccount,
+  useSimulateContract,
+  useWriteContract,
+  useWaitForTransactionReceipt,
+} from "wagmi";
 import { useContractContext } from "lib/contexts/ContractContext";
 
 export default function useWithdraw({
-  address,
   onSuccessWrite,
   onError,
   onSuccessConfirm,
 }: {
-  address?: `0x${string}`;
   onSuccessWrite?: (data: any) => void;
   onError?: (error: Error) => void;
   onSuccessConfirm?: (data: any) => void;
@@ -17,7 +20,7 @@ export default function useWithdraw({
   writeFn: ReturnType<typeof useWriteContract>;
   waitFn: ReturnType<typeof useWaitForTransactionReceipt>;
 } {
-  const { chain } = useAccount();
+  const { chain, address } = useAccount();
   const { addresses, abis } = useContractContext();
 
   const prepareFn = useSimulateContract({
