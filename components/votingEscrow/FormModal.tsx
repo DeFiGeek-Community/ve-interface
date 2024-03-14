@@ -35,14 +35,21 @@ import "rsuite/dist/rsuite-no-reset.min.css";
 import { tokenAmountFormat, formatTokenAmountToNumber } from "lib/utils";
 import { LockType } from "lib/types/VotingEscrow";
 import StyledButton from "components/shared/StyledButton";
+import TxSentToast from "components/shared/TxSentToast";
 import useBalanceOf from "hooks/Token/useBalanceOf";
 import useApprove from "hooks/Token/useApprove";
+import useLock, { UseLockReturn } from "hooks/VotingEscrow/useLock";
 
 type FormModalProps = {
   address?: `0x${string}`;
   type: string;
   isOpen: boolean;
   onClose: () => void;
+};
+
+type PrepareFnData = {
+  request: any;
+  result?: bigint;
 };
 
 const buttonOptions = [
@@ -66,33 +73,6 @@ export default function FormModal({
   const { data: balance } = useBalanceOf(address) as {
     data: bigint | undefined;
   };
-  const approve = useApprove({
-    amount: BigInt(100),
-    onSuccessWrite(data) {
-      toast({
-        title: t("TRANSACTION_SENT"),
-        status: "success",
-        duration: 5000,
-        // render: (props) => <TxSentToast txid={data.hash} {...props} />,
-      });
-    },
-    onError(e) {
-      toast({
-        description: e.message,
-        status: "error",
-        duration: 5000,
-      });
-    },
-    onSuccessConfirm(data) {
-      toast({
-        title: t("TRANSACTION_CONFIRMED"),
-        status: "success",
-        duration: 5000,
-      });
-    },
-    enabled: true,
-  });
-  const allowance = approve.readFn.data;
 
   const [date, setDate] = useState<Date | null>(null);
   const [inputValue, setInputValue] = useState<number | null>(null);
@@ -128,6 +108,89 @@ export default function FormModal({
       setIsDateError(false);
     }
   }, [date]);
+
+  const isApprove =
+    type === LockType.CREATE_LOCK || type === LockType.INCREASE_AMOUNT;
+  const calculatedAmount = BigInt(inputValue || 0) * BigInt(1e18);
+
+  const {
+    prepareFn: prepareApprove,
+    writeFn: writeApprove,
+    waitFn: waitApprove,
+    readFn: readApprove,
+  } = useApprove({
+    amount: calculatedAmount,
+    onSuccessWrite(data) {
+      toast({
+        title: t("TRANSACTION_SENT"),
+        status: "success",
+        duration: 5000,
+        render: (props) => <TxSentToast txid={data.hash} {...props} />,
+      });
+    },
+    onError(e) {
+      toast({
+        description: e.message,
+        status: "error",
+        duration: 5000,
+      });
+    },
+    onSuccessConfirm(data) {
+      toast({
+        title: t("APPROVAL_CONFIRMED"),
+        status: "success",
+        duration: 5000,
+      });
+    },
+    enabled: !!address && isApprove,
+  }) as {
+    prepareFn: { data: PrepareFnData | null };
+    writeFn: any;
+    waitFn: any;
+    readFn: any;
+  };
+
+  const allowanceValue = readApprove?.data
+    ? (readApprove.data as bigint)
+    : BigInt(0);
+
+  const { writeFn, waitFn, writeContract, enabled } = useLock({
+    type: type as LockType,
+    value: BigInt(inputValue || 0) * BigInt(1e18),
+    unlockTime: date ? Math.floor(date.getTime() / 1000) : undefined,
+    allowance: allowanceValue,
+    callbacks: {
+      onSuccessWrite: (data) => {
+        toast({
+          title: t("TRANSACTION_SENT"),
+          status: "success",
+          duration: 5000,
+          render: (props) => <TxSentToast txid={data.hash} {...props} />,
+        });
+      },
+      onError: (e) => {
+        toast({
+          description: e.message,
+          status: "error",
+          duration: 5000,
+        });
+      },
+      onSuccessConfirm: (data) => {
+        toast({
+          title: t("TRANSACTION_CONFIRMED"),
+          status: "success",
+          duration: 5000,
+        });
+        onClose();
+      },
+    },
+  }) as UseLockReturn;
+
+  const [isFormValid, setIsFormValid] = useState<boolean>(false);
+
+  useEffect(() => {
+    setIsFormValid(enabled());
+  }, [inputValue, isInputError, date, isDateError, enabled]);
 
   return (
     <>
@@ -287,14 +350,31 @@ export default function FormModal({
                   </Alert>
                 </HStack>
 
-                <StyledButton
-                  mt={4}
-                  w={"full"}
-                  variant="solid"
-                  isDisabled={isDateError || isInputError}
-                >
-                  {t("VE_CREATE_LOCK")}
-                </StyledButton>
+                {isApprove && allowanceValue < calculatedAmount ? (
+                  <StyledButton
+                    mt={4}
+                    w={"full"}
+                    variant="solid"
+                    isDisabled={!isFormValid}
+                    isLoading={writeApprove.isPending || waitApprove.isLoading}
+                    onClick={() =>
+                      writeApprove.writeContract!(prepareApprove.data!.request)
+                    }
+                  >
+                    {t("APPROVE_TOKEN")}
+                  </StyledButton>
+                ) : (
+                  <StyledButton
+                    mt={4}
+                    w={"full"}
+                    variant="solid"
+                    isDisabled={!isFormValid}
+                    isLoading={writeFn.isPending || waitFn.isLoading}
+                    onClick={() => writeContract()}
+                  >
+                    {t("VE_CREATE_LOCK")}
+                  </StyledButton>
+                )}
               </form>
             </ModalBody>
           </ModalContent>
