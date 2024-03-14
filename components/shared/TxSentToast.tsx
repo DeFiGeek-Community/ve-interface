@@ -59,7 +59,9 @@ export default function TxSentToast(props: TxSentToast) {
           {description}
           <Link
             href={getEtherscanLink(
-              getChain(Number(process.env.NEXT_PUBLIC_CHAIN_ID)).name.toLowerCase(),
+              getChain(
+                Number(process.env.NEXT_PUBLIC_CHAIN_ID),
+              ).name.toLowerCase(),
               txid,
               "tx",
             )}
@@ -70,7 +72,13 @@ export default function TxSentToast(props: TxSentToast) {
         </AlertDescription>
       </chakra.div>
       {isClosable && (
-        <CloseButton size="sm" onClick={onClose} position="absolute" insetEnd={1} top={1} />
+        <CloseButton
+          size="sm"
+          onClick={onClose}
+          position="absolute"
+          insetEnd={1}
+          top={1}
+        />
       )}
     </Alert>
   );
