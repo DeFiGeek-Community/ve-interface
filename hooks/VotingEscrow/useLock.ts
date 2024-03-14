@@ -1,35 +1,51 @@
 import { useEffect } from "react";
 import {
   useAccount,
-  useSimulateContract,
   useWriteContract,
   useWaitForTransactionReceipt,
 } from "wagmi";
 import { LockType } from "lib/types/VotingEscrow";
 import { useContractContext } from "lib/contexts/ContractContext";
 
+export type UseLockReturn = {
+  writeFn: ReturnType<typeof useWriteContract>;
+  waitFn: ReturnType<typeof useWaitForTransactionReceipt>;
+  writeContract: () => void;
+  enabled: () => boolean;
+};
+
 export default function useLock({
   type,
   value,
   unlockTime,
   allowance,
-  onSuccessWrite,
-  onError,
-  onSuccessConfirm,
+  callbacks,
 }: {
   type: LockType;
-  value: bigint; // BigからBigIntに変更
-  unlockTime: number;
-  allowance?: bigint; // BigからBigIntに変更
-  onSuccessWrite?: (data: any) => void;
-  onError?: (error: Error) => void;
-  onSuccessConfirm?: (data: any) => void;
-}): {
-  prepareFn: ReturnType<typeof useSimulateContract>;
-  writeFn: ReturnType<typeof useWriteContract>;
-  waitFn: ReturnType<typeof useWaitForTransactionReceipt>;
-} {
-  const enabled = () => {
+  value: bigint;
+  unlockTime?: number;
+  allowance?: bigint;
+  callbacks?: {
+    onSuccessWrite?: (data: any) => void;
+    onError?: (error: Error) => void;
+    onSuccessConfirm?: (data: any) => void;
+  };
+}): UseLockReturn {
+  const { chain } = useAccount();
+  const { addresses, abis } = useContractContext();
+
+  const args = (): readonly (string | number | undefined)[] => {
+    switch (type) {
+      case LockType.CREATE_LOCK:
+        return [value.toString(), unlockTime || 0];
+      case LockType.INCREASE_AMOUNT:
+        return [value.toString()];
+      case LockType.INCREASE_UNLOCK_TIME:
+        return [unlockTime || 0];
+    }
+  };
+
+  const enabled = (): boolean => {
     switch (type) {
       case LockType.CREATE_LOCK:
         return (
@@ -45,41 +61,25 @@ export default function useLock({
     }
   };
 
-  const args = (): (string | number)[] => {
-    switch (type) {
-      case LockType.CREATE_LOCK:
-        return [value.toString(), unlockTime]; // BigIntを文字列に変換
-      case LockType.INCREASE_AMOUNT:
-        return [value.toString()]; // BigIntを文字列に変換
-      case LockType.INCREASE_UNLOCK_TIME:
-        return [unlockTime];
-    }
-  };
-
-  const { chain } = useAccount();
-  const { addresses, abis } = useContractContext();
-
-  const prepareFn = useSimulateContract({
+  const config = {
     address: addresses.VotingEscrow as `0x${string}`,
     abi: abis.VotingEscrow,
     functionName: type.toString(),
     args: args(),
-    query: {
-      enabled: enabled(),
-    },
-    chainId: chain?.id,
-  });
+  };
 
   const writeFn = useWriteContract({
     mutation: {
-      onSuccess(data) {
-        onSuccessWrite && onSuccessWrite(data);
-      },
-      onError(e: Error) {
-        onError && onError(e);
-      },
+      onSuccess: callbacks?.onSuccessWrite,
+      onError: callbacks?.onError,
     },
   });
+
+  const writeContract = () => {
+    if (enabled()) {
+      writeFn.writeContract(config);
+    }
+  };
 
   const waitFn = useWaitForTransactionReceipt({
     hash: writeFn?.data,
@@ -87,20 +87,17 @@ export default function useLock({
   });
 
   useEffect(() => {
-    // 成功時
     if (waitFn.isSuccess) {
-      onSuccessConfirm && onSuccessConfirm(waitFn.data);
+      callbacks?.onSuccessConfirm?.(waitFn.data);
+    } else if (waitFn.isError) {
+      callbacks?.onError?.(waitFn.error);
     }
-
-    // エラー時
-    if (waitFn.isError) {
-      onError && onError(waitFn.error);
-    }
-  }, [waitFn, onSuccessConfirm, onError]);
+  }, [waitFn]);
 
   return {
-    prepareFn,
     writeFn,
     waitFn,
+    writeContract,
+    enabled,
   };
 }
