@@ -12,6 +12,7 @@ import {
   ModalCloseButton,
   FormLabel,
   FormControl,
+  FormErrorMessage,
   NumberInputField,
   NumberIncrementStepper,
   NumberInput,
@@ -28,7 +29,9 @@ import {
   VStack,
   useToast,
 } from "@chakra-ui/react";
+import { useFormik } from "formik";
 import { DatePicker, CustomProvider } from "rsuite";
+import { format, addYears } from "date-fns";
 import { useTranslation } from "react-i18next";
 import { jaJP, enUS } from "rsuite/locales";
 import "rsuite/dist/rsuite-no-reset.min.css";
@@ -37,7 +40,7 @@ import { LockType } from "lib/types/VotingEscrow";
 import StyledButton from "components/shared/StyledButton";
 import TxSentToast from "components/shared/TxSentToast";
 import useBalanceOf from "hooks/Token/useBalanceOf";
-import useApprove from "hooks/Token/useApprove";
+import useApprove, { UseApproveReturn } from "hooks/Token/useApprove";
 import useLock, { UseLockReturn } from "hooks/VotingEscrow/useLock";
 
 type FormModalProps = {
@@ -47,9 +50,9 @@ type FormModalProps = {
   onClose: () => void;
 };
 
-type PrepareFnData = {
-  request: any;
-  result?: bigint;
+type LockFormValues = {
+  value: number;
+  unlockTime: number | null;
 };
 
 const buttonOptions = [
@@ -70,94 +73,114 @@ export default function FormModal({
   const { colorMode } = useColorMode();
   const { t, i18n } = useTranslation();
   const toast = useToast({ position: "top-right", isClosable: true });
+
   const { data: balance } = useBalanceOf(address) as {
     data: bigint | undefined;
   };
 
-  const [date, setDate] = useState<Date | null>(null);
-  const [inputValue, setInputValue] = useState<number | null>(null);
-  const [isDateError, setIsDateError] = useState<boolean>(false);
-  const [isInputError, setIsInputError] = useState<boolean>(false);
-
-  useEffect(() => {
-    if (
-      inputValue &&
-      balance &&
-      inputValue > formatTokenAmountToNumber(balance, 16)
-    ) {
-      setIsInputError(true);
-    } else {
-      setIsInputError(false);
-    }
-  }, [inputValue, balance]);
-
   const setDaysLater = (days: number) => {
     const newDate = new Date();
     newDate.setDate(newDate.getDate() + days);
-    setDate(newDate);
+    formikProps.setFieldValue("unlockTime", newDate.getTime());
   };
-
-  useEffect(() => {
-    const now = new Date();
-    const fourYearsLater = new Date();
-    fourYearsLater.setFullYear(now.getFullYear() + 4);
-
-    if (date && date > fourYearsLater) {
-      setIsDateError(true);
-    } else {
-      setIsDateError(false);
-    }
-  }, [date]);
 
   const isApprove =
     type === LockType.CREATE_LOCK || type === LockType.INCREASE_AMOUNT;
-  const calculatedAmount = BigInt(inputValue || 0) * BigInt(1e18);
+
+  const initData: LockFormValues = {
+    value: 0,
+    unlockTime: null,
+  };
+
+  const validateLockForm = (value: LockFormValues) => {
+    const errors: any = {};
+
+    const isCreatingOrIncreasingAmount =
+      type === LockType.CREATE_LOCK || type === LockType.INCREASE_AMOUNT;
+    const isCreatingOrIncreasingUnlockTime =
+      type === LockType.CREATE_LOCK || type === LockType.INCREASE_UNLOCK_TIME;
+
+    if (isCreatingOrIncreasingAmount) {
+      if (
+        typeof balance === "bigint" &&
+        balance < BigInt(value.value) * BigInt(1e18)
+      ) {
+        errors.value = `Not enough balance`;
+      } else if (value.value <= 0) {
+        errors.value = `Value must be greater than 0`;
+      }
+    }
+
+    if (isCreatingOrIncreasingUnlockTime) {
+      if (!value.unlockTime) {
+        errors.unlockTime = `Unlock time is required`;
+      } else if (value.unlockTime < new Date().getTime()) {
+        errors.unlockTime = `Unlock time should be in the future`;
+      }
+    }
+
+    return errors;
+  };
+
+  const formikProps = useFormik({
+    enableReinitialize: true,
+    validateOnChange: true,
+    initialValues: initData,
+    onSubmit: () => writeContract(),
+    validate: (value: LockFormValues) => validateLockForm(value),
+  });
+
+  const calculatedAmount = BigInt(formikProps.values.value) * BigInt(1e18);
 
   const {
-    prepareFn: prepareApprove,
     writeFn: writeApprove,
     waitFn: waitApprove,
     readFn: readApprove,
+    writeContract: writeContractApprove,
   } = useApprove({
     amount: calculatedAmount,
-    onSuccessWrite(data) {
-      toast({
-        title: t("TRANSACTION_SENT"),
-        status: "success",
-        duration: 5000,
-        render: (props) => <TxSentToast txid={data.hash} {...props} />,
-      });
-    },
-    onError(e) {
-      toast({
-        description: e.message,
-        status: "error",
-        duration: 5000,
-      });
-    },
-    onSuccessConfirm(data) {
-      toast({
-        title: t("APPROVAL_CONFIRMED"),
-        status: "success",
-        duration: 5000,
-      });
+    callbacks: {
+      onSuccessWrite(data) {
+        toast({
+          title: t("TRANSACTION_SENT"),
+          status: "success",
+          duration: 5000,
+          render: (props) => <TxSentToast txid={data.hash} {...props} />,
+        });
+      },
+      onError(e) {
+        toast({
+          description: e.message,
+          status: "error",
+          duration: 5000,
+        });
+      },
+      onSuccessConfirm(data) {
+        toast({
+          title: t("APPROVAL_CONFIRMED"),
+          status: "success",
+          duration: 5000,
+        });
+      },
     },
     enabled: !!address && isApprove,
-  }) as {
-    prepareFn: { data: PrepareFnData | null };
-    writeFn: any;
-    waitFn: any;
-    readFn: any;
-  };
+  }) as UseApproveReturn;
 
   const allowanceValue = readApprove?.data
     ? (readApprove.data as bigint)
     : BigInt(0);
 
+  console.log("formikProps", formikProps);
+  console.log("allowanceValue", allowanceValue);
+  console.log("calculatedAmount", calculatedAmount);
+  console.log("calculatedAmount", allowanceValue < calculatedAmount);
+
   const { writeFn, waitFn, writeContract, enabled } = useLock({
     type: type as LockType,
-    value: BigInt(inputValue || 0) * BigInt(1e18),
-    unlockTime: date ? Math.floor(date.getTime() / 1000) : undefined,
+    value: calculatedAmount,
+    unlockTime: formikProps.values.unlockTime
+      ? Math.floor(formikProps.values.unlockTime / 1000)
+      : undefined,
     allowance: allowanceValue,
     callbacks: {
       onSuccessWrite: (data) => {
@@ -186,12 +209,6 @@ export default function FormModal({
     },
   }) as UseLockReturn;
 
-  const [isFormValid, setIsFormValid] = useState<boolean>(false);
-
-  useEffect(() => {
-    setIsFormValid(enabled());
-  }, [inputValue, isInputError, date, isDateError, enabled]);
-
   return (
     <>
       <CustomProvider
@@ -216,26 +233,40 @@ export default function FormModal({
             </ModalHeader>
 
             <ModalBody pb={6} pt={0}>
-              <form>
+              <form onSubmit={formikProps.handleSubmit}>
                 {type !== LockType.INCREASE_UNLOCK_TIME && (
                   <HStack spacing={8} alignItems={"start"}>
                     <Box w={"full"}>
-                      <FormControl mt={4}>
+                      <FormControl
+                        mt={4}
+                        isInvalid={
+                          !!formikProps.errors.value &&
+                          !!formikProps.touched.value
+                        }
+                      >
+                        {" "}
                         <Flex justifyContent={"space-between"}>
                           <FormLabel alignItems={"baseline"} fontWeight={"600"}>
                             {t("INPUT_LOCK_AMOUNT")}{" "}
                           </FormLabel>
                         </Flex>
-
                         <Flex alignItems={"center"}>
                           <NumberInput
                             flex="1"
                             name="value"
+                            value={formikProps.values.value}
                             min={0}
-                            // max={Number.MAX_SAFE_INTEGER}
-                            value={inputValue || undefined}
-                            onChange={(valueString) =>
-                              setInputValue(Number(valueString))
+                            max={Number.MAX_SAFE_INTEGER}
+                            onBlur={formikProps.handleBlur}
+                            onChange={(strVal: string, val: number) =>
+                              formikProps.setFieldValue(
+                                "value",
+                                strVal && Number(strVal) === val
+                                  ? strVal
+                                  : isNaN(val)
+                                    ? 0
+                                    : val,
+                              )
                             }
                           >
                             <NumberInputField />
@@ -248,20 +279,13 @@ export default function FormModal({
                             YMT
                           </Box>
                         </Flex>
-                        {isInputError && (
-                          <Alert fontSize="14px" status="error" mt={2}>
-                            <AlertIcon boxSize="15px" />
-                            <AlertDescription>
-                              {t("INPUT_EXCEEDS_BALANCE")}
-                            </AlertDescription>
-                          </Alert>
-                        )}
                         <Box>
                           <Text
                             fontSize={"sm"}
                             cursor="pointer"
                             onClick={() =>
-                              setInputValue(
+                              formikProps.setFieldValue(
+                                "value",
                                 formatTokenAmountToNumber(
                                   balance || BigInt(0),
                                   16,
@@ -277,6 +301,9 @@ export default function FormModal({
                             )}{" "}
                             YMT
                           </Text>
+                          <FormErrorMessage fontSize={"xs"}>
+                            {formikProps.errors.value}
+                          </FormErrorMessage>
                         </Box>
                       </FormControl>
                     </Box>
@@ -284,34 +311,61 @@ export default function FormModal({
                 )}
 
                 {type !== LockType.INCREASE_AMOUNT && (
-                  <FormControl mt={4}>
+                  <FormControl
+                    mt={4}
+                    isInvalid={
+                      !!formikProps.errors.unlockTime &&
+                      !!formikProps.touched.unlockTime
+                    }
+                  >
+                    {" "}
                     <FormLabel alignItems={"baseline"} fontWeight={"600"}>
                       {t("SELECT_UNLOCK_DATE")}
                     </FormLabel>
                     <Flex alignItems={"center"}>
                       <Box>
                         <DatePicker
+                          onEnter={async () => {
+                            await formikProps.setTouched({ unlockTime: true });
+                            await formikProps.validateForm();
+                          }}
+                          onBlur={async (value: any) => {
+                            await formikProps.validateForm();
+                          }}
+                          onChangeCalendarDate={async (value) => {
+                            const unlockTime: Date = value;
+                            await formikProps.setFieldValue(
+                              "unlockTime",
+                              unlockTime.getTime(),
+                            );
+                            await formikProps.validateForm();
+                          }}
                           oneTap={true}
                           format="yyyy-MM-dd"
                           placement="topStart"
                           cleanable={false}
-                          defaultValue={null}
-                          value={date}
-                          onChange={setDate}
+                          defaultValue={
+                            formikProps.values.unlockTime
+                              ? new Date(formikProps.values.unlockTime)
+                              : null
+                          }
+                          value={
+                            formikProps.values.unlockTime
+                              ? new Date(formikProps.values.unlockTime)
+                              : null
+                          }
+                          // shouldDisableDate={(date: Date) =>
+                          //   date.setUTCHours(0, 0, 0, 0) % (3600 * 24 * 7) !==
+                          //     0 ||
+                          //   date.getTime() < new Date().getTime() ||
+                          //   date.getTime() > addYears(new Date(), 4).getTime()
+                          // }
                         />
                       </Box>
                       <chakra.span fontSize={"sm"} ml={2}>
-                        (UTC)
+                        ({format(0, "z")})
                       </chakra.span>
                     </Flex>
-                    {isDateError && (
-                      <Alert fontSize="14px" status="error" mt={2}>
-                        <AlertIcon boxSize="15px" />
-                        <AlertDescription>
-                          {t("UNABLE_TO_LOCK_DATE")}
-                        </AlertDescription>
-                      </Alert>
-                    )}
                     <Grid
                       mt={2}
                       templateRows="repeat(2, 1fr)"
@@ -331,8 +385,12 @@ export default function FormModal({
                         </GridItem>
                       ))}
                     </Grid>
+                    <FormErrorMessage fontSize={"xs"}>
+                      {formikProps.errors.unlockTime}
+                    </FormErrorMessage>
                   </FormControl>
                 )}
+
                 <HStack mt={6}>
                   <Alert
                     status="info"
@@ -355,11 +413,11 @@ export default function FormModal({
                     mt={4}
                     w={"full"}
                     variant="solid"
-                    isDisabled={!isFormValid}
-                    isLoading={writeApprove.isPending || waitApprove.isLoading}
-                    onClick={() =>
-                      writeApprove.writeContract!(prepareApprove.data!.request)
+                    isDisabled={
+                      !writeApprove.writeContract || !formikProps.isValid
                     }
+                    isLoading={writeApprove.isPending || waitApprove.isLoading}
+                    onClick={() => writeContractApprove()}
                   >
                     {t("APPROVE_TOKEN")}
                   </StyledButton>
@@ -368,9 +426,9 @@ export default function FormModal({
                     mt={4}
                     w={"full"}
                     variant="solid"
-                    isDisabled={!isFormValid}
+                    type="submit"
+                    isDisabled={!formikProps.isValid}
                     isLoading={writeFn.isPending || waitFn.isLoading}
-                    onClick={() => writeContract()}
                   >
                     {t("VE_CREATE_LOCK")}
                   </StyledButton>

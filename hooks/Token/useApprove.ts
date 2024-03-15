@@ -1,7 +1,6 @@
 import { useEffect } from "react";
 import {
   useAccount,
-  useSimulateContract,
   useWriteContract,
   useWaitForTransactionReceipt,
   useReadContract,
@@ -9,58 +8,54 @@ import {
 import { erc20Abi } from "viem";
 import { useContractContext } from "lib/contexts/ContractContext";
 
-export default function useApprove({
-  amount,
-  onSuccessWrite,
-  onError,
-  onSuccessConfirm,
-  enabled,
-}: {
-  amount?: bigint;
-  onSuccessWrite?: (data: any) => void;
-  onError?: (error: Error) => void;
-  onSuccessConfirm?: (data: any) => void;
-  enabled: boolean;
-}): {
-  prepareFn: ReturnType<typeof useSimulateContract>;
+export type UseApproveReturn = {
   writeFn: ReturnType<typeof useWriteContract>;
   waitFn: ReturnType<typeof useWaitForTransactionReceipt>;
   readFn: ReturnType<typeof useReadContract>;
-} {
+  writeContract: () => void;
+};
+
+export default function useApprove({
+  amount,
+  callbacks,
+  enabled,
+}: {
+  amount?: bigint;
+  callbacks?: {
+    onSuccessWrite?: (data: any) => void;
+    onError?: (error: Error) => void;
+    onSuccessConfirm?: (data: any) => void;
+  };
+  enabled: boolean;
+}): UseApproveReturn {
   const { chain, address: owner } = useAccount();
-  const { addresses } = useContractContext();
+  const { addresses, refetchFlag } = useContractContext();
+
   const spender = addresses.VotingEscrow;
-  const approveArgs: [`0x${string}`, bigint] = [
-    addresses.VotingEscrow,
-    amount || BigInt(0),
-  ];
+  const approveArgs: [`0x${string}`, bigint] = [spender, amount || BigInt(0)];
   const allowanceArgs: [`0x${string}`, `0x${string}`] = [
     owner || "0x0",
     spender,
   ];
-  const isReady: boolean = !!owner && !!spender && !!chain && enabled;
+  const isReady = owner && spender && chain && enabled;
 
-  const prepareFn = useSimulateContract({
-    chainId: chain?.id,
+  const config = {
     address: addresses.Token as `0x${string}`,
     abi: erc20Abi,
-    functionName: "approve",
+    functionName: "approve" as const,
     args: approveArgs,
-    query: {
-      enabled: isReady,
-    },
-  });
+  };
 
   const writeFn = useWriteContract({
     mutation: {
-      onSuccess(data) {
-        onSuccessWrite && onSuccessWrite(data);
-      },
-      onError(e: Error) {
-        onError && onError(e);
-      },
+      onSuccess: callbacks?.onSuccessWrite,
+      onError: callbacks?.onError,
     },
   });
+
+  const writeContract = () => {
+    if (isReady) writeFn.writeContract(config);
+  };
 
   const waitFn = useWaitForTransactionReceipt({
     chainId: chain?.id,
@@ -68,31 +63,24 @@ export default function useApprove({
   });
 
   useEffect(() => {
-    // 成功時
     if (waitFn.isSuccess) {
-      onSuccessConfirm && onSuccessConfirm(waitFn.data);
+      callbacks?.onSuccessConfirm?.(waitFn.data);
+    } else if (waitFn.isError) {
+      callbacks?.onError?.(waitFn.error);
     }
-
-    // エラー時
-    if (waitFn.isError) {
-      onError && onError(waitFn.error);
-    }
-  }, [waitFn, onSuccessConfirm, onError]);
+  }, [waitFn.isSuccess, waitFn.isError]);
 
   const readFn = useReadContract({
     address: addresses.Token as `0x${string}`,
     abi: erc20Abi,
     functionName: "allowance",
     args: allowanceArgs,
-    query: {
-      enabled,
-    },
+    query: { enabled },
   });
 
-  return {
-    prepareFn,
-    writeFn,
-    waitFn,
-    readFn,
-  };
+  useEffect(() => {
+    readFn.refetch();
+  }, [refetchFlag]); 
+
+  return { writeFn, waitFn, readFn, writeContract };
 }

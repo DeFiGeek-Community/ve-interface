@@ -92,7 +92,7 @@ export default function useLock({
     } else if (waitFn.isError) {
       callbacks?.onError?.(waitFn.error);
     }
-  }, [waitFn]);
+  }, [waitFn.isSuccess, waitFn.isError]);
 
   return {
     writeFn,
