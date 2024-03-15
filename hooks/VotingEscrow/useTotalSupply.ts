@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { useReadContract } from "wagmi";
 import { useContractContext } from "lib/contexts/ContractContext";
 
@@ -6,7 +7,7 @@ export default function useTotalSupply(
 ): ReturnType<
   typeof useReadContract<readonly unknown[], "totalSupply", readonly unknown[]>
 > {
-  const { addresses, abis } = useContractContext();
+  const { addresses, abis, refetchFlag } = useContractContext();
 
   const config = {
     address: addresses.VotingEscrow as `0x${string}`,
@@ -24,6 +25,10 @@ export default function useTotalSupply(
       enabled: !!address,
     },
   });
+
+  useEffect(() => {
+    readFn.refetch();
+  }, [refetchFlag]); 
 
   return readFn;
 }

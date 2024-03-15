@@ -7,6 +7,8 @@ interface IContractContext {
   abis: ISystemContractAbis;
   addresses: ISystemContractAddresses;
   config: IConfig;
+  refetchFlag: boolean;
+  triggerRefetch: () => void;
 }
 
 export const ContractContext = createContext<IContractContext | undefined>(

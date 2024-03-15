@@ -1,10 +1,11 @@
+import { useEffect } from "react";
 import { useReadContract, useAccount } from "wagmi";
 import { useContractContext } from "lib/contexts/ContractContext";
 
 export default function useTotalSupply(): ReturnType<
   typeof useReadContract<readonly unknown[], "totalSupply", readonly unknown[]>
 > {
-  const { addresses, abis } = useContractContext();
+  const { addresses, abis, refetchFlag } = useContractContext();
   const { address: accentAddress } = useAccount();
 
   const config = {
@@ -23,6 +24,10 @@ export default function useTotalSupply(): ReturnType<
       enabled: !!accentAddress,
     },
   });
+
+  useEffect(() => {
+    readFn.refetch();
+  }, [refetchFlag]); 
 
   return readFn;
 }
