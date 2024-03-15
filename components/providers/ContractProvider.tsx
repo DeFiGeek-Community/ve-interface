@@ -22,7 +22,9 @@ export function ContractProvider({ children }: ContractProviderProps) {
   };
 
   return (
-    <ContractContext.Provider value={{ addresses, abis, config, refetchFlag, triggerRefetch }}>
+    <ContractContext.Provider
+      value={{ addresses, abis, config, refetchFlag, triggerRefetch }}
+    >
       {children}
     </ContractContext.Provider>
   );

@@ -28,7 +28,7 @@ export default function useBalanceOf(
 
   useEffect(() => {
     readFn.refetch();
-  }, [refetchFlag]); 
+  }, [refetchFlag]);
 
   return readFn;
 }

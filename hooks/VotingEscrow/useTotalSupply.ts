@@ -28,7 +28,7 @@ export default function useTotalSupply(
 
   useEffect(() => {
     readFn.refetch();
-  }, [refetchFlag]); 
+  }, [refetchFlag]);
 
   return readFn;
 }

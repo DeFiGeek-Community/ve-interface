@@ -80,7 +80,7 @@ export default function useApprove({
 
   useEffect(() => {
     readFn.refetch();
-  }, [refetchFlag]); 
+  }, [refetchFlag]);
 
   return { writeFn, waitFn, readFn, writeContract };
 }

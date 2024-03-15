@@ -28,7 +28,7 @@ export default function useLocked(
 
   useEffect(() => {
     readFn.refetch();
-  }, [refetchFlag]); 
+  }, [refetchFlag]);
 
   return readFn;
 }
