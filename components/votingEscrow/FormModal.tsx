@@ -31,12 +31,13 @@ import {
 } from "@chakra-ui/react";
 import { useFormik } from "formik";
 import { DatePicker, CustomProvider } from "rsuite";
-import { format } from "date-fns";
+import { format, addYears } from "date-fns";
 import { useTranslation } from "react-i18next";
 import { jaJP, enUS } from "rsuite/locales";
 import "rsuite/dist/rsuite-no-reset.min.css";
 import { tokenAmountFormat, formatTokenAmountToNumber } from "lib/utils";
 import { LockType } from "lib/types/VotingEscrow";
+import { useContractContext } from "lib/contexts/ContractContext";
 import StyledButton from "components/shared/StyledButton";
 import TxSentToast from "components/shared/TxSentToast";
 import useBalanceOf from "hooks/Token/useBalanceOf";
@@ -72,6 +73,7 @@ export default function FormModal({
 }: FormModalProps) {
   const { colorMode } = useColorMode();
   const { t, i18n } = useTranslation();
+  const { triggerRefetch } = useContractContext();
   const toast = useToast({ position: "top-right", isClosable: true });
 
   const { data: balance } = useBalanceOf(address) as {
@@ -161,6 +163,7 @@ export default function FormModal({
           status: "success",
           duration: 5000,
         });
+        writeContract();
       },
     },
     enabled: !!address && isApprove,
@@ -169,11 +172,6 @@ export default function FormModal({
   const allowanceValue = readApprove?.data
     ? (readApprove.data as bigint)
     : BigInt(0);
-
-  console.log("formikProps", formikProps);
-  console.log("allowanceValue", allowanceValue);
-  console.log("calculatedAmount", calculatedAmount);
-  console.log("calculatedAmount", allowanceValue < calculatedAmount);
 
   const { writeFn, waitFn, writeContract, enabled } = useLock({
     type: type as LockType,
@@ -204,6 +202,7 @@ export default function FormModal({
           status: "success",
           duration: 5000,
         });
+        triggerRefetch();
         onClose();
       },
     },
@@ -354,12 +353,12 @@ export default function FormModal({
                               ? new Date(formikProps.values.unlockTime)
                               : null
                           }
-                          // shouldDisableDate={(date: Date) =>
-                          //   date.setUTCHours(0, 0, 0, 0) % (3600 * 24 * 7) !==
-                          //     0 ||
-                          //   date.getTime() < new Date().getTime() ||
-                          //   date.getTime() > addYears(new Date(), 4).getTime()
-                          // }
+                          shouldDisableDate={(date: Date) =>
+                            date.setUTCHours(0, 0, 0, 0) % (3600 * 24 * 7) !==
+                              0 ||
+                            date.getTime() < new Date().getTime() ||
+                            date.getTime() > addYears(new Date(), 4).getTime()
+                          }
                         />
                       </Box>
                       <chakra.span fontSize={"sm"} ml={2}>
