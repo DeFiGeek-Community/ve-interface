@@ -62,14 +62,6 @@ export default function useApprove({
     hash: writeFn?.data,
   });
 
-  useEffect(() => {
-    if (waitFn.isSuccess) {
-      callbacks?.onSuccessConfirm?.(waitFn.data);
-    } else if (waitFn.isError) {
-      callbacks?.onError?.(waitFn.error);
-    }
-  }, [waitFn.isSuccess, waitFn.isError]);
-
   const readFn = useReadContract({
     address: addresses.Token as `0x${string}`,
     abi: erc20Abi,
@@ -77,6 +69,15 @@ export default function useApprove({
     args: allowanceArgs,
     query: { enabled },
   });
+
+  useEffect(() => {
+    if (waitFn.isSuccess) {
+      readFn.refetch();
+      callbacks?.onSuccessConfirm?.(waitFn.data);
+    } else if (waitFn.isError) {
+      callbacks?.onError?.(waitFn.error);
+    }
+  }, [waitFn.isSuccess, waitFn.isError]);
 
   useEffect(() => {
     readFn.refetch();
