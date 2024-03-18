@@ -5,7 +5,8 @@ import FeeRewards from "components/votingEscrow/FeeReward";
 import StyledButton from "components/shared/StyledButton";
 import StyledTooltip from "components/shared/StyledTooltip";
 import AmountRenderer from "components/shared/AmountRenderer";
-import useMint from "hooks/Minter/useMint";
+import TxSentToast from "components/shared/TxSentToast";
+import useMint, { UseMintReturn } from "hooks/Minter/useMint";
 
 interface MintData {
   request?: any;
@@ -15,34 +16,34 @@ interface MintData {
 export default function Reward({ address }: { address?: `0x${string}` }) {
   const { t } = useTranslation();
   const toast = useToast({ position: "top-right", isClosable: true });
-  const { prepareFn, writeFn, waitFn } = useMint({
-    address,
-    onSuccessWrite(data) {
-      toast({
-        title: t("TRANSACTION_SENT"),
-        status: "success",
-        duration: 5000,
-        // render: (props) => <TxSentToast txid={data.hash} {...props} />,
-      });
+  const { prepareFn, writeFn, waitFn, writeContract } = useMint({
+    callbacks: {
+      onSuccessWrite(data) {
+        toast({
+          title: t("TRANSACTION_SENT"),
+          status: "success",
+          duration: 5000,
+          render: (props) => <TxSentToast txid={data.hash} {...props} />,
+        });
+      },
+      onError(e) {
+        toast({
+          description: e.message,
+          status: "error",
+          duration: 5000,
+        });
+      },
+      onSuccessConfirm(data) {
+        toast({
+          title: t("TRANSACTION_CONFIRMED"),
+          status: "success",
+          duration: 5000,
+        });
+      },
     },
-    onError(e) {
-      toast({
-        description: e.message,
-        status: "error",
-        duration: 5000,
-      });
-    },
-    onSuccessConfirm(data) {
-      toast({
-        title: t("TRANSACTION_CONFIRMED"),
-        status: "success",
-        duration: 5000,
-      });
-    },
-  });
+  }) as UseMintReturn;
 
-  const mintData = prepareFn.data as MintData;
-  const result = mintData?.result;
+  const result = prepareFn.data?.result;
   return (
     <>
       <HStack justifyContent={"space-between"} alignItems={"baseline"} mt={4}>
@@ -65,8 +66,8 @@ export default function Reward({ address }: { address?: `0x${string}` }) {
               size={"sm"}
               isDisabled={!result || !writeFn.writeContract}
               isLoading={writeFn.isPending || waitFn.isLoading}
-              onClick={() => writeFn.writeContract!(mintData!.request)}
-            >
+              onClick={() => writeContract()}
+              >
               {t("CLAIM")}
             </StyledButton>
           </HStack>
