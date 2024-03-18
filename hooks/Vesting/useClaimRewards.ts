@@ -1,68 +1,66 @@
 import { useEffect } from "react";
 import {
-  useSimulateContract,
+  useAccount,
   useWriteContract,
   useWaitForTransactionReceipt,
 } from "wagmi";
 import { useContractContext } from "lib/contexts/ContractContext";
 
-export default function useClaimRewards({
-  address,
-  onSuccessWrite,
-  onError,
-  onSuccessConfirm,
-}: {
-  address?: `0x${string}`;
-  onSuccessWrite?: (data: any) => void;
-  onError?: (error: Error) => void;
-  onSuccessConfirm?: (data: any) => void;
-}): {
-  prepareFn: ReturnType<typeof useSimulateContract>;
+export type UseClaimRewardsReturn = {
   writeFn: ReturnType<typeof useWriteContract>;
   waitFn: ReturnType<typeof useWaitForTransactionReceipt>;
-} {
+  writeContract: () => void;
+};
+
+export default function useClaimRewards({
+  callbacks,
+}: {
+  callbacks?: {
+    onSuccessWrite?: (data: any) => void;
+    onError?: (error: Error) => void;
+    onSuccessConfirm?: (data: any) => void;
+  };
+}): UseClaimRewardsReturn {
+  const { chain, address } = useAccount();
   const { addresses, abis } = useContractContext();
 
-  const prepareFn = useSimulateContract({
+  const config = {
     address: addresses.Vesting as `0x${string}`,
     abi: abis.Vesting,
-    functionName: "claimV1RetroactiveRewards",
+    functionName: "claimV1RetroactiveRewards" as const,
     args: [],
-    query: {
-      enabled: !!address,
-    },
-  });
+    chainId: chain?.id,
+  };
 
   const writeFn = useWriteContract({
     mutation: {
-      onSuccess(data) {
-        onSuccessWrite && onSuccessWrite(data);
-      },
-      onError(e: Error) {
-        onError && onError(e);
-      },
+      onSuccess: callbacks?.onSuccessWrite,
+      onError: callbacks?.onError,
     },
   });
 
+  const writeContract = () => {
+    if (!!address) {
+      writeFn.writeContract(config);
+    }
+  };
+
   const waitFn = useWaitForTransactionReceipt({
     hash: writeFn?.data,
+    chainId: chain?.id,
   });
 
   useEffect(() => {
-    // 成功時
     if (waitFn.isSuccess) {
-      onSuccessConfirm && onSuccessConfirm(waitFn.data);
+      callbacks?.onSuccessConfirm?.(waitFn.data);
+    } else if (waitFn.isError) {
+      callbacks?.onError?.(waitFn.error);
     }
-
-    // エラー時
-    if (waitFn.isError) {
-      onError && onError(waitFn.error);
-    }
-  }, [waitFn, onSuccessConfirm, onError]);
+  }, [waitFn.isSuccess, waitFn.isError]);
 
   return {
-    prepareFn,
     writeFn,
     waitFn,
+    writeContract,
   };
 }
