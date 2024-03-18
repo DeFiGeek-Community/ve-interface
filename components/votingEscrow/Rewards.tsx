@@ -67,7 +67,7 @@ export default function Reward({ address }: { address?: `0x${string}` }) {
               isDisabled={!result || !writeFn.writeContract}
               isLoading={writeFn.isPending || waitFn.isLoading}
               onClick={() => writeContract()}
-              >
+            >
               {t("CLAIM")}
             </StyledButton>
           </HStack>

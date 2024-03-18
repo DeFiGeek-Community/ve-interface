@@ -18,7 +18,9 @@ import AmountRenderer from "components/shared/AmountRenderer";
 import TxSentToast from "components/shared/TxSentToast";
 import useVestingAmounts from "hooks/Vesting/useVestingAmounts";
 import useClaimedAmounts from "hooks/Vesting/useClaimedAmounts";
-import useClaimRewards, { UseClaimRewardsReturn } from "hooks/Vesting/useClaimRewards";
+import useClaimRewards, {
+  UseClaimRewardsReturn,
+} from "hooks/Vesting/useClaimRewards";
 
 export default function EarlyUserReward({
   address,

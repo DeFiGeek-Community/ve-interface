@@ -12,7 +12,8 @@ export type UseClaimReturn = {
     data?: {
       result?: bigint;
     };
-  };  writeFn: ReturnType<typeof useWriteContract>;
+  };
+  writeFn: ReturnType<typeof useWriteContract>;
   waitFn: ReturnType<typeof useWaitForTransactionReceipt>;
   writeContract: () => void;
 };
