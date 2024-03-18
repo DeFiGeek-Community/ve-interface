@@ -15,14 +15,10 @@ import StyledCard from "components/shared/StyledCard";
 import StyledHStack from "components/shared/StyledHStack";
 import StyledTooltip from "components/shared/StyledTooltip";
 import AmountRenderer from "components/shared/AmountRenderer";
+import TxSentToast from "components/shared/TxSentToast";
 import useVestingAmounts from "hooks/Vesting/useVestingAmounts";
 import useClaimedAmounts from "hooks/Vesting/useClaimedAmounts";
-import useClaimRewards from "hooks/Vesting/useClaimRewards";
-
-type PrepareFnData = {
-  request: any;
-  result?: bigint;
-};
+import useClaimRewards, { UseClaimRewardsReturn } from "hooks/Vesting/useClaimRewards";
 
 export default function EarlyUserReward({
   address,
@@ -44,35 +40,32 @@ export default function EarlyUserReward({
     data: bigint | undefined;
   };
 
-  const { prepareFn, writeFn, waitFn } = useClaimRewards({
-    address,
-    onSuccessWrite(data) {
-      toast({
-        title: t("TRANSACTION_SENT"),
-        status: "success",
-        duration: 5000,
-        // render: (props) => <TxSentToast txid={data.hash} {...props} />,
-      });
+  const { writeFn, waitFn, writeContract } = useClaimRewards({
+    callbacks: {
+      onSuccessWrite(data) {
+        toast({
+          title: t("TRANSACTION_SENT"),
+          status: "success",
+          duration: 5000,
+          render: (props) => <TxSentToast txid={data.hash} {...props} />,
+        });
+      },
+      onError(e) {
+        toast({
+          description: e.message,
+          status: "error",
+          duration: 5000,
+        });
+      },
+      onSuccessConfirm(data) {
+        toast({
+          title: t("TRANSACTION_CONFIRMED"),
+          status: "success",
+          duration: 5000,
+        });
+      },
     },
-    onError(e) {
-      toast({
-        description: e.message,
-        status: "error",
-        duration: 5000,
-      });
-    },
-    onSuccessConfirm(data) {
-      toast({
-        title: t("TRANSACTION_CONFIRMED"),
-        status: "success",
-        duration: 5000,
-      });
-    },
-  }) as {
-    prepareFn: { data: PrepareFnData | null };
-    writeFn: any;
-    waitFn: any;
-  };
+  }) as UseClaimRewardsReturn;
 
   useEffect(() => {
     if (
@@ -129,7 +122,7 @@ export default function EarlyUserReward({
           size={"sm"}
           isDisabled={!claimableAmount || !writeFn.writeContract}
           isLoading={writeFn.isPending || waitFn.isLoading}
-          onClick={() => writeFn.writeContract!(prepareFn.data!.request)}
+          onClick={() => writeContract()}
         >
           {t("CLAIM")}
         </StyledButton>
