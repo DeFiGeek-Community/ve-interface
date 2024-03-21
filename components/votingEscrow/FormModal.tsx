@@ -35,7 +35,11 @@ import { format, addYears } from "date-fns";
 import { useTranslation } from "react-i18next";
 import { jaJP, enUS } from "rsuite/locales";
 import "rsuite/dist/rsuite-no-reset.min.css";
-import { tokenAmountFormat, formatTokenAmountToNumber } from "lib/utils";
+import {
+  tokenAmountFormat,
+  formatTokenAmountToNumber,
+  convertToBigIntWithDecimals,
+} from "lib/utils";
 import { LockType } from "lib/types/VotingEscrow";
 import { useContractContext } from "lib/contexts/ContractContext";
 import StyledButton from "components/shared/StyledButton";
@@ -106,7 +110,7 @@ export default function FormModal({
     if (isCreatingOrIncreasingAmount) {
       if (
         typeof balance === "bigint" &&
-        balance < BigInt(value.value) * BigInt(decimals * 10)
+        balance < convertToBigIntWithDecimals(value.value, decimals)
       ) {
         errors.value = `Not enough balance`;
       } else if (value.value <= 0) {
@@ -133,7 +137,10 @@ export default function FormModal({
     validate: (value: LockFormValues) => validateLockForm(value),
   });
 
-  const calculatedAmount = BigInt(formikProps.values.value) * BigInt(decimals * 10);
+  const calculatedAmount = convertToBigIntWithDecimals(
+    formikProps.values.value,
+    decimals,
+  );
 
   const {
     writeFn: writeApprove,
@@ -288,7 +295,7 @@ export default function FormModal({
                                 "value",
                                 formatTokenAmountToNumber(
                                   balance || BigInt(0),
-                                  16,
+                                  decimals,
                                 ),
                               )
                             }
