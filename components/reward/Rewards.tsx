@@ -1,6 +1,7 @@
 import { HStack, VStack, Text, chakra, useToast, Box } from "@chakra-ui/react";
 import { QuestionIcon } from "@chakra-ui/icons";
 import { useTranslation } from "react-i18next";
+import { useContractContext } from "lib/contexts/ContractContext";
 import FeeRewards from "components/reward/FeeReward";
 import StyledButton from "components/shared/StyledButton";
 import StyledTooltip from "components/shared/StyledTooltip";
@@ -10,6 +11,7 @@ import useMint, { UseMintReturn } from "hooks/Minter/useMint";
 
 export default function Reward({ address }: { address?: `0x${string}` }) {
   const { t } = useTranslation();
+  const { triggerRefetch } = useContractContext();
   const toast = useToast({ position: "top-right", isClosable: true });
   const { prepareFn, writeFn, waitFn, writeContract } = useMint({
     callbacks: {
@@ -34,6 +36,7 @@ export default function Reward({ address }: { address?: `0x${string}` }) {
           status: "success",
           duration: 5000,
         });
+        triggerRefetch();
       },
     },
   }) as UseMintReturn;

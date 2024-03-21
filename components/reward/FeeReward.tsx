@@ -1,5 +1,6 @@
 import { HStack, Box, chakra, useToast } from "@chakra-ui/react";
 import { useTranslation } from "react-i18next";
+import { useContractContext } from "lib/contexts/ContractContext";
 import StyledButton from "components/shared/StyledButton";
 import AmountRenderer from "components/shared/AmountRenderer";
 import TxSentToast from "components/shared/TxSentToast";
@@ -7,6 +8,7 @@ import useClaim, { UseClaimReturn } from "hooks/FeeDistributor/useClaim";
 
 export default function Reward({ address }: { address?: `0x${string}` }) {
   const { t } = useTranslation();
+  const { triggerRefetch } = useContractContext();
   const toast = useToast({ position: "top-right", isClosable: true });
   const { prepareFn, writeFn, waitFn, writeContract } = useClaim({
     callbacks: {
@@ -31,7 +33,7 @@ export default function Reward({ address }: { address?: `0x${string}` }) {
           status: "success",
           duration: 5000,
         });
-        
+        triggerRefetch();
       },
     },
   }) as UseClaimReturn;
