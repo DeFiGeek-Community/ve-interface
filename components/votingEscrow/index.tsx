@@ -1,7 +1,7 @@
 import { CardHeader, CardBody, Heading, Divider } from "@chakra-ui/react";
 import { useTranslation } from "react-i18next";
 import LockStats from "components/votingEscrow/LockStats";
-import Reward from "components/votingEscrow/Rewards";
+import Reward from "components/reward/Rewards";
 import StyledCard from "components/shared/StyledCard";
 
 export default function VotingEscrow({ address }: { address?: `0x${string}` }) {
