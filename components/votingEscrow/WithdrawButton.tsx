@@ -1,11 +1,13 @@
 import { ButtonProps, useToast } from "@chakra-ui/react";
 import { useTranslation } from "react-i18next";
+import { useContractContext } from "lib/contexts/ContractContext";
 import StyledButton from "components/shared/StyledButton";
 import TxSentToast from "components/shared/TxSentToast";
 import useWithdraw, { UseWithdrawReturn } from "hooks/VotingEscrow/useWithdraw";
 
 export default function WithdrawButton(props: ButtonProps) {
   const { t } = useTranslation();
+  const { triggerRefetch } = useContractContext();
   const toast = useToast({ position: "top-right", isClosable: true });
   const { writeFn, waitFn, writeContract } = useWithdraw({
     callbacks: {
@@ -30,6 +32,7 @@ export default function WithdrawButton(props: ButtonProps) {
           status: "success",
           duration: 5000,
         });
+        triggerRefetch();
       },
     },
   }) as UseWithdrawReturn;
