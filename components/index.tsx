@@ -6,19 +6,19 @@ import TotalStats from "components/TotalStats";
 import EarlyUserReward from "components/EarlyUserReward";
 
 export default function AccountDashboard() {
-  const account = useAccount();
+  const { address } = useAccount();
 
   return (
     <Layout>
       <Container maxW="container.xl" py={10}>
         <Center>
-          <TotalStats address={account.address} />
+          <TotalStats address={address} />
         </Center>
         <Center mt={10}>
-          <VotingEscrow address={account.address} />
+          <VotingEscrow address={address} />
         </Center>
         <Center mt={10}>
-          <EarlyUserReward address={account.address} />
+          <EarlyUserReward address={address} />
         </Center>
       </Container>
     </Layout>
