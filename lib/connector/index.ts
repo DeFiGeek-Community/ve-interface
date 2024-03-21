@@ -5,7 +5,7 @@ import { http } from "viem";
 import { extendTheme } from "@chakra-ui/react";
 import { SITE_DESCRIPTION, SITE_NAME, SITE_URL } from "./site";
 
-const chains = [mainnet, sepolia] as [Chain, ...Chain[]];
+const chains = [sepolia] as [Chain, ...Chain[]];
 
 const projectId = process.env.NEXT_PUBLIC_PROJECT_ID ?? "";
 
@@ -50,6 +50,7 @@ export const createWeb3ModalConfig = () => ({
   wagmiConfig: config,
   themeMode: "light" as const,
   projectId,
+  defaultChain: sepolia,
   enableAnalytics: false,
   themeVariables: {
     "--w3m-accent": "#5bad92",

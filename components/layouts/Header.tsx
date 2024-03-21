@@ -1,4 +1,5 @@
 import { Box, Container, Flex, Link, HStack } from "@chakra-ui/react";
+import { useAccount } from "wagmi";
 import SvgYamatoLogWithTitle from "../svgs/YamatoLogo";
 
 type HeaderProps = {
@@ -6,6 +7,7 @@ type HeaderProps = {
 };
 
 export default function Header({ title }: HeaderProps) {
+  const { chain } = useAccount();
   return (
     <Box
       px={{ base: 0, md: 4 }}
@@ -27,7 +29,8 @@ export default function Header({ title }: HeaderProps) {
               <SvgYamatoLogWithTitle width={200} height={30} />
             </Link>
           </HStack>
-          <HStack spacing={{ base: 2, md: 4 }}>
+          <HStack>
+            {chain && <w3m-network-button />}
             <w3m-button balance={"hide"} />
           </HStack>
         </Flex>
