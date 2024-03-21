@@ -73,7 +73,8 @@ export default function FormModal({
 }: FormModalProps) {
   const { colorMode } = useColorMode();
   const { t, i18n } = useTranslation();
-  const { triggerRefetch } = useContractContext();
+  const { config, triggerRefetch } = useContractContext();
+  const decimals = config.TokenDecimals;
   const toast = useToast({ position: "top-right", isClosable: true });
 
   const { data: balance } = useBalanceOf(address) as {
@@ -105,7 +106,7 @@ export default function FormModal({
     if (isCreatingOrIncreasingAmount) {
       if (
         typeof balance === "bigint" &&
-        balance < BigInt(value.value) * BigInt(1e18)
+        balance < BigInt(value.value) * BigInt(decimals * 10)
       ) {
         errors.value = `Not enough balance`;
       } else if (value.value <= 0) {
@@ -132,7 +133,7 @@ export default function FormModal({
     validate: (value: LockFormValues) => validateLockForm(value),
   });
 
-  const calculatedAmount = BigInt(formikProps.values.value) * BigInt(1e18);
+  const calculatedAmount = BigInt(formikProps.values.value) * BigInt(decimals * 10);
 
   const {
     writeFn: writeApprove,
@@ -296,7 +297,7 @@ export default function FormModal({
                             {typeof balance === "undefined" ? (
                               "..."
                             ) : (
-                              <>{tokenAmountFormat(balance, 18, 2)}</>
+                              <>{tokenAmountFormat(balance, decimals, 2)}</>
                             )}{" "}
                             YMT
                           </Text>
