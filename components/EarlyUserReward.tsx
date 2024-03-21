@@ -28,7 +28,7 @@ export default function EarlyUserReward({
   address?: `0x${string}`;
 }) {
   const { t } = useTranslation();
-  const { config } = useContractContext();
+  const { config, triggerRefetch } = useContractContext();
   const toast = useToast({ position: "top-right", isClosable: true });
 
   const [claimableAmount, setClaimableAmount] = useState<bigint | undefined>(
@@ -65,6 +65,7 @@ export default function EarlyUserReward({
           status: "success",
           duration: 5000,
         });
+        triggerRefetch();
       },
     },
   }) as UseClaimRewardsReturn;
