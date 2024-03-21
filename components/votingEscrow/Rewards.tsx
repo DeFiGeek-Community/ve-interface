@@ -8,11 +8,6 @@ import AmountRenderer from "components/shared/AmountRenderer";
 import TxSentToast from "components/shared/TxSentToast";
 import useMint, { UseMintReturn } from "hooks/Minter/useMint";
 
-interface MintData {
-  request?: any;
-  result?: bigint;
-}
-
 export default function Reward({ address }: { address?: `0x${string}` }) {
   const { t } = useTranslation();
   const toast = useToast({ position: "top-right", isClosable: true });
