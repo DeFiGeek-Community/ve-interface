@@ -28,7 +28,7 @@ export default function useMint({
   };
 }): UseMintReturn {
   const { chain, address } = useAccount();
-  const { addresses, abis } = useContractContext();
+  const { addresses, abis, refetchFlag } = useContractContext();
 
   const config = {
     address: addresses.Minter as `0x${string}`,
@@ -74,6 +74,10 @@ export default function useMint({
       callbacks?.onError?.(waitFn.error);
     }
   }, [waitFn.isSuccess, waitFn.isError]);
+
+  useEffect(() => {
+    prepareFn.refetch();
+  }, [refetchFlag]);
 
   return {
     prepareFn,

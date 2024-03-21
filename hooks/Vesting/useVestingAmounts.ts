@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { useReadContract } from "wagmi";
 import { useContractContext } from "lib/contexts/ContractContext";
 
@@ -10,7 +11,7 @@ export default function useVestingAmounts(
     readonly unknown[]
   >
 > {
-  const { addresses, abis } = useContractContext();
+  const { addresses, abis, refetchFlag } = useContractContext();
   const config = {
     address: addresses.Vesting as `0x${string}`,
     abi: abis.Vesting,
@@ -27,6 +28,10 @@ export default function useVestingAmounts(
       enabled: !!address,
     },
   });
+
+  useEffect(() => {
+    readFn.refetch();
+  }, [refetchFlag]);
 
   return readFn;
 }

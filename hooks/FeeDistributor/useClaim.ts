@@ -28,7 +28,7 @@ export default function useClaim({
   };
 }): UseClaimReturn {
   const { chain, address } = useAccount();
-  const { addresses, abis } = useContractContext();
+  const { addresses, abis, refetchFlag } = useContractContext();
 
   const config = {
     address: addresses.FeeDistributor as `0x${string}`,
@@ -74,6 +74,10 @@ export default function useClaim({
       callbacks?.onError?.(waitFn.error);
     }
   }, [waitFn.isSuccess, waitFn.isError]);
+
+  useEffect(() => {
+    prepareFn.refetch();
+  }, [refetchFlag]);
 
   return {
     prepareFn,
