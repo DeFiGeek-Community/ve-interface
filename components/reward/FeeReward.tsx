@@ -31,6 +31,7 @@ export default function Reward({ address }: { address?: `0x${string}` }) {
           status: "success",
           duration: 5000,
         });
+        
       },
     },
   }) as UseClaimReturn;

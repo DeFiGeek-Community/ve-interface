@@ -1,7 +1,7 @@
 import { HStack, VStack, Text, chakra, useToast, Box } from "@chakra-ui/react";
 import { QuestionIcon } from "@chakra-ui/icons";
 import { useTranslation } from "react-i18next";
-import FeeRewards from "components/votingEscrow/FeeReward";
+import FeeRewards from "components/reward/FeeReward";
 import StyledButton from "components/shared/StyledButton";
 import StyledTooltip from "components/shared/StyledTooltip";
 import AmountRenderer from "components/shared/AmountRenderer";
