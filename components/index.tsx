@@ -4,7 +4,7 @@ import { useContractContext } from "lib/contexts/ContractContext";
 import Layout from "components/layouts/layout";
 import VotingEscrow from "components/votingEscrow";
 import TotalStats from "components/TotalStats";
-import InitialReward from "components/InitialReward";
+import InitialReward from "components/reward/InitialReward";
 
 export default function AccountDashboard() {
   const { address } = useAccount();
