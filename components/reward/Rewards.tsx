@@ -11,7 +11,7 @@ import useMint, { UseMintReturn } from "hooks/Minter/useMint";
 
 export default function Reward({ address }: { address?: `0x${string}` }) {
   const { t } = useTranslation();
-  const { triggerRefetch } = useContractContext();
+  const { config, triggerRefetch } = useContractContext();
   const toast = useToast({ position: "top-right", isClosable: true });
   const { prepareFn, writeFn, waitFn, writeContract } = useMint({
     callbacks: {
@@ -69,7 +69,7 @@ export default function Reward({ address }: { address?: `0x${string}` }) {
               {t("CLAIM")}
             </StyledButton>
           </HStack>
-          <FeeRewards address={address} />
+          {config.feeReward && <FeeRewards address={address} />}
         </VStack>
       </HStack>
     </>

@@ -5,6 +5,8 @@ export interface IConfig {
   TokenName: string;
   veTokenName: string;
   initialReward: boolean;
+  minterReward: boolean;
+  feeReward: boolean;
 }
 
 export interface IEnvironmentConfig {
@@ -22,6 +24,8 @@ export const environmentConfig: IEnvironmentConfig = {
       TokenName: "YMT",
       veTokenName: "veYMT",
       initialReward: true,
+      minterReward: true,
+      feeReward: true,
     },
     11155111: {
       TokenStartTimestamp: 1710832176,
@@ -30,6 +34,8 @@ export const environmentConfig: IEnvironmentConfig = {
       TokenName: "YMT",
       veTokenName: "veYMT",
       initialReward: true,
+      minterReward: true,
+      feeReward: true,
     },
   },
 };
