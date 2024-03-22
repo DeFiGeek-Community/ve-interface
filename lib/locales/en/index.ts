@@ -21,13 +21,12 @@ const en = {
   LOCKED_UNTIL: "Locked until",
   REWARDS: "Rewards",
   REWARDS_HELP:
-    "As a reward for veYMT holders, newly issued YMT and fee income from auctions are distributed according to the amount of veYMT held at the start of each week.",
+    "As a reward for veYMT holders, newly issued YMT and fee income are distributed according to the amount of veYMT held at the start of each week.",
   COMMING_SOON: "Coming soon...",
   TRANSACTION_SENT: "Transaction sent!",
   TRANSACTION_CONFIRMED: "Transaction confirmed!",
   APPROVAL_CONFIRMED: "Approval confirmed!",
 
-  // VotingEscrow
   VE_CREATE_LOCK: "Create lock",
   APPROVE_TOKEN: "Approve token",
   VE_INCREASE_AMOUNT: "Increase lock amount",

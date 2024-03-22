@@ -21,13 +21,12 @@ const ja = {
   LOCKED_UNTIL: "ロック終了日時",
   REWARDS: "リワード",
   REWARDS_HELP:
-    "veYMTの保有者に対するリワードとして、YMTの新規発行分とオークションからのFee収入が各週開始時点のveYMT保有額に応じて分配されます。",
+    "veYMTの保有者に対するリワードとして、YMTの新規発行分とFee収入が各週開始時点のveYMT保有額に応じて分配されます。",
   COMMING_SOON: "Comming soon...",
   TRANSACTION_SENT: "トランザクションを送信しました",
   TRANSACTION_CONFIRMED: "トランザクションが承認されました",
   APPROVAL_CONFIRMED: "トランザクションが承認されました",
 
-  // VotingEscrow
   VE_CREATE_LOCK: "ロックする",
   APPROVE_TOKEN: "トークンを承認",
   VE_INCREASE_AMOUNT: "ロック額を増額",
