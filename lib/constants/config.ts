@@ -20,7 +20,7 @@ export const environmentConfig: IEnvironmentConfig = {
       TokenName: "YMT",
     },
     11155111: {
-      TokenStartTimestamp: 1705905204,
+      TokenStartTimestamp: 1710832176,
       TokenDecimals: 18,
       VestingPeriod: 31536000,
       TokenName: "YMT",
