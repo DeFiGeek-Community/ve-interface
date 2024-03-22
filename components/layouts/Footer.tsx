@@ -31,7 +31,7 @@ export default function Footer() {
             justifyContent="center"
             alignItems="center"
           >
-            <StyledTooltip labelKey="DeFiGeek Community JAPAN">
+            <StyledTooltip labelText="DeFiGeek Community JAPAN">
               <Link
                 href="https://defigeek.xyz/"
                 target={"_blank"}
@@ -41,7 +41,7 @@ export default function Footer() {
                 <CommunityLogo width="2.5rem" height="2.5rem" fill="#818181" />
               </Link>
             </StyledTooltip>
-            <StyledTooltip labelKey="GitHub">
+            <StyledTooltip labelText="GitHub">
               <Link
                 href="https://github.com/DeFiGeek-Community/"
                 target={"_blank"}
@@ -52,7 +52,7 @@ export default function Footer() {
                 <AiFillGithub fill="#818181" />
               </Link>
             </StyledTooltip>
-            <StyledTooltip labelKey="GitBook">
+            <StyledTooltip labelText="GitBook">
               <Link
                 href="https://docs.yamato.fi"
                 target={"_blank"}
