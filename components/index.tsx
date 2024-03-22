@@ -1,12 +1,14 @@
 import { Container, Center } from "@chakra-ui/react";
 import { useAccount } from "wagmi";
+import { useContractContext } from "lib/contexts/ContractContext";
 import Layout from "components/layouts/layout";
 import VotingEscrow from "components/votingEscrow";
 import TotalStats from "components/TotalStats";
-import EarlyUserReward from "components/EarlyUserReward";
+import InitialReward from "components/InitialReward";
 
 export default function AccountDashboard() {
   const { address } = useAccount();
+  const { config } = useContractContext();
 
   return (
     <Layout>
@@ -17,9 +19,11 @@ export default function AccountDashboard() {
         <Center mt={10}>
           <VotingEscrow address={address} />
         </Center>
-        <Center mt={10}>
-          <EarlyUserReward address={address} />
-        </Center>
+        {config.initialReward && (
+          <Center mt={10}>
+            <InitialReward address={address} />
+          </Center>
+        )}
       </Container>
     </Layout>
   );

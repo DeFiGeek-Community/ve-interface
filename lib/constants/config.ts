@@ -4,6 +4,7 @@ export interface IConfig {
   VestingPeriod: number;
   TokenName: string;
   veTokenName: string;
+  initialReward: boolean;
 }
 
 export interface IEnvironmentConfig {
@@ -20,6 +21,7 @@ export const environmentConfig: IEnvironmentConfig = {
       VestingPeriod: 31536000,
       TokenName: "YMT",
       veTokenName: "veYMT",
+      initialReward: true,
     },
     11155111: {
       TokenStartTimestamp: 1710832176,
@@ -27,6 +29,7 @@ export const environmentConfig: IEnvironmentConfig = {
       VestingPeriod: 31536000,
       TokenName: "YMT",
       veTokenName: "veYMT",
+      initialReward: true,
     },
   },
 };

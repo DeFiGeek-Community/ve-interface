@@ -22,7 +22,7 @@ import useClaimRewards, {
   UseClaimRewardsReturn,
 } from "hooks/Vesting/useClaimRewards";
 
-export default function EarlyUserReward({
+export default function InitialReward({
   address,
 }: {
   address?: `0x${string}`;
