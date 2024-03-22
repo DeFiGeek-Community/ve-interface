@@ -3,7 +3,7 @@ const en = {
   BALANCE: "Balance",
   CANCEL: "Cancel",
   CONFIRMATION: "Confirmation",
-  EARLY_USER_REWARD: "Early user rewards",
+  EARLY_USER_REWARD: "Early rewards",
   EARLY_USER_REWARD_HELP:
     "Early User Rewards: 1-year linear vesting from DD MM 2024",
   ALLOCATED: "Allocated",
