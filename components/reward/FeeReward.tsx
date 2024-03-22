@@ -17,7 +17,7 @@ export default function Reward({ address }: { address?: `0x${string}` }) {
           title: t("TRANSACTION_SENT"),
           status: "success",
           duration: 5000,
-          render: (props) => <TxSentToast txid={data.hash} {...props} />,
+          render: (props) => <TxSentToast txid={data} {...props} />,
         });
       },
       onError(e) {

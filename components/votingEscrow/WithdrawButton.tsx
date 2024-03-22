@@ -16,7 +16,7 @@ export default function WithdrawButton(props: ButtonProps) {
           title: t("TRANSACTION_SENT"),
           status: "success",
           duration: 5000,
-          render: (props) => <TxSentToast txid={data.hash} {...props} />,
+          render: (props) => <TxSentToast txid={data} {...props} />,
         });
       },
       onError(e) {
