@@ -1,6 +1,7 @@
 import { HStack, Spinner } from "@chakra-ui/react";
 import { useTranslation } from "react-i18next";
 import { format } from "date-fns";
+import { useContractContext } from "lib/contexts/ContractContext";
 import NewLockForm from "./NewLockForm";
 import IncreaseUnlockTimeForm from "./IncreaseUnlockTimeForm";
 import IncreaseAmountForm from "./IncreaseAmountForm";
@@ -12,16 +13,18 @@ import useLocked from "hooks/VotingEscrow/useLocked";
 
 export default function LockStats({ address }: { address?: `0x${string}` }) {
   const { t } = useTranslation();
+  const { config } = useContractContext();
+  const { tokenName, veTokenName } = config;
   const { data: balance } = useBalanceOf(address) as {
     data: bigint | undefined;
   };
   const { data: locked } = useLocked(address) as { data: bigint[] | undefined };
   return (
     <>
-      <StyledHStack title={t("BALANCE")} unit={"veYMT"}>
+      <StyledHStack title={t("BALANCE")} unit={veTokenName}>
         <AmountRenderer amount={balance} />
       </StyledHStack>
-      <StyledHStack title={t("YMT_LOCKED")} unit={"YMT"} mt={1}>
+      <StyledHStack title={t("YMT_LOCKED", { tokenName })} unit={tokenName} mt={1}>
         <AmountRenderer amount={locked ? locked[0] : undefined} />
       </StyledHStack>
       <StyledHStack title={t("LOCKED_UNTIL")} unit={""} mt={1}>

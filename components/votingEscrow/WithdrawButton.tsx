@@ -7,7 +7,8 @@ import useWithdraw, { UseWithdrawReturn } from "hooks/VotingEscrow/useWithdraw";
 
 export default function WithdrawButton(props: ButtonProps) {
   const { t } = useTranslation();
-  const { triggerRefetch } = useContractContext();
+  const { config, triggerRefetch } = useContractContext();
+  const { tokenName } = config;
   const toast = useToast({ position: "top-right", isClosable: true });
   const { writeFn, waitFn, writeContract } = useWithdraw({
     callbacks: {
@@ -47,7 +48,7 @@ export default function WithdrawButton(props: ButtonProps) {
         onClick={() => writeContract()}
         {...props}
       >
-        {t("VE_WITHDRAW")}
+        {t("VE_WITHDRAW", { tokenName })}
       </StyledButton>
     </>
   );

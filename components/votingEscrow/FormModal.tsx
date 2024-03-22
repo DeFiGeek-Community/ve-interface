@@ -78,6 +78,7 @@ export default function FormModal({
   const { colorMode } = useColorMode();
   const { t, i18n } = useTranslation();
   const { config, triggerRefetch } = useContractContext();
+  const { tokenName, veTokenName } = config;
   const decimals = config.TokenDecimals;
   const toast = useToast({ position: "top-right", isClosable: true });
 
@@ -407,9 +408,9 @@ export default function FormModal({
                   >
                     <AlertIcon boxSize="15px" color="#818181" />
                     <VStack spacing={2}>
-                      <AlertDescription>{t("YMT_LOCK_NOTE")}</AlertDescription>
+                      <AlertDescription>{t("YMT_LOCK_NOTE", { tokenName, veTokenName })}</AlertDescription>
                       <AlertDescription>
-                        {t("VE_YMT_DECREASE_NOTE")}
+                        {t("VE_YMT_DECREASE_NOTE", { tokenName, veTokenName })}
                       </AlertDescription>
                     </VStack>
                   </Alert>

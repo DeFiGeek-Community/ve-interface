@@ -12,6 +12,7 @@ import useMint, { UseMintReturn } from "hooks/Minter/useMint";
 export default function Reward({ address }: { address?: `0x${string}` }) {
   const { t } = useTranslation();
   const { config, triggerRefetch } = useContractContext();
+  const { tokenName, veTokenName } = config;
   const toast = useToast({ position: "top-right", isClosable: true });
   const { prepareFn, writeFn, waitFn, writeContract } = useMint({
     callbacks: {
@@ -47,7 +48,7 @@ export default function Reward({ address }: { address?: `0x${string}` }) {
       <HStack justifyContent={"space-between"} alignItems={"baseline"} mt={4}>
         <Text>
           {t("REWARDS")}
-          <StyledTooltip labelKey="REWARDS_HELP">
+          <StyledTooltip labelText={t("REWARDS_HELP", {tokenName, veTokenName})}>
             <QuestionIcon fontSize={"md"} mb={1} ml={1} />
           </StyledTooltip>
         </Text>
@@ -56,7 +57,7 @@ export default function Reward({ address }: { address?: `0x${string}` }) {
             <Box fontSize={"2xl"}>
               <AmountRenderer amount={result} />
               <chakra.span fontSize={"lg"} ml={1}>
-                YMT
+                {tokenName}
               </chakra.span>
             </Box>
             <StyledButton

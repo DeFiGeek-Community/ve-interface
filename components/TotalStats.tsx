@@ -22,7 +22,9 @@ import useTotalSupply from "hooks/VotingEscrow/useTotalSupply";
 
 export default function VotingEscrow({ address }: { address?: `0x${string}` }) {
   const { t } = useTranslation();
-  const { addresses } = useContractContext();
+  const { addresses, config } = useContractContext();
+  const { tokenName, veTokenName } = config;
+
   const { data: tokenTotalSupply } = useTokenTotalSupply() as {
     data: bigint | undefined;
   };
@@ -37,34 +39,34 @@ export default function VotingEscrow({ address }: { address?: `0x${string}` }) {
     <StyledCard>
       <CardHeader bg={"#5bad92"} py={2}>
         <Heading size="md" color={"white"}>
-          Total YMT Overview
+          {t("TOTAL_OVERVIEW", { tokenName })}
         </Heading>
       </CardHeader>
       <CardBody>
         <Heading fontSize={"xl"} pb={1}>
           <HStack>
             <Image src="/logo192.png" alt="Logo" boxSize="24px" />
-            <Text>{t("VE_YMT")}</Text>
-            <StyledTooltip labelKey="VE_YMT_REWARD_HELP">
+            <Text>{veTokenName}</Text>
+            <StyledTooltip labelText={t("VE_YMT_REWARD_HELP")}>
               <QuestionIcon fontSize={"lg"} cursor="help" />
             </StyledTooltip>
           </HStack>
         </Heading>
         <Divider variant="dashed" my={2} />
-        <StyledHStack title={t("TOTAL_YMT")} unit={"YMT"}>
+        <StyledHStack title={t("TOTAL_YMT", { tokenName })} unit={tokenName}>
           <AmountRenderer amount={tokenTotalSupply} />
         </StyledHStack>
-        <StyledHStack title={t("TOTAL_YMT_VOTE_LOCKED")} unit={"YMT"} mt={1}>
+        <StyledHStack title={t("TOTAL_YMT_VOTE_LOCKED", { tokenName })} unit={tokenName} mt={1}>
           <AmountRenderer amount={balance} />
         </StyledHStack>
-        <StyledHStack title={t("PERCENTAGE_YMT_LOCKED")} unit={"%"} mt={1}>
+        <StyledHStack title={t("PERCENTAGE_YMT_LOCKED", { tokenName })} unit={"%"} mt={1}>
           {typeof percentageLocked === "undefined" ? (
             <Spinner />
           ) : (
             <>{percentageLocked}</>
           )}
         </StyledHStack>
-        <StyledHStack title={t("TOTAL_VE_YMT")} unit={"veYMT"} mt={1}>
+        <StyledHStack title={t("TOTAL_VE_YMT", { veTokenName })} unit={veTokenName} mt={1}>
           <AmountRenderer amount={totalSupply} />
         </StyledHStack>
       </CardBody>

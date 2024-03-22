@@ -8,12 +8,13 @@ import StyledCard from "components/shared/StyledCard";
 export default function VotingEscrow({ address }: { address?: `0x${string}` }) {
   const { t } = useTranslation();
   const { config } = useContractContext();
+  const tokenName = config.tokenName;
 
   return (
     <StyledCard>
       <CardHeader bg={"#f9aea5"} py={2}>
         <Heading size="md" color={"white"}>
-          My YMT Portfolio
+          {t("MY_PORTFOLIO", { tokenName })}
         </Heading>
       </CardHeader>
       <CardBody>

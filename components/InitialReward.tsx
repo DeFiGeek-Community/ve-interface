@@ -29,6 +29,8 @@ export default function InitialReward({
 }) {
   const { t } = useTranslation();
   const { config, triggerRefetch } = useContractContext();
+  const { tokenName } = config;
+
   const toast = useToast({ position: "top-right", isClosable: true });
 
   const [claimableAmount, setClaimableAmount] = useState<bigint | undefined>(
@@ -99,24 +101,24 @@ export default function InitialReward({
     <StyledCard>
       <CardHeader bg={"#f9aea5"} py={2}>
         <Heading size="md" color={"white"}>
-          Initial Reward
+          {t("INITIAL_REWARD", { tokenName })}
         </Heading>
       </CardHeader>
       <CardBody>
         <Heading fontSize={"xl"} pb={1}>
           {t("EARLY_USER_REWARD")}
-          <StyledTooltip labelKey="EARLY_USER_REWARD_HELP">
+          <StyledTooltip labelText={t("EARLY_USER_REWARD_HELP")}>
             <QuestionIcon fontSize={"md"} mb={1} ml={1} />
           </StyledTooltip>
         </Heading>
         <Divider my={2} />
-        <StyledHStack title={t("ALLOCATED")} unit={"YMT"}>
+        <StyledHStack title={t("ALLOCATED")} unit={tokenName}>
           <AmountRenderer amount={vestingAmounts} />
         </StyledHStack>
-        <StyledHStack title={t("CLAIMED")} unit={"YMT"} mt={1}>
+        <StyledHStack title={t("CLAIMED")} unit={tokenName} mt={1}>
           <AmountRenderer amount={claimedAmounts} />
         </StyledHStack>
-        <StyledHStack title={t("CLAIMABLE")} unit={"YMT"} mt={1}>
+        <StyledHStack title={t("CLAIMABLE")} unit={tokenName} mt={1}>
           <AmountRenderer amount={claimableAmount} />
         </StyledHStack>
       </CardBody>
