@@ -56,17 +56,29 @@ export default function VotingEscrow({ address }: { address?: `0x${string}` }) {
         <StyledHStack title={t("TOTAL_TOKEN", { tokenName })} unit={tokenName}>
           <AmountRenderer amount={tokenTotalSupply} />
         </StyledHStack>
-        <StyledHStack title={t("TOTAL_TOKEN_VOTE_LOCKED", { tokenName })} unit={tokenName} mt={1}>
+        <StyledHStack
+          title={t("TOTAL_TOKEN_VOTE_LOCKED", { tokenName })}
+          unit={tokenName}
+          mt={1}
+        >
           <AmountRenderer amount={balance} />
         </StyledHStack>
-        <StyledHStack title={t("PERCENTAGE_TOKEN_LOCKED", { tokenName })} unit={"%"} mt={1}>
+        <StyledHStack
+          title={t("PERCENTAGE_TOKEN_LOCKED", { tokenName })}
+          unit={"%"}
+          mt={1}
+        >
           {typeof percentageLocked === "undefined" ? (
             <Spinner />
           ) : (
             <>{percentageLocked}</>
           )}
         </StyledHStack>
-        <StyledHStack title={t("TOTAL_VE_TOKEN", { veTokenName })} unit={veTokenName} mt={1}>
+        <StyledHStack
+          title={t("TOTAL_VE_TOKEN", { veTokenName })}
+          unit={veTokenName}
+          mt={1}
+        >
           <AmountRenderer amount={totalSupply} />
         </StyledHStack>
       </CardBody>

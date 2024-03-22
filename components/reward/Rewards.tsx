@@ -48,7 +48,9 @@ export default function Reward({ address }: { address?: `0x${string}` }) {
       <HStack justifyContent={"space-between"} alignItems={"baseline"} mt={4}>
         <Text>
           {t("REWARDS")}
-          <StyledTooltip labelText={t("REWARDS_HELP", {tokenName, veTokenName})}>
+          <StyledTooltip
+            labelText={t("REWARDS_HELP", { tokenName, veTokenName })}
+          >
             <QuestionIcon fontSize={"md"} mb={1} ml={1} />
           </StyledTooltip>
         </Text>

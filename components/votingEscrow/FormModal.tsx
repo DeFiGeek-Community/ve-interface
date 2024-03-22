@@ -408,9 +408,14 @@ export default function FormModal({
                   >
                     <AlertIcon boxSize="15px" color="#818181" />
                     <VStack spacing={2}>
-                      <AlertDescription>{t("TOKEN_LOCK_NOTE", { tokenName, veTokenName })}</AlertDescription>
                       <AlertDescription>
-                        {t("VE_TOKEN_DECREASE_NOTE", { tokenName, veTokenName })}
+                        {t("TOKEN_LOCK_NOTE", { tokenName, veTokenName })}
+                      </AlertDescription>
+                      <AlertDescription>
+                        {t("VE_TOKEN_DECREASE_NOTE", {
+                          tokenName,
+                          veTokenName,
+                        })}
                       </AlertDescription>
                     </VStack>
                   </Alert>
