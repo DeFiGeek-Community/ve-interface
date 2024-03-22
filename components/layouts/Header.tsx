@@ -1,13 +1,18 @@
-import { Box, Container, Flex, Link, HStack } from "@chakra-ui/react";
+import {
+  Box,
+  Container,
+  Flex,
+  Link,
+  HStack,
+  useMediaQuery,
+} from "@chakra-ui/react";
 import { useAccount } from "wagmi";
 import SvgYamatoLogWithTitle from "../svgs/YamatoLogo";
 
-type HeaderProps = {
-  title?: string;
-};
-
-export default function Header({ title }: HeaderProps) {
+export default function Header() {
   const { chain } = useAccount();
+  const [isLessThan520px] = useMediaQuery("(max-width: 520px)");
+
   return (
     <Box
       px={{ base: 0, md: 4 }}
@@ -25,9 +30,11 @@ export default function Header({ title }: HeaderProps) {
           alignItems="center"
         >
           <HStack>
-            <Link href="/">
-              <SvgYamatoLogWithTitle width={200} height={30} />
-            </Link>
+            {!isLessThan520px && (
+              <Link href="/">
+                <SvgYamatoLogWithTitle width={200} height={30} />
+              </Link>
+            )}
           </HStack>
           <HStack>
             {chain && <w3m-network-button />}
