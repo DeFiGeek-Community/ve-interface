@@ -24,7 +24,7 @@ export default function LockStats({ address }: { address?: `0x${string}` }) {
       <StyledHStack title={t("BALANCE")} unit={veTokenName}>
         <AmountRenderer amount={balance} />
       </StyledHStack>
-      <StyledHStack title={t("YMT_LOCKED", { tokenName })} unit={tokenName} mt={1}>
+      <StyledHStack title={t("TOKEN_LOCKED", { tokenName })} unit={tokenName} mt={1}>
         <AmountRenderer amount={locked ? locked[0] : undefined} />
       </StyledHStack>
       <StyledHStack title={t("LOCKED_UNTIL")} unit={""} mt={1}>
