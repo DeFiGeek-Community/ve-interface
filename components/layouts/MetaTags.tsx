@@ -10,38 +10,29 @@ type MetaTagProps = {
   children?: React.ReactNode;
 };
 
-export default function MetaTags(props: MetaTagProps | undefined) {
-  const defaultContents = {
-    title: `${SITE_NAME}`,
-    description: `${SITE_DESCRIPTION}`,
-    site_name: `${SITE_NAME}`,
-    image: undefined,
-    children: undefined,
-  };
-  const contents = !props ? defaultContents : { ...defaultContents, ...props };
-
+export default function MetaTags({
+  title = SITE_NAME,
+  description = SITE_DESCRIPTION,
+  site_name = SITE_NAME,
+  image = bgImage.src,
+  children,
+}: MetaTagProps) {
   return (
     <Head>
-      <title>{contents.title}</title>
+      <title>{title}</title>
       <meta name="robots" content="noindex" />
-      <meta name="description" content={contents.description} />
-      <meta property="og:title" content={contents.title} />
-      <meta property="og:description" content={contents.description} />
-      <meta property="og:site_name" content={contents.site_name} />
-      <meta
-        property="og:image"
-        content={contents.image ? contents.image : `${bgImage.src}`}
-      />
+      <meta name="description" content={description} />
+      <meta property="og:title" content={title} />
+      <meta property="og:description" content={description} />
+      <meta property="og:site_name" content={site_name} />
+      <meta property="og:image" content={image} />
       <meta name="twitter:card" content="summary" />
       {/* <meta name="twitter:site" content="@" /> */}
-      <meta name="twitter:title" content={contents.title} />
-      <meta name="twitter:description" content={contents.description} />
-      <meta
-        name="twitter:image"
-        content={contents.image ? contents.image : `${bgImage.src}`}
-      />
+      <meta name="twitter:title" content={title} />
+      <meta name="twitter:description" content={description} />
+      <meta name="twitter:image" content={image} />
       <link rel="icon" href="/favicon.ico" />
-      {!!contents.children && contents.children}
+      {children}
     </Head>
   );
 }
