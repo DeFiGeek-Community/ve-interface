@@ -69,7 +69,7 @@ export default function VotingEscrow({ address }: { address?: `0x${string}` }) {
           mt={1}
         >
           {typeof percentageLocked === "undefined" ? (
-            <Spinner />
+            <Spinner mr={3} />
           ) : (
             <>{percentageLocked}</>
           )}

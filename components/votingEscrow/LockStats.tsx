@@ -33,7 +33,7 @@ export default function LockStats({ address }: { address?: `0x${string}` }) {
       </StyledHStack>
       <StyledHStack title={t("LOCKED_UNTIL")} unit={""} mt={1}>
         {typeof locked === "undefined" ? (
-          <Spinner />
+          <Spinner mr={3} />
         ) : locked[1] === BigInt(0) ? (
           <>{"-- / -- / --"}</>
         ) : (
