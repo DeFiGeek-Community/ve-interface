@@ -46,7 +46,7 @@ export default function Reward({ address }: { address?: `0x${string}` }) {
   const result = prepareFn.data?.result;
   return (
     <>
-      <InitialCheckpoint />
+      <InitialCheckpoint address={address} />
       <HStack justifyContent={"space-between"} alignItems={"baseline"} mt={4}>
         <Text>
           {t("REWARDS")}
