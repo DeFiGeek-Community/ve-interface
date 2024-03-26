@@ -6,6 +6,7 @@ export interface ISystemContractAddresses {
   VotingEscrow: `0x${string}`;
   Token: `0x${string}`;
   Vesting: `0x${string}`;
+  Yamato: `0x${string}`;
 }
 
 export interface IVeSystemContracts {
@@ -24,6 +25,7 @@ export const veSystemContracts: IVeSystemContracts = {
       VotingEscrow: "0x",
       Token: "0x",
       Vesting: "0x",
+      Yamato: "0x",
     },
     11155111: {
       FeeDistributor: "0x5788599e56b1126Fc59417eD314363378A394Bf6",
@@ -33,6 +35,7 @@ export const veSystemContracts: IVeSystemContracts = {
       VotingEscrow: "0xfF62eFe9097467Fb2B2adD94B2334764a57bD197",
       Token: "0x67bE87A96bF2306D0bc42c60EdAc51637b882eB9",
       Vesting: "0x17A6da7cd6eD06af8598b6EB4238119DcC958E32",
+      Yamato: "0xEc8023Bd4BF08993C96F1f23dbE858b42F6A393F",
     },
   },
 };

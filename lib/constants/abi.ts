@@ -5,6 +5,7 @@ import YmtMinter from "lib/abis/yamato/YmtMinter.json";
 import veYMT from "lib/abis/yamato/veYMT.json";
 import YMT from "lib/abis/yamato/YMT.json";
 import Vesting from "lib/abis/yamato/YmtVesting.json";
+import Yamato from "lib/abis/yamato/Yamato.json";
 
 export interface ISystemContractAbis {
   FeeDistributor: any[];
@@ -14,6 +15,7 @@ export interface ISystemContractAbis {
   VotingEscrow: any[];
   Token: any[];
   Vesting: any[];
+  Yamato: any[];
 }
 
 export interface IVeSystemAbis {
@@ -32,6 +34,7 @@ export const veSystemAbis: IVeSystemAbis = {
       VotingEscrow: veYMT,
       Token: YMT,
       Vesting: Vesting,
+      Yamato: Yamato,
     },
     11155111: {
       FeeDistributor: FeePoolV2,
@@ -41,6 +44,7 @@ export const veSystemAbis: IVeSystemAbis = {
       VotingEscrow: veYMT,
       Token: YMT,
       Vesting: Vesting,
+      Yamato: Yamato,
     },
   },
 };
