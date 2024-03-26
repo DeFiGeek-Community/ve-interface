@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import {
   HStack,
   VStack,
@@ -23,6 +24,8 @@ import TxSentToast from "components/shared/TxSentToast";
 import useUserCheckpoint, {
   UseUserCheckpointReturn,
 } from "hooks/Gauge/useUserCheckpoint";
+import useIntegrateFraction from "hooks/Gauge/useIntegrateFraction";
+import usePledge from "hooks/Yamato/usePledge";
 
 export default function InitialCheckpoint({
   address,
@@ -33,6 +36,26 @@ export default function InitialCheckpoint({
   const { triggerRefetch } = useContractContext();
   const { isOpen, onOpen, onClose } = useDisclosure();
   const toast = useToast({ position: "top-right", isClosable: true });
+
+  const { data: integrateFraction } = useIntegrateFraction(address) as {
+    data: bigint | undefined;
+  };
+  const { data: pledgeData } = usePledge(address);
+  const pledge = pledgeData as
+    | {
+        coll: bigint;
+        debt: bigint;
+        isCreated: boolean;
+        owner: string;
+        priority: bigint;
+      }
+    | undefined;
+
+  useEffect(() => {
+    if (integrateFraction === BigInt(0) && pledge && pledge.debt >= BigInt(0)) {
+      onOpen();
+    }
+  }, [integrateFraction, pledge]);
 
   const { writeFn, waitFn, writeContract } = useUserCheckpoint({
     callbacks: {
