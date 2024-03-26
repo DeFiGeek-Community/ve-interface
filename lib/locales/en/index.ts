@@ -47,7 +47,7 @@ const en = {
   CHECKPOINT_DESCRIPTION:
     "The user checkpoint calculates the current score and rewards of the user and updates them to the latest state.",
   CHECKPOINT_ALERT:
-    "For Yamato V1, executing the checkpoint for the first time is necessary. If the checkpoint is not executed, rewards will not be reflected.",
+    "To record the borrowing information of Yamato V1, executing the checkpoint for the first time is necessary. If not executed, rewards will not be reflected.",
   CHECKPOINT_BUTTON: "Execute User Checkpoint",
   UPDATE_SCORE_BUTTON: "Update Score",
 };
