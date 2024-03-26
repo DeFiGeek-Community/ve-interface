@@ -3,6 +3,7 @@ import { QuestionIcon } from "@chakra-ui/icons";
 import { useTranslation } from "react-i18next";
 import { useContractContext } from "lib/contexts/ContractContext";
 import FeeRewards from "components/reward/FeeReward";
+import InitialCheckpoint from "components/reward/InitialCheckpoint";
 import StyledButton from "components/shared/StyledButton";
 import StyledTooltip from "components/shared/StyledTooltip";
 import AmountRenderer from "components/shared/AmountRenderer";
@@ -45,6 +46,7 @@ export default function Reward({ address }: { address?: `0x${string}` }) {
   const result = prepareFn.data?.result;
   return (
     <>
+      <InitialCheckpoint />
       <HStack justifyContent={"space-between"} alignItems={"baseline"} mt={4}>
         <Text>
           {t("REWARDS")}

@@ -41,5 +41,13 @@ const ja = {
   TOTAL_TOKEN_VOTE_LOCKED: "投票ロックされた{{tokenName}}の合計",
   PERCENTAGE_TOKEN_LOCKED: "{{tokenName}}ロックの割合",
   TOTAL_VE_TOKEN: "{{veTokenName}}の合計",
+
+  CHECKPOINT_TITLE: "ユーザーチェックポイント",
+  CHECKPOINT_DESCRIPTION:
+    "ユーザーチェックポイントは、ユーザーの現在のスコアやリワードを計算し、最新の状態に更新します。",
+  CHECKPOINT_ALERT:
+    "Yamato V1の借入情報は初回のみチェックポイントを実行が必要です。チェックポイント未実行の場合は、リワードが反映されません。",
+  CHECKPOINT_BUTTON: "ユーザーチェックポイントを実行",
+  UPDATE_SCORE_BUTTON: "スコア更新",
 };
 export default ja;
