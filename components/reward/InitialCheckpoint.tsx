@@ -13,19 +13,18 @@ import {
   Alert,
   AlertIcon,
   AlertDescription,
-  useToast,
 } from "@chakra-ui/react";
 import { QuestionIcon } from "@chakra-ui/icons";
 import { useTranslation } from "react-i18next";
 import { useContractContext } from "lib/contexts/ContractContext";
 import StyledButton from "components/shared/StyledButton";
 import StyledTooltip from "components/shared/StyledTooltip";
-import TxSentToast from "components/shared/TxSentToast";
 import useUserCheckpoint, {
   UseUserCheckpointReturn,
 } from "hooks/Gauge/useUserCheckpoint";
 import useIntegrateFraction from "hooks/Gauge/useIntegrateFraction";
 import usePledge from "hooks/Yamato/usePledge";
+import useToastNotifications from "hooks/useToastNotifications";
 
 export default function InitialCheckpoint({
   address,
@@ -35,7 +34,7 @@ export default function InitialCheckpoint({
   const { t } = useTranslation();
   const { triggerRefetch } = useContractContext();
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const toast = useToast({ position: "top-right", isClosable: true });
+  const { showSuccessToast, showErrorToast, showConfirmationToast } = useToastNotifications();
 
   const { data: integrateFraction } = useIntegrateFraction(address) as {
     data: bigint | undefined;
@@ -60,26 +59,13 @@ export default function InitialCheckpoint({
   const { writeFn, waitFn, writeContract } = useUserCheckpoint({
     callbacks: {
       onSuccessWrite(data) {
-        toast({
-          title: t("TRANSACTION_SENT"),
-          status: "success",
-          duration: 5000,
-          render: (props) => <TxSentToast txid={data} {...props} />,
-        });
+        showSuccessToast(data);
       },
       onError(e) {
-        toast({
-          description: e.message,
-          status: "error",
-          duration: 5000,
-        });
+        showErrorToast(e.message);
       },
       onSuccessConfirm(data) {
-        toast({
-          title: t("TRANSACTION_CONFIRMED"),
-          status: "success",
-          duration: 5000,
-        });
+        showConfirmationToast();
         triggerRefetch();
       },
     },
