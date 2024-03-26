@@ -45,7 +45,7 @@ const en = {
 
   CHECKPOINT_TITLE: "User Checkpoint",
   CHECKPOINT_DESCRIPTION:
-    "The user checkpoint calculates the current score and rewards of the user and updates them to the latest state.",
+    "Calculates the user's current score and rewards, and updates to the latest state. Normally, it is executed automatically with each action, so there is no need to run it manually.",
   CHECKPOINT_ALERT:
     "To record the borrowing information of Yamato V1, executing the checkpoint for the first time is necessary. If not executed, rewards will not be reflected.",
   CHECKPOINT_BUTTON: "Execute User Checkpoint",
