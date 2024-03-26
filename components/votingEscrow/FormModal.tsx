@@ -27,7 +27,6 @@ import {
   AlertIcon,
   AlertDescription,
   VStack,
-  useToast,
 } from "@chakra-ui/react";
 import { useFormik } from "formik";
 import { DatePicker, CustomProvider } from "rsuite";
@@ -43,10 +42,10 @@ import {
 import { LockType } from "lib/types/VotingEscrow";
 import { useContractContext } from "lib/contexts/ContractContext";
 import StyledButton from "components/shared/StyledButton";
-import TxSentToast from "components/shared/TxSentToast";
 import useBalanceOf from "hooks/Token/useBalanceOf";
 import useApprove, { UseApproveReturn } from "hooks/Token/useApprove";
 import useLock, { UseLockReturn } from "hooks/VotingEscrow/useLock";
+import useToastNotifications from "hooks/useToastNotifications";
 
 type FormModalProps = {
   address?: `0x${string}`;
@@ -80,7 +79,7 @@ export default function FormModal({
   const { config, triggerRefetch } = useContractContext();
   const { tokenName, veTokenName } = config;
   const decimals = config.TokenDecimals;
-  const toast = useToast({ position: "top-right", isClosable: true });
+  const { showSuccessToast, showErrorToast, showConfirmationToast } = useToastNotifications();
 
   const { data: balance } = useBalanceOf(address) as {
     data: bigint | undefined;
@@ -152,26 +151,13 @@ export default function FormModal({
     amount: calculatedAmount,
     callbacks: {
       onSuccessWrite(data) {
-        toast({
-          title: t("TRANSACTION_SENT"),
-          status: "success",
-          duration: 5000,
-          render: (props) => <TxSentToast txid={data} {...props} />,
-        });
+        showSuccessToast(data);
       },
       onError(e) {
-        toast({
-          description: e.message,
-          status: "error",
-          duration: 5000,
-        });
+        showErrorToast(e.message);
       },
       onSuccessConfirm(data) {
-        toast({
-          title: t("APPROVAL_CONFIRMED"),
-          status: "success",
-          duration: 5000,
-        });
+        showConfirmationToast();
         writeContract();
       },
     },
@@ -190,27 +176,14 @@ export default function FormModal({
       : undefined,
     allowance: allowanceValue,
     callbacks: {
-      onSuccessWrite: (data) => {
-        toast({
-          title: t("TRANSACTION_SENT"),
-          status: "success",
-          duration: 5000,
-          render: (props) => <TxSentToast txid={data} {...props} />,
-        });
+      onSuccessWrite(data) {
+        showSuccessToast(data);
       },
-      onError: (e) => {
-        toast({
-          description: e.message,
-          status: "error",
-          duration: 5000,
-        });
+      onError(e) {
+        showErrorToast(e.message);
       },
-      onSuccessConfirm: (data) => {
-        toast({
-          title: t("TRANSACTION_CONFIRMED"),
-          status: "success",
-          duration: 5000,
-        });
+      onSuccessConfirm(data) {
+        showConfirmationToast();
         triggerRefetch();
         onClose();
       },
