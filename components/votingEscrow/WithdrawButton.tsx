@@ -1,38 +1,25 @@
-import { ButtonProps, useToast } from "@chakra-ui/react";
+import { ButtonProps } from "@chakra-ui/react";
 import { useTranslation } from "react-i18next";
 import { useContractContext } from "lib/contexts/ContractContext";
 import StyledButton from "components/shared/StyledButton";
-import TxSentToast from "components/shared/TxSentToast";
 import useWithdraw, { UseWithdrawReturn } from "hooks/VotingEscrow/useWithdraw";
+import useToastNotifications from "hooks/useToastNotifications";
 
 export default function WithdrawButton(props: ButtonProps) {
   const { t } = useTranslation();
   const { config, triggerRefetch } = useContractContext();
   const { tokenName } = config;
-  const toast = useToast({ position: "top-right", isClosable: true });
+  const { showSuccessToast, showErrorToast, showConfirmationToast } = useToastNotifications();
   const { writeFn, waitFn, writeContract } = useWithdraw({
     callbacks: {
       onSuccessWrite(data) {
-        toast({
-          title: t("TRANSACTION_SENT"),
-          status: "success",
-          duration: 5000,
-          render: (props) => <TxSentToast txid={data} {...props} />,
-        });
+        showSuccessToast(data);
       },
       onError(e) {
-        toast({
-          description: e.message,
-          status: "error",
-          duration: 5000,
-        });
+        showErrorToast(e.message);
       },
       onSuccessConfirm(data) {
-        toast({
-          title: t("TRANSACTION_CONFIRMED"),
-          status: "success",
-          duration: 5000,
-        });
+        showConfirmationToast();
         triggerRefetch();
       },
     },
