@@ -1,38 +1,25 @@
-import { HStack, Box, chakra, useToast } from "@chakra-ui/react";
+import { HStack, Box, chakra } from "@chakra-ui/react";
 import { useTranslation } from "react-i18next";
 import { useContractContext } from "lib/contexts/ContractContext";
 import StyledButton from "components/shared/StyledButton";
 import AmountRenderer from "components/shared/AmountRenderer";
-import TxSentToast from "components/shared/TxSentToast";
 import useClaim, { UseClaimReturn } from "hooks/FeeDistributor/useClaim";
+import useToastNotifications from "hooks/useToastNotifications";
 
 export default function Reward({ address }: { address?: `0x${string}` }) {
   const { t } = useTranslation();
   const { triggerRefetch } = useContractContext();
-  const toast = useToast({ position: "top-right", isClosable: true });
+  const { showSuccessToast, showErrorToast, showConfirmationToast } = useToastNotifications();
   const { prepareFn, writeFn, waitFn, writeContract } = useClaim({
     callbacks: {
       onSuccessWrite(data) {
-        toast({
-          title: t("TRANSACTION_SENT"),
-          status: "success",
-          duration: 5000,
-          render: (props) => <TxSentToast txid={data} {...props} />,
-        });
+        showSuccessToast(data);
       },
       onError(e) {
-        toast({
-          description: e.message,
-          status: "error",
-          duration: 5000,
-        });
+        showErrorToast(e.message);
       },
       onSuccessConfirm(data) {
-        toast({
-          title: t("TRANSACTION_CONFIRMED"),
-          status: "success",
-          duration: 5000,
-        });
+        showConfirmationToast();
         triggerRefetch();
       },
     },
