@@ -14,7 +14,8 @@ export default function Reward({ address }: { address?: `0x${string}` }) {
   const { t } = useTranslation();
   const { config, triggerRefetch } = useContractContext();
   const { tokenName, veTokenName } = config;
-  const { showSuccessToast, showErrorToast, showConfirmationToast } = useToastNotifications();
+  const { showSuccessToast, showErrorToast, showConfirmationToast } =
+    useToastNotifications();
 
   const { prepareFn, writeFn, waitFn, writeContract } = useMint({
     callbacks: {

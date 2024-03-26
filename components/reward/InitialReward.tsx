@@ -30,7 +30,8 @@ export default function InitialReward({
   const { config, triggerRefetch } = useContractContext();
   const { tokenName } = config;
 
-  const { showSuccessToast, showErrorToast, showConfirmationToast } = useToastNotifications();
+  const { showSuccessToast, showErrorToast, showConfirmationToast } =
+    useToastNotifications();
 
   const [claimableAmount, setClaimableAmount] = useState<bigint | undefined>(
     undefined,

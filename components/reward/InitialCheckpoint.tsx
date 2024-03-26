@@ -34,7 +34,8 @@ export default function InitialCheckpoint({
   const { t } = useTranslation();
   const { triggerRefetch } = useContractContext();
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const { showSuccessToast, showErrorToast, showConfirmationToast } = useToastNotifications();
+  const { showSuccessToast, showErrorToast, showConfirmationToast } =
+    useToastNotifications();
 
   const { data: integrateFraction } = useIntegrateFraction(address) as {
     data: bigint | undefined;

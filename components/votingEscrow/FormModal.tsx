@@ -79,7 +79,8 @@ export default function FormModal({
   const { config, triggerRefetch } = useContractContext();
   const { tokenName, veTokenName } = config;
   const decimals = config.TokenDecimals;
-  const { showSuccessToast, showErrorToast, showConfirmationToast } = useToastNotifications();
+  const { showSuccessToast, showErrorToast, showConfirmationToast } =
+    useToastNotifications();
 
   const { data: balance } = useBalanceOf(address) as {
     data: bigint | undefined;

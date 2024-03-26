@@ -45,7 +45,7 @@ export default function Header() {
                 aria-label="Options"
               />
               <MenuList bg="#fcfaf2">
-                <MenuItem as={Link} href="https://app.yamato.fi/#/" >
+                <MenuItem as={Link} href="https://app.yamato.fi/#/">
                   HOME
                 </MenuItem>
                 <MenuItem

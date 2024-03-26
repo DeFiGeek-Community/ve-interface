@@ -9,7 +9,8 @@ import useToastNotifications from "hooks/useToastNotifications";
 export default function Reward({ address }: { address?: `0x${string}` }) {
   const { t } = useTranslation();
   const { triggerRefetch } = useContractContext();
-  const { showSuccessToast, showErrorToast, showConfirmationToast } = useToastNotifications();
+  const { showSuccessToast, showErrorToast, showConfirmationToast } =
+    useToastNotifications();
   const { prepareFn, writeFn, waitFn, writeContract } = useClaim({
     callbacks: {
       onSuccessWrite(data) {

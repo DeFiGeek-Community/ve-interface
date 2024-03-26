@@ -9,7 +9,8 @@ export default function WithdrawButton(props: ButtonProps) {
   const { t } = useTranslation();
   const { config, triggerRefetch } = useContractContext();
   const { tokenName } = config;
-  const { showSuccessToast, showErrorToast, showConfirmationToast } = useToastNotifications();
+  const { showSuccessToast, showErrorToast, showConfirmationToast } =
+    useToastNotifications();
   const { writeFn, waitFn, writeContract } = useWithdraw({
     callbacks: {
       onSuccessWrite(data) {
