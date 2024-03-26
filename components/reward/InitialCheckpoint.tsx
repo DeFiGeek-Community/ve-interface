@@ -1,4 +1,3 @@
-import { useState, useEffect } from "react";
 import {
   HStack,
   VStack,
@@ -13,12 +12,17 @@ import {
   Alert,
   AlertIcon,
   AlertDescription,
+  useToast,
 } from "@chakra-ui/react";
 import { QuestionIcon } from "@chakra-ui/icons";
 import { useTranslation } from "react-i18next";
 import { useContractContext } from "lib/contexts/ContractContext";
 import StyledButton from "components/shared/StyledButton";
 import StyledTooltip from "components/shared/StyledTooltip";
+import TxSentToast from "components/shared/TxSentToast";
+import useUserCheckpoint, {
+  UseUserCheckpointReturn,
+} from "hooks/Gauge/useUserCheckpoint";
 
 export default function InitialCheckpoint({
   address,
@@ -26,7 +30,37 @@ export default function InitialCheckpoint({
   address?: `0x${string}`;
 }) {
   const { t } = useTranslation();
+  const { triggerRefetch } = useContractContext();
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const toast = useToast({ position: "top-right", isClosable: true });
+
+  const { writeFn, waitFn, writeContract } = useUserCheckpoint({
+    callbacks: {
+      onSuccessWrite(data) {
+        toast({
+          title: t("TRANSACTION_SENT"),
+          status: "success",
+          duration: 5000,
+          render: (props) => <TxSentToast txid={data} {...props} />,
+        });
+      },
+      onError(e) {
+        toast({
+          description: e.message,
+          status: "error",
+          duration: 5000,
+        });
+      },
+      onSuccessConfirm(data) {
+        toast({
+          title: t("TRANSACTION_CONFIRMED"),
+          status: "success",
+          duration: 5000,
+        });
+        triggerRefetch();
+      },
+    },
+  }) as UseUserCheckpointReturn;
 
   return (
     <>
@@ -72,7 +106,14 @@ export default function InitialCheckpoint({
                 </VStack>
               </Alert>
             </HStack>
-            <StyledButton mt={4} w={"full"} variant="solid">
+            <StyledButton
+              mt={4}
+              w={"full"}
+              variant="solid"
+              isDisabled={!address || !writeFn.writeContract}
+              isLoading={writeFn.isPending || waitFn.isLoading}
+              onClick={() => writeContract()}
+            >
               {t("CHECKPOINT_BUTTON")}
             </StyledButton>
           </ModalBody>
