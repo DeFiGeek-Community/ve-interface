@@ -20,7 +20,7 @@ import useTokenTotalSupply from "hooks/Token/useTotalSupply";
 import useBalanceOf from "hooks/Token/useBalanceOf";
 import useTotalSupply from "hooks/VotingEscrow/useTotalSupply";
 
-export default function VotingEscrow({ address }: { address?: `0x${string}` }) {
+export default function TotalStats({ address }: { address?: `0x${string}` }) {
   const { t } = useTranslation();
   const { addresses, config } = useContractContext();
   const { tokenName, veTokenName } = config;
