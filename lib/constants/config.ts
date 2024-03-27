@@ -7,6 +7,7 @@ export interface IConfig {
   initialReward: boolean;
   minterReward: boolean;
   feeReward: boolean;
+  checkpoint: boolean;
 }
 
 export interface IEnvironmentConfig {
@@ -26,6 +27,7 @@ export const environmentConfig: IEnvironmentConfig = {
       initialReward: true,
       minterReward: true,
       feeReward: true,
+      checkpoint: true,
     },
     11155111: {
       TokenStartTimestamp: 1710832176,
@@ -36,6 +38,7 @@ export const environmentConfig: IEnvironmentConfig = {
       initialReward: true,
       minterReward: true,
       feeReward: true,
+      checkpoint: true,
     },
   },
 };

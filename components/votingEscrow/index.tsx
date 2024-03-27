@@ -2,6 +2,7 @@ import { CardHeader, CardBody, Heading, Divider } from "@chakra-ui/react";
 import { useTranslation } from "react-i18next";
 import { useContractContext } from "lib/contexts/ContractContext";
 import LockStats from "components/votingEscrow/LockStats";
+import InitialCheckpoint from "components/reward/InitialCheckpoint";
 import Reward from "components/reward/Rewards";
 import StyledCard from "components/shared/StyledCard";
 
@@ -20,6 +21,7 @@ export default function VotingEscrow({ address }: { address?: `0x${string}` }) {
       <CardBody>
         <LockStats address={address} />
         <Divider variant="dashed" py={2} />
+        {config.checkpoint && <InitialCheckpoint address={address} />}
         {config.minterReward && <Reward address={address} />}
       </CardBody>
     </StyledCard>
