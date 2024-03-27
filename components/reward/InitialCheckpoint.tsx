@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useState, useEffect } from "react";
 import {
   HStack,
   VStack,
@@ -37,10 +37,12 @@ export default function InitialCheckpoint({
   const { showSuccessToast, showErrorToast, showConfirmationToast } =
     useToastNotifications();
 
-  const { data: integrateFraction } = useIntegrateFraction(address) as {
-    data: bigint | undefined;
-  };
-  const { data: pledgeData } = usePledge(address);
+  const { data: integrateFraction, isLoading: integrateLoading } =
+    useIntegrateFraction(address) as {
+      data: bigint | undefined;
+      isLoading: boolean;
+    };
+  const { data: pledgeData, isLoading: pledgeLoading } = usePledge(address);
   const pledge = pledgeData as
     | {
         coll: bigint;
@@ -50,12 +52,6 @@ export default function InitialCheckpoint({
         priority: bigint;
       }
     | undefined;
-
-  useEffect(() => {
-    if (integrateFraction === BigInt(0) && pledge && pledge.debt >= BigInt(0)) {
-      onOpen();
-    }
-  }, [integrateFraction, pledge]);
 
   const { writeFn, waitFn, writeContract } = useUserCheckpoint({
     callbacks: {
@@ -71,6 +67,27 @@ export default function InitialCheckpoint({
       },
     },
   }) as UseUserCheckpointReturn;
+
+  const [shouldDisplay, setShouldDisplay] = useState(false);
+
+  useEffect(() => {
+    const isDataLoaded = !pledgeLoading && !integrateLoading;
+    const shouldOpenModal =
+      integrateFraction === BigInt(0) && pledge && pledge.debt >= BigInt(0);
+
+    if (isDataLoaded) {
+      if (shouldOpenModal) {
+        onOpen();
+        setShouldDisplay(true);
+      } else {
+        setShouldDisplay(false);
+      }
+    }
+  }, [integrateFraction, pledge, pledgeLoading, integrateLoading, onOpen]);
+
+  if (!shouldDisplay) {
+    return null;
+  }
 
   return (
     <>
