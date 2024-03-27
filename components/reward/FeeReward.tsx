@@ -6,7 +6,7 @@ import AmountRenderer from "components/shared/AmountRenderer";
 import useClaim, { UseClaimReturn } from "hooks/FeeDistributor/useClaim";
 import useToastNotifications from "hooks/useToastNotifications";
 
-export default function Reward({ address }: { address?: `0x${string}` }) {
+export default function FeeReward({ address }: { address?: `0x${string}` }) {
   const { t } = useTranslation();
   const { triggerRefetch } = useContractContext();
   const { showSuccessToast, showErrorToast, showConfirmationToast } =
