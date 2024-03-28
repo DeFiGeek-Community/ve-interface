@@ -22,7 +22,7 @@ import StyledTooltip from "components/shared/StyledTooltip";
 import useUserCheckpoint, {
   UseUserCheckpointReturn,
 } from "hooks/Gauge/useUserCheckpoint";
-import useIntegrateFraction from "hooks/Gauge/useIntegrateFraction";
+import useWorkingBalances from "hooks/Gauge/useWorkingBalances";
 import usePledge from "hooks/Yamato/usePledge";
 import useToastNotifications from "hooks/useToastNotifications";
 
@@ -37,8 +37,8 @@ export default function InitialCheckpoint({
   const { showSuccessToast, showErrorToast, showConfirmationToast } =
     useToastNotifications();
 
-  const { data: integrateFraction, isLoading: integrateLoading } =
-    useIntegrateFraction(address) as {
+  const { data: workingBalances, isLoading: workingLoading } =
+  useWorkingBalances(address) as {
       data: bigint | undefined;
       isLoading: boolean;
     };
@@ -71,10 +71,9 @@ export default function InitialCheckpoint({
   const [shouldDisplay, setShouldDisplay] = useState(false);
 
   useEffect(() => {
-    const isDataLoaded = !pledgeLoading && !integrateLoading;
+    const isDataLoaded = !pledgeLoading && !workingLoading;
     const shouldOpenModal =
-      integrateFraction === BigInt(0) && pledge && pledge.debt >= BigInt(0);
-
+      workingBalances === BigInt(0) && pledge && pledge.debt > BigInt(0);
     if (isDataLoaded) {
       if (shouldOpenModal) {
         onOpen();
@@ -83,7 +82,7 @@ export default function InitialCheckpoint({
         setShouldDisplay(false);
       }
     }
-  }, [integrateFraction, pledge, pledgeLoading, integrateLoading, onOpen]);
+  }, [workingBalances, pledge, pledgeLoading, workingLoading, onOpen]);
 
   if (!shouldDisplay) {
     return null;

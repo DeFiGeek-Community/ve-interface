@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { useReadContract, useAccount } from "wagmi";
 import { useContractContext } from "lib/contexts/ContractContext";
 
-export default function useIntegrateFraction(
+export default function useWorkingBalances(
   address?: `0x${string}`,
 ): ReturnType<typeof useReadContract> {
   const { addresses, abis, refetchFlag } = useContractContext();
@@ -13,7 +13,7 @@ export default function useIntegrateFraction(
   };
   const readFn = useReadContract({
     ...config,
-    functionName: "integrateFraction",
+    functionName: "workingBalances",
     args: [address || "0x0"],
     query: {
       enabled: !!accentAddress,
