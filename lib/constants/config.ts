@@ -8,7 +8,7 @@ export interface IConfig {
   minterReward: boolean;
   feeReward: boolean;
   checkpoint: boolean;
-  homeUrl?: string; 
+  homeUrl?: string;
 }
 
 export interface IEnvironmentConfig {
