@@ -44,3 +44,10 @@ export const getEtherscanLink = (
 ): string => {
   return `https://${chain === "mainnet" ? "" : `${chain}.`}etherscan.io/${type}/${hash}`;
 };
+
+export const getRoundedWeekTimestamp = (date?: Date): number => {
+  date = date || new Date();
+  const WEEK = 3600 * 24 * 7;
+  const timestamp = date.getTime();
+  return Math.floor(timestamp / 1000 / WEEK) * WEEK * 1000;
+};

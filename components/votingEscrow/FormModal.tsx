@@ -30,7 +30,7 @@ import {
 } from "@chakra-ui/react";
 import { useFormik } from "formik";
 import { DatePicker, CustomProvider } from "rsuite";
-import { format, addYears } from "date-fns";
+import { format, addYears, addDays } from "date-fns";
 import { useTranslation } from "react-i18next";
 import { jaJP, enUS } from "rsuite/locales";
 import "rsuite/dist/rsuite-no-reset.min.css";
@@ -38,6 +38,7 @@ import {
   tokenAmountFormat,
   formatTokenAmountToNumber,
   convertToBigIntWithDecimals,
+  getRoundedWeekTimestamp,
 } from "lib/utils";
 import { LockType } from "lib/types/VotingEscrow";
 import { useContractContext } from "lib/contexts/ContractContext";
@@ -87,9 +88,8 @@ export default function FormModal({
   };
 
   const setDaysLater = (days: number) => {
-    const newDate = new Date();
-    newDate.setDate(newDate.getDate() + days);
-    formikProps.setFieldValue("unlockTime", newDate.getTime());
+    const newDate = addDays(new Date(), days);
+    formikProps.setFieldValue("unlockTime", getRoundedWeekTimestamp(newDate));
   };
 
   const isApprove =
