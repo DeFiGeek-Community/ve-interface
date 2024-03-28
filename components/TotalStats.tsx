@@ -47,7 +47,7 @@ export default function TotalStats({ address }: { address?: `0x${string}` }) {
           <HStack>
             <Image src="/logo192.png" alt="Logo" boxSize="24px" />
             <Text>{veTokenName}</Text>
-            <StyledTooltip labelText={t("VE_TOKEN_REWARD_HELP")}>
+            <StyledTooltip labelText={t("VE_TOKEN_REWARD_HELP", { tokenName, veTokenName })}>
               <QuestionIcon fontSize={"lg"} cursor="help" />
             </StyledTooltip>
           </HStack>
