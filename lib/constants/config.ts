@@ -8,6 +8,7 @@ export interface IConfig {
   minterReward: boolean;
   feeReward: boolean;
   checkpoint: boolean;
+  homeUrl?: string; 
 }
 
 export interface IEnvironmentConfig {
@@ -28,6 +29,7 @@ export const environmentConfig: IEnvironmentConfig = {
       minterReward: true,
       feeReward: true,
       checkpoint: true,
+      homeUrl: "",
     },
     11155111: {
       TokenStartTimestamp: 1710832176,
@@ -39,6 +41,7 @@ export const environmentConfig: IEnvironmentConfig = {
       minterReward: true,
       feeReward: true,
       checkpoint: true,
+      homeUrl: "https://yamato-interface.vercel.app/#/",
     },
   },
 };

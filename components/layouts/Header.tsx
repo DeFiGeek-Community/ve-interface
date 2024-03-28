@@ -14,10 +14,12 @@ import {
 } from "@chakra-ui/react";
 import { HamburgerIcon } from "@chakra-ui/icons";
 import { useAccount } from "wagmi";
+import { useContractContext } from "lib/contexts/ContractContext";
 import SvgYamatoLogWithTitle from "../svgs/YamatoLogo";
 
 export default function Header() {
   const { chain } = useAccount();
+  const { config } = useContractContext();
   const [isLessThan700px] = useMediaQuery("(max-width: 700px)");
 
   return (
@@ -45,7 +47,7 @@ export default function Header() {
                 aria-label="Options"
               />
               <MenuList bg="#fcfaf2">
-                <MenuItem as={Link} href="https://app.yamato.fi/#/">
+                <MenuItem as={Link} href={config.homeUrl}>
                   HOME
                 </MenuItem>
                 <MenuItem
@@ -63,7 +65,7 @@ export default function Header() {
                 <SvgYamatoLogWithTitle width={200} height={30} />
               </Link>
               <Link
-                href="https://app.yamato.fi/#/"
+                href={config.homeUrl}
                 _hover={{ textDecoration: "none" }}
                 ml={4}
               >
