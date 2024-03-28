@@ -38,7 +38,7 @@ export default function InitialCheckpoint({
     useToastNotifications();
 
   const { data: workingBalances, isLoading: workingLoading } =
-  useWorkingBalances(address) as {
+    useWorkingBalances(address) as {
       data: bigint | undefined;
       isLoading: boolean;
     };
