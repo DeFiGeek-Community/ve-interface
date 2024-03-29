@@ -2,7 +2,6 @@ import { HStack, VStack, Text, chakra, Box } from "@chakra-ui/react";
 import { QuestionIcon } from "@chakra-ui/icons";
 import { useTranslation } from "react-i18next";
 import { useContractContext } from "lib/contexts/ContractContext";
-import FeeRewards from "components/reward/FeeReward";
 import StyledButton from "components/shared/StyledButton";
 import StyledTooltip from "components/shared/StyledTooltip";
 import AmountRenderer from "components/shared/AmountRenderer";
@@ -35,14 +34,13 @@ export default function Reward({ address }: { address?: `0x${string}` }) {
   return (
     <HStack justifyContent={"space-between"} alignItems={"baseline"} mt={4}>
       <Text>
-        {t("REWARDS")}
+        {`${tokenName}${t("REWARDS")}`}
         <StyledTooltip
           labelText={t("REWARDS_HELP", { tokenName, veTokenName })}
         >
           <QuestionIcon fontSize={"md"} mb={1} ml={1} />
         </StyledTooltip>
       </Text>
-      <VStack spacing={4} alignItems={"end"}>
         <HStack spacing={2}>
           <Box fontSize={"2xl"}>
             <AmountRenderer amount={result} />
@@ -60,8 +58,6 @@ export default function Reward({ address }: { address?: `0x${string}` }) {
             {t("CLAIM")}
           </StyledButton>
         </HStack>
-        {config.feeReward && <FeeRewards address={address} />}
-      </VStack>
     </HStack>
   );
 }

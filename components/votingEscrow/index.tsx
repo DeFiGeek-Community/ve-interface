@@ -4,6 +4,7 @@ import { useContractContext } from "lib/contexts/ContractContext";
 import LockStats from "components/votingEscrow/LockStats";
 import InitialCheckpoint from "components/reward/InitialCheckpoint";
 import Reward from "components/reward/Rewards";
+import FeeRewards from "components/reward/FeeReward";
 import StyledCard from "components/shared/StyledCard";
 
 export default function VotingEscrow({ address }: { address?: `0x${string}` }) {
@@ -23,6 +24,7 @@ export default function VotingEscrow({ address }: { address?: `0x${string}` }) {
         <Divider variant="dashed" py={2} />
         {config.checkpoint && <InitialCheckpoint address={address} />}
         {config.minterReward && <Reward address={address} />}
+        {config.feeReward && <FeeRewards address={address} />}
       </CardBody>
     </StyledCard>
   );
