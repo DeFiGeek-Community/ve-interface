@@ -23,7 +23,9 @@ const en = {
   LOCKED_UNTIL: "Locked until",
   REWARDS: "Rewards",
   REWARDS_HELP:
-    "As a reward for {{veTokenName}} holders, newly issued {{tokenName}} and fee income are distributed according to the amount of {{veTokenName}} held at the start of each week.",
+    "YMT rewards can be earned by borrowing CJPY through the Yamato Protocol. The amount of YMT rewards is boosted by the CJPY borrowing amount, in addition to the veYMT holding amount and the collateral ratio within Yamato.",
+  FEE_REWARDS_HELP:
+    "Fee rewards are distributed to veYMT holders from the fee income of the Yamato Protocol. ETH collected from the redemption of CJPY is distributed according to the veYMT holding amount.",
   COMMING_SOON: "Coming soon...",
   TRANSACTION_SENT: "Transaction sent!",
   TRANSACTION_CONFIRMED: "Transaction confirmed!",

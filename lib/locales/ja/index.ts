@@ -22,7 +22,9 @@ const ja = {
   LOCKED_UNTIL: "ロック終了日時",
   REWARDS: "リワード",
   REWARDS_HELP:
-    "{{veTokenName}}の保有者に対するリワードとして、{{tokenName}}の新規発行分とFee収入が各週開始時点の{{veTokenName}}保有額に応じて分配されます。",
+    "YMTリワードは、YamatoプロトコルでCJPYを借り入れることで、YMTトークンを獲得できます。YMTリワードの量は、CJPY借入額に加えて、veYMTの保有量とYamatoでの担保率に応じてブーストされます。",
+  FEE_REWARDS_HELP:
+    "Feeリワードは、YamatoプロトコルのFee収入がveYMTホルダーに分配されます。CJPYの償還で徴収されたETHがveYMT保有額に応じて分配されます。",
   COMMING_SOON: "Comming soon...",
   TRANSACTION_SENT: "トランザクションを送信しました",
   TRANSACTION_CONFIRMED: "トランザクションが承認されました",
