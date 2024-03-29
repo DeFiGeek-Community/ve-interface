@@ -40,7 +40,7 @@ export default function Reward({ address }: { address?: `0x${string}` }) {
         >
           <QuestionIcon fontSize={"md"} mb={1} ml={1} />
         </StyledTooltip>
-        <Link href={config.tokenRewardsDocumentationUrl} isExternal>
+        <Link href={config.tokenRewardsDocumentUrl} isExternal>
           <LinkIcon fontSize={"md"} mb={1} ml={2} />
         </Link>
       </Text>

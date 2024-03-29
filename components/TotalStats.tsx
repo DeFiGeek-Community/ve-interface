@@ -5,10 +5,11 @@ import {
   Divider,
   HStack,
   Text,
+  Link,
   Image,
   Spinner,
 } from "@chakra-ui/react";
-import { QuestionIcon } from "@chakra-ui/icons";
+import { QuestionIcon, LinkIcon } from "@chakra-ui/icons";
 import { useTranslation } from "react-i18next";
 import { calculatePercentage } from "lib/utils";
 import { useContractContext } from "lib/contexts/ContractContext";
@@ -52,6 +53,9 @@ export default function TotalStats({ address }: { address?: `0x${string}` }) {
             >
               <QuestionIcon fontSize={"lg"} cursor="help" />
             </StyledTooltip>
+            <Link href={config.veDocumentUrl} isExternal>
+              <LinkIcon fontSize={"md"} mb={1} ml={1} />
+            </Link>
           </HStack>
         </Heading>
         <Divider variant="dashed" my={2} />

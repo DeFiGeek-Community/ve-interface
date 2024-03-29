@@ -9,7 +9,8 @@ export interface IConfig {
   feeReward: boolean;
   checkpoint: boolean;
   homeUrl?: string;
-  tokenRewardsDocumentationUrl?: string;
+  tokenRewardsDocumentUrl?: string;
+  veDocumentUrl?: string;
 }
 
 export interface IEnvironmentConfig {
@@ -29,8 +30,9 @@ const yamatoConfig: IConfig = {
   feeReward: true,
   checkpoint: true,
   homeUrl: "https://yamato-interface.vercel.app/#/",
-  tokenRewardsDocumentationUrl:
+  tokenRewardsDocumentUrl:
     "https://docs.yamato.fi/ymt-yamato-dao-token/toveymtniyorufmingubsuto",
+  veDocumentUrl: "https://docs.yamato.fi/ymt-yamato-dao-token",
 };
 
 export const environmentConfig: IEnvironmentConfig = {
