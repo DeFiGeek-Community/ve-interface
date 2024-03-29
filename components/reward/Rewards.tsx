@@ -1,4 +1,4 @@
-import { HStack, VStack, Text, chakra, Box } from "@chakra-ui/react";
+import { HStack, Text, chakra, Box } from "@chakra-ui/react";
 import { QuestionIcon } from "@chakra-ui/icons";
 import { useTranslation } from "react-i18next";
 import { useContractContext } from "lib/contexts/ContractContext";
