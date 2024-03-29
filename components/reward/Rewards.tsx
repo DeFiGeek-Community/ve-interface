@@ -1,5 +1,5 @@
-import { HStack, Text, chakra, Box } from "@chakra-ui/react";
-import { QuestionIcon } from "@chakra-ui/icons";
+import { HStack, Text, chakra, Box, Link } from "@chakra-ui/react";
+import { QuestionIcon, LinkIcon } from "@chakra-ui/icons";
 import { useTranslation } from "react-i18next";
 import { useContractContext } from "lib/contexts/ContractContext";
 import StyledButton from "components/shared/StyledButton";
@@ -40,6 +40,9 @@ export default function Reward({ address }: { address?: `0x${string}` }) {
         >
           <QuestionIcon fontSize={"md"} mb={1} ml={1} />
         </StyledTooltip>
+        <Link href={config.tokenRewardsDocumentationUrl} isExternal>
+          <LinkIcon fontSize={"md"} mb={1} ml={2} />
+        </Link>
       </Text>
       <HStack spacing={2}>
         <Box fontSize={"2xl"}>
