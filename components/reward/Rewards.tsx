@@ -41,23 +41,23 @@ export default function Reward({ address }: { address?: `0x${string}` }) {
           <QuestionIcon fontSize={"md"} mb={1} ml={1} />
         </StyledTooltip>
       </Text>
-        <HStack spacing={2}>
-          <Box fontSize={"2xl"}>
-            <AmountRenderer amount={result} />
-            <chakra.span fontSize={"lg"} ml={1}>
-              {tokenName}
-            </chakra.span>
-          </Box>
-          <StyledButton
-            variant={"solid"}
-            size={"sm"}
-            isDisabled={!result || !writeFn.writeContract}
-            isLoading={writeFn.isPending || waitFn.isLoading}
-            onClick={() => writeContract()}
-          >
-            {t("CLAIM")}
-          </StyledButton>
-        </HStack>
+      <HStack spacing={2}>
+        <Box fontSize={"2xl"}>
+          <AmountRenderer amount={result} />
+          <chakra.span fontSize={"lg"} ml={1}>
+            {tokenName}
+          </chakra.span>
+        </Box>
+        <StyledButton
+          variant={"solid"}
+          size={"sm"}
+          isDisabled={!result || !writeFn.writeContract}
+          isLoading={writeFn.isPending || waitFn.isLoading}
+          onClick={() => writeContract()}
+        >
+          {t("CLAIM")}
+        </StyledButton>
+      </HStack>
     </HStack>
   );
 }
