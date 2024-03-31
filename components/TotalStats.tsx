@@ -53,9 +53,11 @@ export default function TotalStats({ address }: { address?: `0x${string}` }) {
             >
               <QuestionIcon fontSize={"lg"} cursor="help" />
             </StyledTooltip>
-            <Link href={config.veDocumentUrl} isExternal>
-              <LinkIcon fontSize={"md"} mb={1} ml={1} />
-            </Link>
+            <StyledTooltip labelText={t("DESCRIPTION")}>
+              <Link href={config.veDocumentUrl} isExternal>
+                <LinkIcon fontSize={"md"} mb={1} ml={1} />
+              </Link>
+            </StyledTooltip>
           </HStack>
         </Heading>
         <Divider variant="dashed" my={2} />
