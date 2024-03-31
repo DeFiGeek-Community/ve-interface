@@ -51,5 +51,6 @@ const ja = {
     "Yamato V1の借入情報を記録するため、初回に限りチェックポイントの実行が必要です。実行しない場合、リワードは反映されません。",
   CHECKPOINT_BUTTON: "ユーザーチェックポイントを実行",
   UPDATE_SCORE_BUTTON: "スコア更新",
+  DESCRIPTION: "ドキュメント",
 };
 export default ja;

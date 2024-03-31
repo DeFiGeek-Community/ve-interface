@@ -52,5 +52,6 @@ const en = {
     "To record the borrowing information of Yamato V1, executing the checkpoint for the first time is necessary. If not executed, rewards will not be reflected.",
   CHECKPOINT_BUTTON: "Execute User Checkpoint",
   UPDATE_SCORE_BUTTON: "Update Score",
+  DESCRIPTION: "Documentation",
 };
 export default en;
