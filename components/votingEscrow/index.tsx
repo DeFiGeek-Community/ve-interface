@@ -24,7 +24,12 @@ export default function VotingEscrow({ address }: { address?: `0x${string}` }) {
         <Divider variant="dashed" py={2} />
         {config.checkpoint && <InitialCheckpoint address={address} />}
         {config.minterReward && <Reward address={address} />}
-        {config.feeReward && <FeeRewards address={address} />}
+        {config.feeReward && (
+          <>
+            <Divider variant="dashed" py={2} />
+            <FeeRewards address={address} />
+          </>
+        )}
       </CardBody>
     </StyledCard>
   );
