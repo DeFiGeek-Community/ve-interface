@@ -42,7 +42,7 @@ export default function FeeReward({ address }: { address?: `0x${string}` }) {
       </Text>
       <HStack spacing={2}>
         <Box fontSize={"2xl"}>
-          <AmountRenderer amount={result} />
+          <AmountRenderer amount={result} precision={6} />
           <chakra.span fontSize={"lg"} ml={1}>
             {"ETH"}
           </chakra.span>
