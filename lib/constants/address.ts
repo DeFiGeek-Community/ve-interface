@@ -28,7 +28,7 @@ export const veSystemContracts: IVeSystemContracts = {
       Yamato: "0x",
     },
     11155111: {
-      FeeDistributor: "0x5788599e56b1126Fc59417eD314363378A394Bf6",
+      FeeDistributor: "0x55675B32dac1498845cA3D6DC39c60D4C306979d",
       GaugeController: "0x42b97a94460548eB1248EBEf8F3A0fDe33e78883",
       Gauge: "0x830F1F364583D694c2775CA26950084f2f483aeC",
       Minter: "0x7C3842EAd9fb95C7E81fbECad461f71009f8DcDC",
