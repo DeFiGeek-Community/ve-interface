@@ -10,9 +10,8 @@ import { ContractProvider } from "components/providers/ContractProvider";
 
 const queryClient = new QueryClient();
 
-createWeb3Modal(createWeb3ModalConfig());
-
 function MyApp({ Component, pageProps }: AppProps) {
+  createWeb3Modal(createWeb3ModalConfig());
   return (
     <ChakraProvider theme={theme}>
       <WagmiProvider config={config}>
