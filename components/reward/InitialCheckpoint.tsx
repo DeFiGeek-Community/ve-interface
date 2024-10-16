@@ -32,7 +32,8 @@ export default function InitialCheckpoint({
   address?: `0x${string}`;
 }) {
   const { t } = useTranslation();
-  const { triggerRefetch } = useContractContext();
+  const { config, triggerRefetch } = useContractContext();
+  const themeColors = config.themeColors;
   const { isOpen, onOpen, onClose } = useDisclosure();
   const { showSuccessToast, showErrorToast, showConfirmationToast } =
     useToastNotifications();
@@ -123,10 +124,10 @@ export default function InitialCheckpoint({
               <Alert
                 status="info"
                 fontSize="14px"
-                bg={"#fad9d6"}
-                color={"#818181"}
+                bg={themeColors.secondaryLightColor}
+                color={themeColors.primaryText}
               >
-                <AlertIcon boxSize="15px" color="#818181" />
+                <AlertIcon boxSize="15px" color={themeColors.primaryText} />
                 <VStack spacing={2}>
                   <AlertDescription>{t("CHECKPOINT_ALERT")}</AlertDescription>
                 </VStack>

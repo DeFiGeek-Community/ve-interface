@@ -11,6 +11,14 @@ export interface IConfig {
   homeUrl?: string;
   tokenRewardsDocumentUrl?: string;
   veDocumentUrl?: string;
+  themeColors: {
+    backgroundColor: string;
+    primaryColor: string;
+    secondaryColor: string;
+    secondaryLightColor: string;
+    primaryText: string;
+    buttonText: string;
+  };
 }
 
 export interface IEnvironmentConfig {
@@ -33,6 +41,14 @@ const yamatoConfig: IConfig = {
   tokenRewardsDocumentUrl:
     "https://docs.yamato.fi/ymt-yamato-dao-token/toveymtniyorufmingubsuto",
   veDocumentUrl: "https://docs.yamato.fi/ymt-yamato-dao-token",
+  themeColors: {
+    backgroundColor: "#FCFAF2", // 淡いクリーム色
+    primaryColor: "#5BAD92", // 淡いグリーン
+    secondaryColor: "#F9AEA5", // ピンク
+    secondaryLightColor: "#FAD9D6", // 薄いピンク
+    primaryText: "#818181", // ダークグレー
+    buttonText: "#FCFAF2", // ダークグレー
+  },
 };
 
 export const environmentConfig: IEnvironmentConfig = {

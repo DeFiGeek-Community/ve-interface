@@ -11,10 +11,11 @@ export default function VotingEscrow({ address }: { address?: `0x${string}` }) {
   const { t } = useTranslation();
   const { config } = useContractContext();
   const tokenName = config.tokenName;
+  const themeColors = config.themeColors;
 
   return (
     <StyledCard>
-      <CardHeader bg={"#f9aea5"} py={2}>
+      <CardHeader bg={themeColors.secondaryColor} py={2}>
         <Heading size="md" color={"white"}>
           {t("MY_PORTFOLIO", { tokenName })}
         </Heading>

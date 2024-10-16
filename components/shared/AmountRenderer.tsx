@@ -8,7 +8,10 @@ type AmountRendererProps = {
   precision?: number;
 };
 
-const AmountRenderer: React.FC<AmountRendererProps> = ({ amount, precision = 2 }) => {
+const AmountRenderer: React.FC<AmountRendererProps> = ({
+  amount,
+  precision = 2,
+}) => {
   const { config } = useContractContext();
 
   return typeof amount === "undefined" ? (

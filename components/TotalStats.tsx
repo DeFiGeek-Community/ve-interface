@@ -25,6 +25,7 @@ export default function TotalStats({ address }: { address?: `0x${string}` }) {
   const { t } = useTranslation();
   const { addresses, config } = useContractContext();
   const { tokenName, veTokenName } = config;
+  const themeColors = config.themeColors;
 
   const { data: tokenTotalSupply } = useTokenTotalSupply() as {
     data: bigint | undefined;
@@ -38,7 +39,7 @@ export default function TotalStats({ address }: { address?: `0x${string}` }) {
   let percentageLocked = calculatePercentage(balance, tokenTotalSupply);
   return (
     <StyledCard>
-      <CardHeader bg={"#5bad92"} py={2}>
+      <CardHeader bg={themeColors.primaryColor} py={2}>
         <Heading size="md" color={"white"}>
           {t("TOTAL_OVERVIEW", { tokenName })}
         </Heading>

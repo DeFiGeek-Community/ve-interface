@@ -80,6 +80,7 @@ export default function FormModal({
   const { config, triggerRefetch } = useContractContext();
   const { tokenName, veTokenName } = config;
   const decimals = config.TokenDecimals;
+  const themeColors = config.themeColors;
   const { showSuccessToast, showErrorToast, showConfirmationToast } =
     useToastNotifications();
 
@@ -359,7 +360,7 @@ export default function FormModal({
                           <Button
                             size="sm"
                             w="full"
-                            color="#818181"
+                            color={themeColors.primaryText}
                             onClick={() => setDaysLater(option.days)}
                           >
                             {option.label}
@@ -377,10 +378,10 @@ export default function FormModal({
                   <Alert
                     status="info"
                     fontSize="14px"
-                    bg={"#fad9d6"}
-                    color={"#818181"}
+                    bg={themeColors.secondaryLightColor}
+                    color={themeColors.primaryText}
                   >
-                    <AlertIcon boxSize="15px" color="#818181" />
+                    <AlertIcon boxSize="15px" color={themeColors.primaryText} />
                     <VStack spacing={2}>
                       <AlertDescription>
                         {t("TOKEN_LOCK_NOTE", { tokenName, veTokenName })}

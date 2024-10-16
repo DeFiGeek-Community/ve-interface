@@ -15,11 +15,12 @@ import {
 import { HamburgerIcon } from "@chakra-ui/icons";
 import { useAccount } from "wagmi";
 import { useContractContext } from "lib/contexts/ContractContext";
-import SvgYamatoLogWithTitle from "../svgs/YamatoLogo";
+import YamatoLogoWithTitle from "public/yamato_logo_with_title.svg";
 
 export default function Header() {
   const { chain } = useAccount();
   const { config } = useContractContext();
+  const themeColors = config.themeColors;
   const [isLessThan700px] = useMediaQuery("(max-width: 700px)");
 
   return (
@@ -28,7 +29,7 @@ export default function Header() {
       position={"sticky"}
       top={"0"}
       zIndex={100}
-      bg={"#fcfaf2"}
+      bg={themeColors.backgroundColor}
       opacity={0.975}
     >
       <Container maxW="container.2xl" px={{ base: 2, md: 4 }}>
@@ -46,7 +47,7 @@ export default function Header() {
                 variant="outline"
                 aria-label="Options"
               />
-              <MenuList bg="#fcfaf2">
+              <MenuList bg={themeColors.backgroundColor}>
                 <MenuItem as={Link} href={config.homeUrl}>
                   HOME
                 </MenuItem>
@@ -62,7 +63,8 @@ export default function Header() {
           ) : (
             <HStack spacing={6}>
               <Link href="/">
-                <SvgYamatoLogWithTitle width={200} height={30} />
+                {/* SVGを直接使用 */}
+                <YamatoLogoWithTitle width={200} height={30} />
               </Link>
               <Link
                 href={config.homeUrl}

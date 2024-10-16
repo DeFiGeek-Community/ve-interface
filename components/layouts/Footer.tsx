@@ -4,9 +4,12 @@ import { useTranslation } from "react-i18next";
 import CommunityLogo from "../svgs/CommunityLogo";
 import GitBook from "../svgs/GitBook";
 import StyledTooltip from "components/shared/StyledTooltip";
+import { useContractContext } from "lib/contexts/ContractContext";
 
 export default function Footer() {
   const { i18n } = useTranslation();
+  const { config } = useContractContext();
+  const themeColors = config.themeColors;
 
   const changeLanguage = (lang: any) => {
     i18n.changeLanguage(lang);
@@ -18,7 +21,7 @@ export default function Footer() {
       pb={4}
       top={"0"}
       zIndex={100}
-      bg={"#fcfaf2"}
+      bg={themeColors.backgroundColor}
       opacity={0.975}
     >
       <Container maxW="container.2xl" px={{ base: 2, md: 4 }}>
@@ -38,7 +41,7 @@ export default function Footer() {
                 fontSize={"3xl"}
                 _hover={{ opacity: 0.8 }}
               >
-                <CommunityLogo width="2.5rem" height="2.5rem" fill="#818181" />
+                <CommunityLogo width="2.5rem" height="2.5rem" fill={themeColors.primaryText} />
               </Link>
             </StyledTooltip>
             <StyledTooltip labelText="GitHub">
@@ -49,7 +52,7 @@ export default function Footer() {
                 _hover={{ opacity: 0.8 }}
                 padding={"0.3125rem"}
               >
-                <AiFillGithub fill="#818181" />
+                <AiFillGithub fill={themeColors.primaryText} />
               </Link>
             </StyledTooltip>
             <StyledTooltip labelText="GitBook">
@@ -60,7 +63,7 @@ export default function Footer() {
                 _hover={{ opacity: 0.8 }}
                 padding={"0.3125rem"}
               >
-                <GitBook width="2.5rem" height="2.5rem" fill="#818181" />
+                <GitBook width="2.5rem" height="2.5rem" fill={themeColors.primaryText} />
               </Link>
             </StyledTooltip>
           </Flex>

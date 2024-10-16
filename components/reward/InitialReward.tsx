@@ -29,6 +29,7 @@ export default function InitialReward({
   const { t } = useTranslation();
   const { config, triggerRefetch } = useContractContext();
   const { tokenName } = config;
+  const themeColors = config.themeColors;
 
   const { showSuccessToast, showErrorToast, showConfirmationToast } =
     useToastNotifications();
@@ -86,7 +87,7 @@ export default function InitialReward({
 
   return (
     <StyledCard>
-      <CardHeader bg={"#f9aea5"} py={2}>
+      <CardHeader bg={themeColors.secondaryColor} py={2}>
         <Heading size="md" color={"white"}>
           {t("INITIAL_REWARD", { tokenName })}
         </Heading>
