@@ -15,13 +15,15 @@ import {
 import { HamburgerIcon } from "@chakra-ui/icons";
 import { useAccount } from "wagmi";
 import { useContractContext } from "lib/contexts/ContractContext";
-import YamatoLogoWithTitle from "public/yamato_logo_with_title.svg";
 
 export default function Header() {
   const { chain } = useAccount();
   const { config } = useContractContext();
   const themeColors = config.themeColors;
   const [isLessThan700px] = useMediaQuery("(max-width: 700px)");
+
+  // 動的に画像のパスを設定
+  const logoSrc = config ? `/${config.projectLogoPath}` : null;
 
   return (
     <Box
@@ -63,8 +65,7 @@ export default function Header() {
           ) : (
             <HStack spacing={6}>
               <Link href="/">
-                {/* SVGを直接使用 */}
-                <YamatoLogoWithTitle width={200} height={30} />
+                {logoSrc && <img src={logoSrc} alt="Logo" width={200} height={30} />}
               </Link>
               <Link
                 href={config.homeUrl}

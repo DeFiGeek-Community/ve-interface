@@ -19,6 +19,9 @@ export interface IConfig {
     primaryText: string;
     buttonText: string;
   };
+  projectLogoPath: string;
+  tokenLogoPath: string;
+  backgroundImagePath: string;
 }
 
 export interface IEnvironmentConfig {
@@ -49,6 +52,9 @@ const yamatoConfig: IConfig = {
     primaryText: "#818181", // ダークグレー
     buttonText: "#FCFAF2", // ダークグレー
   },
+  projectLogoPath: "yamato/yamato_logo_title.svg",
+  tokenLogoPath: "yamato/YMT_token.png", 
+  backgroundImagePath: "background_green.webp",
 };
 
 export const environmentConfig: IEnvironmentConfig = {

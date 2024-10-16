@@ -37,6 +37,9 @@ export default function TotalStats({ address }: { address?: `0x${string}` }) {
     data: bigint | undefined;
   };
   let percentageLocked = calculatePercentage(balance, tokenTotalSupply);
+
+  const logoSrc = config ? `/${config.tokenLogoPath}` : null;
+
   return (
     <StyledCard>
       <CardHeader bg={themeColors.primaryColor} py={2}>
@@ -47,8 +50,8 @@ export default function TotalStats({ address }: { address?: `0x${string}` }) {
       <CardBody>
         <Heading fontSize={"xl"} pb={1}>
           <HStack>
-            <Image src="/logo192.png" alt="Logo" boxSize="24px" />
-            <Text>{veTokenName}</Text>
+          {logoSrc && <Image src={logoSrc} alt="Logo" boxSize="24px" />}
+          <Text>{veTokenName}</Text>
             <StyledTooltip
               labelText={t("VE_TOKEN_REWARD_HELP", { tokenName, veTokenName })}
             >
