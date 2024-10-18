@@ -38,4 +38,26 @@ export const veSystemContracts: IVeSystemContracts = {
       Yamato: "0xEc8023Bd4BF08993C96F1f23dbE858b42F6A393F",
     },
   },
+  txjp: {
+    1: {
+      FeeDistributor: "0x",
+      GaugeController: "0x",
+      Gauge: "0x",
+      Minter: "0x",
+      VotingEscrow: "0x",
+      Token: "0x",
+      Vesting: "0x",
+      Yamato: "0x",
+    },
+    11155111: {
+      FeeDistributor: "0x71C2BaefF9061530ACB7dEA31EE99d3cc9ba49A8",
+      GaugeController: "0x",
+      Gauge: "0x",
+      Minter: "0x",
+      VotingEscrow: "0x0651ABE642eFc46a4b9a6027B543eA7f875274f0",
+      Token: "0xdca6BcCecd7C25C654DFD80EcF7c63731B12Df5e",
+      Vesting: "0x",
+      Yamato: "0x",
+    },
+  },
 };
