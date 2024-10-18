@@ -53,7 +53,7 @@ const yamatoConfig: IConfig = {
     buttonText: "#FCFAF2", // ダークグレー
   },
   projectLogoPath: "yamato/yamato_logo_title.svg",
-  tokenLogoPath: "yamato/YMT_token.png", 
+  tokenLogoPath: "yamato/YMT_token.png",
   backgroundImagePath: "background_green.webp",
 };
 

@@ -41,7 +41,11 @@ export default function Footer() {
                 fontSize={"3xl"}
                 _hover={{ opacity: 0.8 }}
               >
-                <CommunityLogo width="2.5rem" height="2.5rem" fill={themeColors.primaryText} />
+                <CommunityLogo
+                  width="2.5rem"
+                  height="2.5rem"
+                  fill={themeColors.primaryText}
+                />
               </Link>
             </StyledTooltip>
             <StyledTooltip labelText="GitHub">
@@ -63,7 +67,11 @@ export default function Footer() {
                 _hover={{ opacity: 0.8 }}
                 padding={"0.3125rem"}
               >
-                <GitBook width="2.5rem" height="2.5rem" fill={themeColors.primaryText} />
+                <GitBook
+                  width="2.5rem"
+                  height="2.5rem"
+                  fill={themeColors.primaryText}
+                />
               </Link>
             </StyledTooltip>
           </Flex>

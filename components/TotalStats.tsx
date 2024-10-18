@@ -50,8 +50,8 @@ export default function TotalStats({ address }: { address?: `0x${string}` }) {
       <CardBody>
         <Heading fontSize={"xl"} pb={1}>
           <HStack>
-          {logoSrc && <Image src={logoSrc} alt="Logo" boxSize="24px" />}
-          <Text>{veTokenName}</Text>
+            {logoSrc && <Image src={logoSrc} alt="Logo" boxSize="24px" />}
+            <Text>{veTokenName}</Text>
             <StyledTooltip
               labelText={t("VE_TOKEN_REWARD_HELP", { tokenName, veTokenName })}
             >

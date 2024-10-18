@@ -65,7 +65,9 @@ export default function Header() {
           ) : (
             <HStack spacing={6}>
               <Link href="/">
-                {logoSrc && <img src={logoSrc} alt="Logo" width={200} height={30} />}
+                {logoSrc && (
+                  <img src={logoSrc} alt="Logo" width={200} height={30} />
+                )}
               </Link>
               <Link
                 href={config.homeUrl}
