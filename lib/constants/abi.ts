@@ -6,6 +6,9 @@ import veYMT from "lib/abis/yamato/veYMT.json";
 import YMT from "lib/abis/yamato/YMT.json";
 import Vesting from "lib/abis/yamato/YmtVesting.json";
 import Yamato from "lib/abis/yamato/Yamato.json";
+import MultiTokenFeeDistributor from "lib/abis/factory/MultiTokenFeeDistributor.json";
+import VeToken from "lib/abis/factory/VeToken.json";
+import FaucetToken from "lib/abis/factory/FaucetToken.json";
 
 export interface ISystemContractAbis {
   FeeDistributor: any[];
@@ -45,6 +48,28 @@ export const veSystemAbis: IVeSystemAbis = {
       Token: YMT,
       Vesting: Vesting,
       Yamato: Yamato,
+    },
+  },
+  txjp: {
+    1: {
+      FeeDistributor: MultiTokenFeeDistributor,
+      GaugeController: [],
+      Gauge: [],
+      Minter: [],
+      VotingEscrow: VeToken,
+      Token: FaucetToken,
+      Vesting: [],
+      Yamato: [],
+    },
+    11155111: {
+      FeeDistributor: MultiTokenFeeDistributor,
+      GaugeController: [],
+      Gauge: [],
+      Minter: [],
+      VotingEscrow: VeToken,
+      Token: FaucetToken,
+      Vesting: [],
+      Yamato: [],
     },
   },
 };
