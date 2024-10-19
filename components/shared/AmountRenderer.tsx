@@ -15,7 +15,7 @@ const AmountRenderer: React.FC<AmountRendererProps> = ({
   const { config } = useContractContext();
 
   return typeof amount === "undefined" ? (
-    <Spinner mr={3} />
+    <Spinner size="sm" mr={3} />
   ) : (
     <>{tokenAmountFormat(amount, config.TokenDecimals, precision)}</>
   );
