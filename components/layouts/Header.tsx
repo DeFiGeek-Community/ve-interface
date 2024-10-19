@@ -11,19 +11,29 @@ import {
   MenuButton,
   MenuList,
   MenuItem,
+  MenuDivider,
+  Button,
 } from "@chakra-ui/react";
 import { HamburgerIcon } from "@chakra-ui/icons";
 import { useAccount } from "wagmi";
 import { useContractContext } from "lib/contexts/ContractContext";
+import { environmentConfig } from "lib/constants/config";
+import { useRouter } from "next/router";
 
 export default function Header() {
   const { chain } = useAccount();
   const { config } = useContractContext();
   const themeColors = config.themeColors;
   const [isLessThan700px] = useMediaQuery("(max-width: 700px)");
+  const router = useRouter();
 
   // 動的に画像のパスを設定
   const logoSrc = config ? `/${config.projectLogoPath}` : null;
+
+  const tokens = Object.keys(environmentConfig).map((env) => ({
+    name: environmentConfig[env][1].veTokenName,
+    path: environmentConfig[env][1].path,
+  }));
 
   return (
     <Box
@@ -53,13 +63,20 @@ export default function Header() {
                 <MenuItem as={Link} href={config.homeUrl}>
                   HOME
                 </MenuItem>
-                <MenuItem
-                  as={Link}
-                  href="/"
-                  style={{ pointerEvents: "none", opacity: 0.6 }}
-                >
-                  veYMT
-                </MenuItem>
+                <MenuDivider />
+                {tokens.map((token) => (
+                  <MenuItem
+                    key={token.name}
+                    onClick={() => router.push(token.path)}
+                    style={{
+                      pointerEvents:
+                        token.name === config.veTokenName ? "none" : "auto",
+                      opacity: token.name === config.veTokenName ? 0.6 : 1,
+                    }}
+                  >
+                    {token.name}
+                  </MenuItem>
+                ))}
               </MenuList>
             </Menu>
           ) : (
@@ -76,13 +93,25 @@ export default function Header() {
               >
                 <Text fontWeight="bold">HOME</Text>
               </Link>
-              <Link
-                href="/"
-                _hover={{ textDecoration: "none" }}
-                style={{ pointerEvents: "none", opacity: 0.6 }}
-              >
-                <Text fontWeight="bold">veYMT</Text>
-              </Link>
+              <Menu>
+                <MenuButton
+                  as={Button}
+                  variant="link"
+                  _hover={{ textDecoration: "none" }}
+                >
+                  <Text fontWeight="bold">{config.veTokenName}</Text>
+                </MenuButton>
+                <MenuList>
+                  {tokens.map((token) => (
+                    <MenuItem
+                      key={token.name}
+                      onClick={() => router.push(token.path)}
+                    >
+                      {token.name}
+                    </MenuItem>
+                  ))}
+                </MenuList>
+              </Menu>
             </HStack>
           )}
           <HStack>
