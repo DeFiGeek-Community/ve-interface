@@ -1,6 +1,7 @@
 import Head from "next/head";
 import bgImage from "public/ogp.png";
 import { SITE_DESCRIPTION, SITE_NAME } from "lib/connector/site";
+import { useContractContext } from "lib/contexts/ContractContext";
 
 type MetaTagProps = {
   title?: string;
@@ -17,6 +18,7 @@ export default function MetaTags({
   image = bgImage.src,
   children,
 }: MetaTagProps) {
+  const { config } = useContractContext();
   return (
     <Head>
       <title>{title}</title>
@@ -33,6 +35,13 @@ export default function MetaTags({
       <meta name="twitter:image" content={image} />
       <link rel="icon" href="/favicon.ico" />
       {children}
+      <style>
+        {`
+        :root {
+          --w3m-accent: ${config.themeColors.primaryColor} !important;
+        }
+      `}
+      </style>
     </Head>
   );
 }
