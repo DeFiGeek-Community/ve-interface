@@ -4,21 +4,30 @@ import { veSystemContracts } from "lib/constants/address";
 import { veSystemAbis } from "lib/constants/abi";
 import { environmentConfig } from "lib/constants/config";
 import { ReactNode, useState } from "react";
+import Render404 from "components/error/Render404";
 
 interface ContractProviderProps {
   children: ReactNode;
+  systemName: string;
 }
 
-export function ContractProvider({ children }: ContractProviderProps) {
+export function ContractProvider({
+  children,
+  systemName,
+}: ContractProviderProps) {
   const chainId = useChainId();
-  const systemName = "yamato";
-  const addresses = veSystemContracts[systemName][chainId];
-  const abis = veSystemAbis[systemName][chainId];
-  const config = environmentConfig[systemName][chainId];
+  const addresses = veSystemContracts[systemName]?.[chainId];
+  const abis = veSystemAbis[systemName]?.[chainId];
+  const config = environmentConfig[systemName]?.[chainId];
   const [refetchFlag, setRefetchFlag] = useState(false);
 
+  if (!addresses || !abis || !config) {
+    console.error(`Invalid systemName or chainId: ${systemName}, ${chainId}`);
+    return <Render404 />;
+  }
+
   const triggerRefetch = () => {
-    setRefetchFlag((prevFlag) => !prevFlag); // フラグを反転させる
+    setRefetchFlag((prevFlag) => !prevFlag);
   };
 
   return (
