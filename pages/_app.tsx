@@ -16,10 +16,8 @@ function MyApp({ Component, pageProps }: AppProps) {
     <ChakraProvider theme={theme}>
       <WagmiProvider config={config}>
         <QueryClientProvider client={queryClient}>
-          <ContractProvider>
-            <ColorModeScript initialColorMode={"light"} />
-            <Component {...pageProps} />
-          </ContractProvider>
+          <ColorModeScript initialColorMode={"light"} />
+          <Component {...pageProps} />
         </QueryClientProvider>
       </WagmiProvider>
     </ChakraProvider>
