@@ -19,8 +19,10 @@ export type UseClaimReturn = {
 };
 
 export default function useClaim({
+  tokenAddress,
   callbacks,
 }: {
+  tokenAddress?: `0x${string}`;
   callbacks?: {
     onSuccessWrite?: (data: any) => void;
     onError?: (error: Error) => void;
@@ -28,18 +30,18 @@ export default function useClaim({
   };
 }): UseClaimReturn {
   const { chain, address } = useAccount();
-  const { addresses, abis, refetchFlag } = useContractContext();
+  const { addresses, abis, config, refetchFlag } = useContractContext();
 
-  const config = {
+  const txConfig = {
     address: addresses.FeeDistributor as `0x${string}`,
     abi: abis.FeeDistributor,
     functionName: "claim",
-    args: [address || "0x0"],
+    args: config.multiTokenFeeDistributor ? [tokenAddress || "0x0"] : [],
     chainId: chain?.id,
   };
 
   const prepareFn = useSimulateContract({
-    ...config,
+    ...txConfig,
     query: {
       enabled: !!address,
     },
@@ -58,7 +60,7 @@ export default function useClaim({
 
   const writeContract = () => {
     if (!!address) {
-      writeFn.writeContract(config);
+      writeFn.writeContract(txConfig);
     }
   };
 
