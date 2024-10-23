@@ -1,6 +1,5 @@
 import Head from "next/head";
-import bgImage from "public/ogp.png";
-import { SITE_DESCRIPTION, SITE_NAME } from "lib/connector/site";
+import { SITE_DESCRIPTION, SITE_NAME, OG_IMAGE } from "lib/connector/site";
 import { useContractContext } from "lib/contexts/ContractContext";
 
 type MetaTagProps = {
@@ -11,14 +10,12 @@ type MetaTagProps = {
   children?: React.ReactNode;
 };
 
-export default function MetaTags({
-  title = SITE_NAME,
-  description = SITE_DESCRIPTION,
-  site_name = SITE_NAME,
-  image = bgImage.src,
-  children,
-}: MetaTagProps) {
+export default function MetaTags({ children }: MetaTagProps) {
   const { config } = useContractContext();
+  const title = config ? config.siteName : SITE_NAME;
+  const description = config ? config.siteDescription : SITE_DESCRIPTION;
+  const image = config ? config.ogImage : OG_IMAGE;
+
   return (
     <Head>
       <title>{title}</title>
@@ -26,14 +23,17 @@ export default function MetaTags({
       <meta name="description" content={description} />
       <meta property="og:title" content={title} />
       <meta property="og:description" content={description} />
-      <meta property="og:site_name" content={site_name} />
+      <meta property="og:site_name" content={title} />
       <meta property="og:image" content={image} />
       <meta name="twitter:card" content="summary" />
       {/* <meta name="twitter:site" content="@" /> */}
       <meta name="twitter:title" content={title} />
       <meta name="twitter:description" content={description} />
       <meta name="twitter:image" content={image} />
-      <link rel="icon" href="/favicon.ico" />
+      <link
+        rel="icon"
+        href={config ? `/image${config.path}/favicon.ico` : "/favicon.ico"}
+      />
       {children}
       <style>
         {`

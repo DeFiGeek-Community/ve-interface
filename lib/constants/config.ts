@@ -25,6 +25,10 @@ export interface IConfig {
   projectLogoPath: string;
   tokenLogoPath: string;
   backgroundImagePath: string;
+  siteName: string;
+  siteDescription: string;
+  siteUrl: string;
+  ogImage: string;
 }
 
 export interface IEnvironmentConfig {
@@ -51,16 +55,20 @@ const yamatoConfig: IConfig = {
     "https://docs.yamato.fi/ymt-yamato-dao-token/toveymtniyorufmingubsuto",
   veDocumentUrl: "https://docs.yamato.fi/ymt-yamato-dao-token",
   themeColors: {
-    backgroundColor: "#FCFAF2", // 淡いクリーム色
-    primaryColor: "#5BAD92", // 淡いグリーン
-    secondaryColor: "#F9AEA5", // ピンク
-    secondaryLightColor: "#FAD9D6", // 薄いピンク
-    primaryText: "#818181", // ダークグレー
-    buttonText: "#FCFAF2", // ダークグレー
+    backgroundColor: "#FCFAF2",
+    primaryColor: "#5BAD92",
+    secondaryColor: "#F9AEA5",
+    secondaryLightColor: "#FAD9D6",
+    primaryText: "#818181",
+    buttonText: "#FCFAF2",
   },
-  projectLogoPath: "yamato/yamato_logo_title.svg",
-  tokenLogoPath: "yamato/YMT_token.png",
-  backgroundImagePath: "background_green.webp",
+  projectLogoPath: "image/yamato/yamato_logo_title.svg",
+  tokenLogoPath: "image/yamato/YMT_token.png",
+  backgroundImagePath: "image/yamato/background_green.webp",
+  siteName: "Yamato VotingEscrow Interface",
+  siteDescription: "VotingEscrow Interface for Yamato Protocol.",
+  siteUrl: "https://app.yamato.fi/#/",
+  ogImage: "image/yamato/og_yamato.png",
 };
 
 const txjpConfig: IConfig = {
@@ -83,16 +91,20 @@ const txjpConfig: IConfig = {
   tokenRewardsDocumentUrl: "https://defigeek.xyz/txjp/",
   veDocumentUrl: "https://defigeek.xyz/txjp/",
   themeColors: {
-    backgroundColor: "#FFF", // 白
-    primaryColor: "#C51B41", // 濃い朱色
-    secondaryColor: "#FF7777", // 赤系
-    secondaryLightColor: "#FCD2d2", //
-    primaryText: "#818181", // ダークグレー
-    buttonText: "#FFF", // 白
+    backgroundColor: "#FFF",
+    primaryColor: "#C51B41",
+    secondaryColor: "#FF7777",
+    secondaryLightColor: "#FCD2d2",
+    primaryText: "#818181",
+    buttonText: "#FFF",
   },
-  projectLogoPath: "txjp/DFGC_logo_lockup.webp",
-  tokenLogoPath: "txjp/TXJP.png",
-  backgroundImagePath: "background/Group_200.webp",
+  projectLogoPath: "image/txjp/DFGC_logo_lockup.webp",
+  tokenLogoPath: "image/txjp/TXJP.png",
+  backgroundImagePath: "image/background/Group_200.webp",
+  siteName: "TXJP VotingEscrow Interface",
+  siteDescription: "VotingEscrow Interface for TXJP.",
+  siteUrl: "https://defigeek.xyz",
+  ogImage: "image/txjp/DFGC_logo_banner02.png",
 };
 
 export const environmentConfig: IEnvironmentConfig = {
