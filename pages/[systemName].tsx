@@ -8,20 +8,20 @@ const SystemPage = ({ systemName }: { systemName: string }) => {
 
   return (
     <ContractProvider systemName={lowerCaseSystemName}>
-      {(isValid) => (
-        isValid ? <AccountDashboard /> : <Render404 />
-      )}
+      {(isValid) => (isValid ? <AccountDashboard /> : <Render404 />)}
     </ContractProvider>
   );
 };
 
 export async function getStaticPaths() {
   // environmentConfigからsystemNameとpathを抽出
-  const paths = Object.entries(environmentConfig).flatMap(([systemName, configs]) => {
-    return Object.values(configs).map(config => ({
-      params: { systemName: config.path.replace('/', '') }
-    }));
-  });
+  const paths = Object.entries(environmentConfig).flatMap(
+    ([systemName, configs]) => {
+      return Object.values(configs).map((config) => ({
+        params: { systemName: config.path.replace("/", "") },
+      }));
+    },
+  );
 
   return {
     paths,
@@ -29,7 +29,11 @@ export async function getStaticPaths() {
   };
 }
 
-export async function getStaticProps({ params }: { params: { systemName: string } }) {
+export async function getStaticProps({
+  params,
+}: {
+  params: { systemName: string };
+}) {
   const { systemName } = params;
   return {
     props: {

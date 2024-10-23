@@ -5,7 +5,7 @@ import { Spinner, Center } from "@chakra-ui/react";
 export default function VotingEscrow() {
   return (
     <ContractProvider systemName={"yamato"}>
-      {(isValid) => (
+      {(isValid) =>
         isValid ? (
           <AccountDashboard />
         ) : (
@@ -13,7 +13,7 @@ export default function VotingEscrow() {
             <Spinner size="xl" color="blue.500" />
           </Center>
         )
-      )}
+      }
     </ContractProvider>
   );
 }

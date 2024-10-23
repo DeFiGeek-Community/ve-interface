@@ -8,7 +8,7 @@ import StyledTooltip from "components/shared/StyledTooltip";
 export default function FeeReward({ address }: { address?: `0x${string}` }) {
   const { t } = useTranslation();
   const { config } = useContractContext();
-  const { tokenName, veTokenName, rewardTokens } = config; 
+  const { tokenName, veTokenName, rewardTokens } = config;
 
   return (
     <HStack justifyContent={"space-between"} alignItems={"baseline"} mt={4}>
