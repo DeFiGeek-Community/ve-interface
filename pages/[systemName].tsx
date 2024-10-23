@@ -1,33 +1,9 @@
-import { useRouter } from "next/router";
 import { ContractProvider } from "components/providers/ContractProvider";
 import AccountDashboard from "components";
 import Render404 from "components/error/Render404";
-import { useState, useEffect } from "react";
-import { Spinner, Center } from "@chakra-ui/react";
+import { environmentConfig } from "lib/constants/config";
 
-const SystemPage = () => {
-  const { query } = useRouter();
-  const { systemName } = query;
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    if (systemName) {
-      setLoading(false);
-    }
-  }, [systemName]);
-
-  if (loading) {
-    return (
-      <Center height="100vh">
-        <Spinner size="xl" color="blue.500" />
-      </Center>
-    );
-  }
-
-  if (typeof systemName !== "string") {
-    return <div>Error: Invalid system name</div>;
-  }
-
+const SystemPage = ({ systemName }: { systemName: string }) => {
   const lowerCaseSystemName = systemName.toLowerCase();
 
   return (
@@ -38,5 +14,28 @@ const SystemPage = () => {
     </ContractProvider>
   );
 };
+
+export async function getStaticPaths() {
+  // environmentConfigからsystemNameとpathを抽出
+  const paths = Object.entries(environmentConfig).flatMap(([systemName, configs]) => {
+    return Object.values(configs).map(config => ({
+      params: { systemName: config.path.replace('/', '') }
+    }));
+  });
+
+  return {
+    paths,
+    fallback: false, // 事前に生成されていないパスは404を返す
+  };
+}
+
+export async function getStaticProps({ params }: { params: { systemName: string } }) {
+  const { systemName } = params;
+  return {
+    props: {
+      systemName,
+    },
+  };
+}
 
 export default SystemPage;
