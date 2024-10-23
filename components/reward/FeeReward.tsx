@@ -15,7 +15,11 @@ export default function FeeReward({ address }: { address?: `0x${string}` }) {
       <Text>
         {`Fee${t("REWARDS")}`}
         <StyledTooltip
-          labelText={t("FEE_REWARDS_HELP", { tokenName, veTokenName })}
+          labelText={
+            config.tokenName === "YMT"
+              ? t("FEE_REWARDS_HELP_YAMATO")
+              : t("FEE_REWARDS_HELP", { veTokenName })
+          }
         >
           <QuestionIcon fontSize={"md"} mb={1} ml={1} />
         </StyledTooltip>

@@ -23,8 +23,10 @@ const ja = {
   REWARDS: "リワード",
   REWARDS_HELP:
     "YMTリワードは、YamatoプロトコルでのCJPY借入残高に応じて獲得できます。veYMT保有量と担保率によってブーストされます。",
-  FEE_REWARDS_HELP:
+  FEE_REWARDS_HELP_YAMATO:
     "Feeリワードは、Yamato償還により徴収されたETHが、veYMT保有量に応じて分配されます。",
+  FEE_REWARDS_HELP:
+    "Feeリワードは、{{veTokenName}}保有量に応じて分配されます。",
   COMMING_SOON: "Comming soon...",
   TRANSACTION_SENT: "トランザクションを送信しました",
   TRANSACTION_CONFIRMED: "トランザクションが承認されました",

@@ -24,8 +24,10 @@ const en = {
   REWARDS: "Rewards",
   REWARDS_HELP:
     "YMT rewards can be earned based on the CJPY borrowing balance in the Yamato Protocol. They are boosted by the amount of veYMT held and the collateral ratio.",
-  FEE_REWARDS_HELP:
+  FEE_REWARDS_HELP_YAMATO:
     "Fee rewards are distributed based on the amount of veYMT held, from the ETH collected through Yamato redemptions.",
+  FEE_REWARDS_HELP:
+    "Fee rewards are distributed based on the amount of {{veTokenName}} held.",
   COMMING_SOON: "Coming soon...",
   TRANSACTION_SENT: "Transaction sent!",
   TRANSACTION_CONFIRMED: "Transaction confirmed!",
