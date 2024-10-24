@@ -14,7 +14,7 @@ import {
   MenuDivider,
   Button,
 } from "@chakra-ui/react";
-import { HamburgerIcon } from "@chakra-ui/icons";
+import { HamburgerIcon, ChevronDownIcon } from "@chakra-ui/icons";
 import { useAccount } from "wagmi";
 import { useContractContext } from "lib/contexts/ContractContext";
 import { environmentConfig } from "lib/constants/config";
@@ -99,7 +99,9 @@ export default function Header() {
                   variant="link"
                   _hover={{ textDecoration: "none" }}
                 >
-                  <Text fontWeight="bold">{config.veTokenName}</Text>
+                  <Text fontWeight="bold">
+                    {config.veTokenName} <ChevronDownIcon />
+                  </Text>
                 </MenuButton>
                 <MenuList>
                   {tokens.map((token) => (
