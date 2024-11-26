@@ -21,6 +21,7 @@ export interface IConfig {
     secondaryLightColor: string;
     primaryText: string;
     buttonText: string;
+    tertiaryColor?: string;
   };
   projectLogoPath: string;
   tokenLogoPath: string;
@@ -61,6 +62,7 @@ const yamatoConfig: IConfig = {
     secondaryLightColor: "#FAD9D6",
     primaryText: "#818181",
     buttonText: "#FCFAF2",
+    tertiaryColor: "#ffd09f",
   },
   projectLogoPath: "image/yamato/yamato_logo_title.svg",
   tokenLogoPath: "image/yamato/YMT_token.png",
