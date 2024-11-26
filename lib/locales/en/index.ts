@@ -55,5 +55,9 @@ const en = {
   CHECKPOINT_BUTTON: "Execute User Checkpoint",
   UPDATE_SCORE_BUTTON: "Update Score",
   DESCRIPTION: "Documentation",
+  VOTING_SUMMARY: "Voting Summary",
+  VOTE_DESCRIPTION: "You can vote for gauge weight with your veCRV tokens (locked CRV tokens in Locker). Gauge weights are used to determine how much CRV does each pool get.",
+  PROPOSED_GAUGE_WEIGHT_CHANGES: "Proposed Gauge Weight changes",
+  NEXT_EFFECTIVE_DATE: "Next voting deadline",
 };
 export default en;

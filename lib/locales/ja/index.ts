@@ -54,5 +54,8 @@ const ja = {
   CHECKPOINT_BUTTON: "ユーザーチェックポイントを実行",
   UPDATE_SCORE_BUTTON: "スコア更新",
   DESCRIPTION: "ドキュメント",
+  VOTING_SUMMARY: "Voting Summary",
+  VOTE_DESCRIPTION: "{{veTokenName}}トークンを使用してスコアウェイトに投票できます。スコアウェイトは、各トークンがどれだけの{{tokenName}}を獲得するかを決定するために使用されます。",
+  NEXT_EFFECTIVE_DATE: "次回投票締め切り日時",
 };
 export default ja;
