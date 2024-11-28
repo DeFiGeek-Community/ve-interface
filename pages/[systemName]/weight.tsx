@@ -1,5 +1,5 @@
 import { ContractProvider } from "components/providers/ContractProvider";
-import Weight from "components/Weight";
+import Weight from "components/weight";
 import Render404 from "components/error/Render404";
 import { environmentConfig } from "lib/constants/config";
 
