@@ -57,5 +57,13 @@ const ja = {
   VOTING_SUMMARY: "Voting Summary",
   VOTE_DESCRIPTION: "{{veTokenName}}トークンを使用してスコアウェイトに投票できます。スコアウェイトは、各トークンがどれだけの{{tokenName}}を獲得するかを決定するために使用されます。",
   NEXT_EFFECTIVE_DATE: "次回投票締め切り日時",
+  SCORE_VOTING_MANAGEMENT: "Score Voting Management",
+  VOTING_BALANCE: "MY残高",
+  VOTED_BALANCE: "投票済み残高",
+  VOTABLE_BALANCE: "投票可能残高",
+  SELECT_SCORE: "スコア選択",
+  SCORE_PERCENTAGE: "投票重み",
+  VOTING_POWER_ALLOCATION: "あなたの投票権の{{vote}}が{{selectedScore}}のスコアに割り当てられます",
+  VOTE_EXECUTE: "投票実行",
 };
 export default ja;
