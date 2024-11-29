@@ -49,6 +49,16 @@ export const veSystemAbis: IVeSystemAbis = {
       Vesting: Vesting,
       Yamato: Yamato,
     },
+    31337: {
+      FeeDistributor: FeePoolV2,
+      GaugeController: ScoreWeightController,
+      Gauge: ScoreRegistry,
+      Minter: YmtMinter,
+      VotingEscrow: veYMT,
+      Token: YMT,
+      Vesting: Vesting,
+      Yamato: Yamato,
+    },
   },
   txjp: {
     1: {
@@ -62,6 +72,16 @@ export const veSystemAbis: IVeSystemAbis = {
       Yamato: [],
     },
     11155111: {
+      FeeDistributor: MultiTokenFeeDistributor,
+      GaugeController: [],
+      Gauge: [],
+      Minter: [],
+      VotingEscrow: VeToken,
+      Token: FaucetToken,
+      Vesting: [],
+      Yamato: [],
+    },
+    31337: {
       FeeDistributor: MultiTokenFeeDistributor,
       GaugeController: [],
       Gauge: [],

@@ -119,12 +119,19 @@ export const environmentConfig: IEnvironmentConfig = {
       ...yamatoConfig,
       TokenStartTimestamp: 1710832176,
     },
+    31337: {
+      ...yamatoConfig,
+      TokenStartTimestamp: 0,
+    },
   },
   txjp: {
     1: {
       ...txjpConfig,
     },
     11155111: {
+      ...txjpConfig,
+    },
+    31337: {
       ...txjpConfig,
     },
   },
