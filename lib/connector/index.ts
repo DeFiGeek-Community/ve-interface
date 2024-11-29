@@ -1,11 +1,11 @@
 import { defaultWagmiConfig } from "@web3modal/wagmi/react/config";
 import { cookieStorage, createStorage } from "wagmi";
-import { mainnet, sepolia, Chain } from "viem/chains";
+import { mainnet, sepolia, anvil, Chain } from "viem/chains";
 import { http } from "viem";
 import { extendTheme } from "@chakra-ui/react";
 import { SITE_DESCRIPTION, SITE_NAME, SITE_URL } from "./site";
 
-const chains = [sepolia] as [Chain, ...Chain[]];
+const chains = [sepolia, anvil] as [Chain, ...Chain[]];
 
 const projectId = process.env.NEXT_PUBLIC_PROJECT_ID ?? "";
 
@@ -20,6 +20,7 @@ function createConfig() {
       [sepolia.id]: http(
         `https://eth-sepolia.g.alchemy.com/v2/${process.env.NEXT_PUBLIC_ALCHEMY_ID}`,
       ),
+      [anvil.id]: http(),
     },
     metadata: {
       name: SITE_NAME,
