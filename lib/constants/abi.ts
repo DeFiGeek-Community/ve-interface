@@ -1,5 +1,6 @@
 import FeePoolV2 from "lib/abis/yamato/FeePoolV2.json";
 import ScoreWeightController from "lib/abis/yamato/ScoreWeightController.json";
+import ScoreWeightControllerV2 from "lib/abis/yamato/ScoreWeightControllerV2.json";
 import ScoreRegistry from "lib/abis/yamato/ScoreRegistry.json";
 import YmtMinter from "lib/abis/yamato/YmtMinter.json";
 import veYMT from "lib/abis/yamato/veYMT.json";
@@ -51,7 +52,7 @@ export const veSystemAbis: IVeSystemAbis = {
     },
     31337: {
       FeeDistributor: FeePoolV2,
-      GaugeController: ScoreWeightController,
+      GaugeController: ScoreWeightControllerV2,
       Gauge: ScoreRegistry,
       Minter: YmtMinter,
       VotingEscrow: veYMT,
