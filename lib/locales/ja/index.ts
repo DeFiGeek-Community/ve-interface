@@ -62,6 +62,7 @@ const ja = {
   VOTED_BALANCE: "投票済み残高",
   VOTABLE_BALANCE: "投票可能残高",
   SELECT_SCORE: "スコア選択",
+  SELECT: "選択",
   SCORE_PERCENTAGE: "投票重み",
   VOTING_POWER_ALLOCATION: "あなたの投票権の{{vote}}が{{selectedScore}}のスコアに割り当てられます",
   VOTE_EXECUTE: "投票実行",
