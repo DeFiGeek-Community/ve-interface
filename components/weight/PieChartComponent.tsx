@@ -1,21 +1,40 @@
-import React from "react";
+import React,{useState, useEffect} from "react";
 import { Pie } from "react-chartjs-2";
 import { Chart, ArcElement, Tooltip, Legend } from "chart.js";
 import ChartDataLabels from "chartjs-plugin-datalabels";
+import { useAccount } from "wagmi";
 import { useContractContext } from "lib/contexts/ContractContext";
+import useTotalWeight from "hooks/ScoreWeightController/useTotalWeight";
+import useScoreWeights from "hooks/ScoreWeightController/useScoreWeights";
 
 Chart.register(ArcElement, Tooltip, Legend, ChartDataLabels);
 
 const PieChartComponent = () => {
   const { config } = useContractContext();
   const themeColors = config.themeColors;
+  const { address } = useAccount();
+  const [percentages, setPercentages] = useState<number[]>([]);
 
-  // 仮のデータを使用
+    const { data: totalWeight } = useTotalWeight(address) as {
+    data: bigint | undefined;
+  };
+    const  { data: scoreWeights }  = useScoreWeights(address);
+  
+    useEffect(() => {
+      if (totalWeight && Array.isArray(scoreWeights)) {
+        const newPercentages = scoreWeights.map((score: any) => {
+          const percentage = (Number(score.result) / Number(totalWeight)) * 100;
+          return percentage;
+        });
+        setPercentages(newPercentages);
+      }
+    }, [totalWeight, scoreWeights]);
+
   const data = {
     labels: ["CJPY", "CUSD", "CEUR"],
     datasets: [
       {
-        data: [30, 50, 20], // 各通貨の投票比率
+        data: percentages, // 各通貨の投票比率
         backgroundColor: [
           themeColors.primaryColor,
           themeColors.secondaryColor,
