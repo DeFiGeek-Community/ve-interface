@@ -9,9 +9,12 @@ import {
   Spinner,
 } from "@chakra-ui/react";
 import { useTranslation } from "react-i18next";
+import { format } from "date-fns";
+import { useAccount } from "wagmi";
+import { useContractContext } from "lib/contexts/ContractContext";
+import useTimeTotal from "hooks/ScoreWeightController/useTimeTotal";
 import StyledCard from "components/shared/StyledCard";
 import StyledHStack from "components/shared/StyledHStack";
-import { useContractContext } from "lib/contexts/ContractContext";
 import PieChartComponent from "components/weight/PieChartComponent";
 
 const VotingSummary = () => {
@@ -19,18 +22,8 @@ const VotingSummary = () => {
   const { config } = useContractContext();
   const themeColors = config.themeColors;
   const { tokenName, veTokenName } = config;
-
-  // Unixタイムスタンプをわかりやすい日付に変換
-  const unixTime = 1701129600; // 例として固定Unixタイムを使用
-  const date = new Date(unixTime * 1000);
-  const formattedDate = date.toLocaleDateString("ja-JP", {
-    year: "numeric",
-    month: "2-digit",
-    day: "2-digit",
-    hour: "2-digit",
-    minute: "2-digit",
-    timeZoneName: "short",
-  });
+  const { address } = useAccount();
+  const { data:  timeTotal }  = useTimeTotal(address);
 
   return (
     <StyledCard>
@@ -51,7 +44,13 @@ const VotingSummary = () => {
 
         <Divider variant="dashed" my={2} />
         <StyledHStack title={t("NEXT_EFFECTIVE_DATE")} unit={""} mt={2}>
-          {formattedDate}
+          {typeof timeTotal === "undefined" ? (
+            <Spinner mr={3} />
+          ) : timeTotal  === BigInt(0) ? (
+            <>{"-- / -- / --"}</>
+          ) : (
+            <>{format(new Date(Number(timeTotal) * 1000), "yyyy/MM/dd HH:mm")}</>
+          )}
         </StyledHStack>
       </CardBody>
     </StyledCard>
