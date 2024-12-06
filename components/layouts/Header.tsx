@@ -24,7 +24,7 @@ export default function Header() {
   const { chain } = useAccount();
   const { config } = useContractContext();
   const themeColors = config.themeColors;
-  const [isLessThan700px] = useMediaQuery("(max-width: 700px)");
+  const [isLessThan700px] = useMediaQuery("(max-width: 800px)");
   const router = useRouter();
 
   // 動的に画像のパスを設定
@@ -60,14 +60,16 @@ export default function Header() {
                 aria-label="Options"
               />
               <MenuList bg={themeColors.backgroundColor}>
-                <MenuItem as={Link} href={config.homeUrl}>
+                <MenuItem as={Link} href={config.homeUrl} bg={themeColors.backgroundColor}>
                   HOME
                 </MenuItem>
                 <MenuDivider />
                 {tokens.map((token) => (
                   <MenuItem
-                    key={token.name}
-                    onClick={() => router.push(token.path)}
+                  key={token.name}
+                  as={Link} 
+                  href={token.path}
+                  bg={themeColors.backgroundColor}
                     style={{
                       pointerEvents:
                         token.name === config.veTokenName ? "none" : "auto",
@@ -77,6 +79,10 @@ export default function Header() {
                     {token.name}
                   </MenuItem>
                 ))}
+                <MenuDivider />
+                <MenuItem as={Link} href={`${config.path}/weight/`} bg={themeColors.backgroundColor}>
+                  Vote weight
+                </MenuItem>
               </MenuList>
             </Menu>
           ) : (
@@ -89,13 +95,14 @@ export default function Header() {
               <Link
                 href={config.homeUrl}
                 _hover={{ textDecoration: "none" }}
-                ml={4}
+                ml={2}
               >
-                <Text fontWeight="bold">HOME</Text>
+                <Text fontWeight="bold">Home</Text>
               </Link>
-              <Menu>
+              <Menu >
                 <MenuButton
                   as={Button}
+                  ml={2}
                   variant="link"
                   _hover={{ textDecoration: "none" }}
                 >
@@ -114,9 +121,15 @@ export default function Header() {
                   ))}
                 </MenuList>
               </Menu>
+              <Link
+                href={`${config.path}/weight/`}
+                _hover={{ textDecoration: "none" }}
+              >
+                <Text fontWeight="bold">Vote</Text>
+              </Link>
             </HStack>
           )}
-          <HStack>
+          <HStack ml={2}>
             {chain && <w3m-network-button />}
             <w3m-button balance={"hide"} />
           </HStack>
