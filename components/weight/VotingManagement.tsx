@@ -17,6 +17,9 @@ import {
   NumberInputStepper,
   NumberDecrementStepper,
   Divider,
+  Grid,
+  GridItem,
+  Button,
 } from "@chakra-ui/react";
 import { useAccount } from "wagmi";
 import { useTranslation } from "react-i18next";
@@ -27,41 +30,71 @@ import StyledButton from "components/shared/StyledButton";
 import { useContractContext } from "lib/contexts/ContractContext";
 import AmountRenderer from "components/shared/AmountRenderer";
 import useBalanceOf from "hooks/VotingEscrow/useBalanceOf";
+import useVoteUserPower from "hooks/ScoreWeightController/useVoteUserPower";
+import useVote, { UseVoteReturn } from "hooks/ScoreWeightController/useVote";
+import useVoteUserSlopes from "hooks/ScoreWeightController/useVoteUserSlopes";
+import useToastNotifications from "hooks/useToastNotifications";
 import { tokenAmountFormat } from "lib/utils";
 
 const VotingManagement = () => {
   const { t } = useTranslation();
   const { address } = useAccount();
-  const { config } = useContractContext();
+  const { config, addresses, triggerRefetch } = useContractContext();
   const themeColors = config.themeColors;
   const { tokenName, veTokenName } = config;
 
-  // const { data: balance } = useBalanceOf(address) as {
-  //   data: bigint | undefined;
-  // };
+  const { showSuccessToast, showErrorToast, showConfirmationToast } =
+    useToastNotifications();
 
-  const balance = BigInt(100000000000000000000);
-  const votedBalance = BigInt(10000000000000000000);
-  const votableBalance = BigInt(90000000000000000000);
+  const { data: balance } = useBalanceOf(address) as {
+    data: bigint | undefined;
+  };
+  const { data: voteUserPower } = useVoteUserPower(address) as {
+    data: bigint | undefined;
+  };
 
-  const [votingPower, setVotingPower] = useState(100);
-  const [numberInputValue, setNumberInputValue] = useState(0);
+  const votedBalance =
+    balance !== undefined && voteUserPower !== undefined
+      ? (balance * BigInt(voteUserPower)) / BigInt(10000)
+      : BigInt(0);
+  const votableBalance =
+    balance !== undefined ? balance - votedBalance : BigInt(0);
+
+  const [votingPower, setVotingPower] = useState(0);
   const [selectedScore, setSelectedScore] = useState("");
-  const [scorePercentage, setScorePercentage] = useState(0);
+  const [selectedAddress, setSelectedAddress] = useState<
+    `0x${string}` | undefined
+  >(undefined);
+
+  const balanceNumber =
+    balance !== undefined
+      ? Number(tokenAmountFormat(balance, config.TokenDecimals, 2))
+      : 0;
+  const balancePercentage = balance
+    ? (balanceNumber * (votingPower * 0.01)).toFixed(2)
+    : 0;
+  const isVoteExecutable = votingPower > 0 && selectedScore !== "";
 
   const handleExecute = () => {
-    console.log("Executing vote with:", {
-      votingPower,
-      selectedScore,
-      scorePercentage,
-    });
+    writeContract();
   };
-  const balanceNumber = Number(
-    tokenAmountFormat(balance, config.TokenDecimals, 2)
-  );
-  const balancePercentage = balance
-    ? (balanceNumber * (numberInputValue * 0.01)).toFixed(2)
-    : 0;
+
+  const { writeFn, waitFn, writeContract } = useVote({
+    scoreAddr: selectedAddress,
+    userWeight: votingPower,
+    callbacks: {
+      onSuccessWrite(data) {
+        showSuccessToast(data);
+      },
+      onError(e) {
+        showErrorToast(e.message);
+      },
+      onSuccessConfirm(data) {
+        showConfirmationToast();
+        triggerRefetch();
+      },
+    },
+  }) as UseVoteReturn;
 
   return (
     <StyledCard>
@@ -83,18 +116,26 @@ const VotingManagement = () => {
                 {veTokenName}
               </chakra.span>
             </Box>
-            <Box fontSize={"md"}  mr={2}>
-              CJPY : 5
-              <chakra.span fontSize={"sm"} ml={1}>
-                {"%"}
-              </chakra.span>
-            </Box>
-            <Box fontSize={"md"}  mr={2}>
-              CUSD : 5
-              <chakra.span fontSize={"sm"} ml={1}>
-                {"%"}
-              </chakra.span>
-            </Box>
+            {addresses.Score?.map(({ name, address: scoreAddress }, index) => {
+              const { data: voteUserPower } = useVoteUserSlopes(
+                address,
+                scoreAddress
+              ) as {
+                data: bigint[] | undefined;
+              };
+              const power = voteUserPower ? voteUserPower[1] : BigInt(0);
+              if (power > BigInt(0)) {
+                return (
+                  <Box key={index} fontSize={"md"} mr={2}>
+                    {name} : {Number(power) / 100}
+                    <chakra.span fontSize={"sm"} ml={1}>
+                      {"%"}
+                    </chakra.span>
+                  </Box>
+                );
+              }
+              return null;
+            })}
           </VStack>
         </HStack>
         <StyledHStack title={t("VOTABLE_BALANCE")} unit={veTokenName} mt={4}>
@@ -102,61 +143,104 @@ const VotingManagement = () => {
         </StyledHStack>
         <Divider variant="dashed" my={2} />
 
-        <StyledHStackItem title={t("SELECT_SCORE")} mt={4}>
+        <StyledHStackItem title={t("SELECT_SCORE")} mt={5}>
           <Flex width="100%">
             <Select
-              placeholder={t("SELECT_SCORE")}
+              placeholder={t("SELECT")}
               value={selectedScore}
-              onChange={(e) => setSelectedScore(e.target.value)}
+              onChange={(e) => {
+                const value = e.target.value;
+                setSelectedScore(value as string);
+                const selected = addresses.Score?.find(
+                  ({ name }) => name === value
+                );
+                setSelectedAddress(selected?.address);
+              }}
               flex="1"
-              maxWidth={"170px"}
-              mr={5}
+              maxWidth={"100px"}
+              fontWeight="bold"
+              mr={6}
             >
-              <option value="CJPY">{t("CJPY")}</option>
-              <option value="CUSD">{t("CUSD")}</option>
-              <option value="CEUR">{t("CEUR")}</option>
+              {addresses.Score?.map(({ name, address }, index) => (
+                <option key={index} value={name}>
+                  {t(name)}
+                </option>
+              ))}
             </Select>
           </Flex>
         </StyledHStackItem>
-        <StyledHStackItem title={t("SCORE_PERCENTAGE")} mt={4}>
-          <Flex alignItems={"center"} width="100%">
-            <NumberInput
-              flex="1"
-              name="value"
-              maxWidth={"170px"}
-              min={0}
-              max={Number.MAX_SAFE_INTEGER}
-              value={numberInputValue}
-              onChange={(strVal: string, val: number) => {
-                setNumberInputValue(val);
-              }}
-            >
-              <NumberInputField />
-              <NumberInputStepper>
-                <NumberIncrementStepper />
-                <NumberDecrementStepper />
-              </NumberInputStepper>
-            </NumberInput>
-            <chakra.span fontSize={"md"} ml={1}>
-              %
-            </chakra.span>
-          </Flex>
+        <StyledHStackItem title={t("SCORE_PERCENTAGE")} mt={5}>
+          <VStack alignItems={"flex-start"} width="100%" gap={0}>
+            <Flex alignItems={"center"} width="100%">
+              <NumberInput
+                flex="1"
+                name="value"
+                maxWidth={"100px"}
+                min={0}
+                max={100}
+                value={votingPower}
+                onChange={(strVal: string, val: number) => {
+                  setVotingPower(val);
+                }}
+              >
+                <NumberInputField fontWeight="bold"/>
+                <NumberInputStepper>
+                  <NumberIncrementStepper />
+                  <NumberDecrementStepper />
+                </NumberInputStepper>
+              </NumberInput>
+              <chakra.span fontSize={"md"} ml={1}>
+                %
+              </chakra.span>
+            </Flex>
+            <Grid templateColumns="repeat(2, 1fr)" mt={0} py={0}>
+              <GridItem>
+                <Button
+                  size={"xs"}
+                  variant="outline"
+                  color={themeColors.primaryText}
+                  onClick={() => setVotingPower(50)}
+                >
+                  50%
+                </Button>
+              </GridItem>
+              <GridItem >
+                <Button
+                  size={"xs"}
+                  color={themeColors.primaryText}
+                  variant="outline"
+                  onClick={() => setVotingPower(100)}
+                >
+                  100%
+                </Button>
+              </GridItem>
+            </Grid>
+          </VStack>
         </StyledHStackItem>
 
-        <Alert
-          mt={4}
-          status="info"
-          fontSize="14px"
-          bg={themeColors.secondaryLightColor}
-          color={themeColors.primaryText}
-        >
-          {t("VOTING_POWER_ALLOCATION", {
-            vote: ` ${balancePercentage} ${veTokenName} (${numberInputValue}%) `,
-            selectedScore,
-          })}
-        </Alert>
+        {isVoteExecutable && (
+          <Alert
+            mt={4}
+            status="info"
+            fontSize="14px"
+            bg={themeColors.secondaryLightColor}
+            color={themeColors.primaryText}
+          >
+            {t("VOTING_POWER_ALLOCATION", {
+              vote: ` ${balancePercentage} ${veTokenName} (${votingPower}%) `,
+              selectedScore,
+            })}
+          </Alert>
+        )}
         <StyledHStackItem title={""}>
-          <StyledButton size={"md"} mr={5} mt={4} onClick={handleExecute}>
+          <StyledButton
+            size={"md"}
+            mr={5}
+            mt={4}
+            onClick={handleExecute}
+            isLoading={writeFn.isPending || waitFn.isLoading}
+            isDisabled={!isVoteExecutable || !writeFn.writeContract}
+          >
             {t("VOTE_EXECUTE")}
           </StyledButton>
         </StyledHStackItem>
