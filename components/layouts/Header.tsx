@@ -14,6 +14,7 @@ import {
   MenuDivider,
   Button,
 } from "@chakra-ui/react";
+import Image from "next/image";
 import { HamburgerIcon, ChevronDownIcon } from "@chakra-ui/icons";
 import { useAccount } from "wagmi";
 import { useContractContext } from "lib/contexts/ContractContext";
@@ -60,16 +61,20 @@ export default function Header() {
                 aria-label="Options"
               />
               <MenuList bg={themeColors.backgroundColor}>
-                <MenuItem as={Link} href={config.homeUrl} bg={themeColors.backgroundColor}>
+                <MenuItem
+                  as={Link}
+                  href={config.homeUrl}
+                  bg={themeColors.backgroundColor}
+                >
                   HOME
                 </MenuItem>
                 <MenuDivider />
                 {tokens.map((token) => (
                   <MenuItem
-                  key={token.name}
-                  as={Link} 
-                  href={token.path}
-                  bg={themeColors.backgroundColor}
+                    key={token.name}
+                    as={Link}
+                    href={token.path}
+                    bg={themeColors.backgroundColor}
                     style={{
                       pointerEvents:
                         token.name === config.veTokenName ? "none" : "auto",
@@ -80,7 +85,11 @@ export default function Header() {
                   </MenuItem>
                 ))}
                 <MenuDivider />
-                <MenuItem as={Link} href={`${config.path}/weight/`} bg={themeColors.backgroundColor}>
+                <MenuItem
+                  as={Link}
+                  href={`${config.path}/weight/`}
+                  bg={themeColors.backgroundColor}
+                >
                   Vote weight
                 </MenuItem>
               </MenuList>
@@ -89,7 +98,7 @@ export default function Header() {
             <HStack spacing={6}>
               <Link href="/">
                 {logoSrc && (
-                  <img src={logoSrc} alt="Logo" width={200} height={30} />
+                  <Image src={logoSrc} alt="Logo" width={200} height={30} />
                 )}
               </Link>
               <Link
@@ -99,7 +108,7 @@ export default function Header() {
               >
                 <Text fontWeight="bold">Home</Text>
               </Link>
-              <Menu >
+              <Menu>
                 <MenuButton
                   as={Button}
                   ml={2}
@@ -107,7 +116,8 @@ export default function Header() {
                   _hover={{ textDecoration: "none" }}
                 >
                   <Text fontWeight="bold">
-                    {"ve Token"}<ChevronDownIcon />
+                    {"ve Token"}
+                    <ChevronDownIcon />
                   </Text>
                 </MenuButton>
                 <MenuList>
@@ -122,12 +132,12 @@ export default function Header() {
                 </MenuList>
               </Menu>
               {config.vote && (
-              <Link
-                href={`${config.path}/weight/`}
-                _hover={{ textDecoration: "none" }}
-              >
-                <Text fontWeight="bold">Vote</Text>
-              </Link>
+                <Link
+                  href={`${config.path}/weight/`}
+                  _hover={{ textDecoration: "none" }}
+                >
+                  <Text fontWeight="bold">Vote</Text>
+                </Link>
               )}
             </HStack>
           )}

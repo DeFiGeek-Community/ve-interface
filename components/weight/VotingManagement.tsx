@@ -116,7 +116,7 @@ const VotingManagement = () => {
                 {veTokenName}
               </chakra.span>
             </Box>
-            {addresses.Score?.map(({ name, address: scoreAddress }, index) => {
+            {/* {addresses.Score?.map(({ name, address: scoreAddress }, index) => {
               const { data: voteUserPower } = useVoteUserSlopes(
                 address,
                 scoreAddress
@@ -135,7 +135,7 @@ const VotingManagement = () => {
                 );
               }
               return null;
-            })}
+            })} */}
           </VStack>
         </HStack>
         <StyledHStack title={t("VOTABLE_BALANCE")} unit={veTokenName} mt={4}>
@@ -152,7 +152,7 @@ const VotingManagement = () => {
                 const value = e.target.value;
                 setSelectedScore(value as string);
                 const selected = addresses.Score?.find(
-                  ({ name }) => name === value
+                  ({ name }) => name === value,
                 );
                 setSelectedAddress(selected?.address);
               }}
@@ -183,7 +183,7 @@ const VotingManagement = () => {
                   setVotingPower(val);
                 }}
               >
-                <NumberInputField fontWeight="bold"/>
+                <NumberInputField fontWeight="bold" />
                 <NumberInputStepper>
                   <NumberIncrementStepper />
                   <NumberDecrementStepper />
@@ -204,7 +204,7 @@ const VotingManagement = () => {
                   50%
                 </Button>
               </GridItem>
-              <GridItem >
+              <GridItem>
                 <Button
                   size={"xs"}
                   color={themeColors.primaryText}
