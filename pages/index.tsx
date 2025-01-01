@@ -4,7 +4,7 @@ import { Spinner, Center } from "@chakra-ui/react";
 
 export default function VotingEscrow() {
   return (
-    <ContractProvider systemName={"yamato"}>
+    <ContractProvider systemName={"txjp"}>
       {(isValid) =>
         isValid ? (
           <AccountDashboard />
