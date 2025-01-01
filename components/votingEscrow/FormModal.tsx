@@ -259,7 +259,7 @@ export default function FormModal({
                             </NumberInputStepper>
                           </NumberInput>
                           <Box px={2} minW={"3rem"}>
-                            YMT
+                            {config.tokenName}
                           </Box>
                         </Flex>
                         <Box>
@@ -282,7 +282,7 @@ export default function FormModal({
                             ) : (
                               <>{tokenAmountFormat(balance, decimals, 2)}</>
                             )}{" "}
-                            YMT
+                            {config.tokenName}
                           </Text>
                           <FormErrorMessage fontSize={"xs"}>
                             {formikProps.errors.value}

@@ -107,7 +107,7 @@ export default function Header() {
                   _hover={{ textDecoration: "none" }}
                 >
                   <Text fontWeight="bold">
-                    {config.veTokenName} <ChevronDownIcon />
+                    {"ve Token"}<ChevronDownIcon />
                   </Text>
                 </MenuButton>
                 <MenuList>
@@ -121,12 +121,14 @@ export default function Header() {
                   ))}
                 </MenuList>
               </Menu>
+              {config.vote && (
               <Link
                 href={`${config.path}/weight/`}
                 _hover={{ textDecoration: "none" }}
               >
                 <Text fontWeight="bold">Vote</Text>
               </Link>
+              )}
             </HStack>
           )}
           <HStack ml={2}>
