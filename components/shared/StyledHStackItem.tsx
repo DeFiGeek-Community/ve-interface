@@ -8,9 +8,7 @@ const StyledHStackItem: React.FC<StackProps & { title: string }> = ({
   return (
     <HStack justifyContent={"space-between"} {...props}>
       <Box>{title}</Box>
-      <Box fontSize={"2xl"}>
-        {children}
-      </Box>
+      <Box fontSize={"2xl"}>{children}</Box>
     </HStack>
   );
 };

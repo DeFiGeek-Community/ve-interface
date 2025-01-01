@@ -4,7 +4,6 @@ import VotingSummary from "components/weight/VotingSummary";
 import VotingManagement from "components/weight/VotingManagement";
 
 export default function Weight() {
-
   return (
     <Layout>
       <Container maxW="container.xl" py={10}>

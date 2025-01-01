@@ -3,7 +3,7 @@ import { useReadContract } from "wagmi";
 import { useContractContext } from "lib/contexts/ContractContext";
 
 export default function useScoreWeights(
-  address?: `0x${string}`
+  address?: `0x${string}`,
 ): ReturnType<
   typeof useReadContract<
     readonly unknown[],

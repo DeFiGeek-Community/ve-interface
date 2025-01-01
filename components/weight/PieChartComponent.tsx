@@ -1,4 +1,4 @@
-import React,{useState, useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import { Pie } from "react-chartjs-2";
 import { Chart, ArcElement, Tooltip, Legend } from "chart.js";
 import ChartDataLabels from "chartjs-plugin-datalabels";
@@ -15,20 +15,20 @@ const PieChartComponent = () => {
   const { address } = useAccount();
   const [percentages, setPercentages] = useState<number[]>([]);
 
-    const { data: totalWeight } = useTotalWeight(address) as {
+  const { data: totalWeight } = useTotalWeight(address) as {
     data: bigint | undefined;
   };
-    const  { data: scoreWeights }  = useScoreWeights(address);
-  
-    useEffect(() => {
-      if (totalWeight && Array.isArray(scoreWeights)) {
-        const newPercentages = scoreWeights.map((score: any) => {
-          const percentage = (Number(score.result) / Number(totalWeight)) * 100;
-          return percentage;
-        });
-        setPercentages(newPercentages);
-      }
-    }, [totalWeight, scoreWeights]);
+  const { data: scoreWeights } = useScoreWeights(address);
+
+  useEffect(() => {
+    if (totalWeight && Array.isArray(scoreWeights)) {
+      const newPercentages = scoreWeights.map((score: any) => {
+        const percentage = (Number(score.result) / Number(totalWeight)) * 100;
+        return percentage;
+      });
+      setPercentages(newPercentages);
+    }
+  }, [totalWeight, scoreWeights]);
 
   const data = {
     labels: ["CJPY", "CUSD", "CEUR"],
@@ -51,7 +51,7 @@ const PieChartComponent = () => {
 
   const options = {
     responsive: true,
-    maintainAspectRatio: false, 
+    maintainAspectRatio: false,
     layout: {
       padding: {
         top: 20,
@@ -70,7 +70,7 @@ const PieChartComponent = () => {
         formatter: (value: number, context: any) => {
           const total = context.chart.data.datasets[0].data.reduce(
             (a: number, b: number) => a + b,
-            0
+            0,
           );
           const percentage = ((value / total) * 100).toFixed(1) + "%";
           const label = context.chart.data.labels[context.dataIndex];
@@ -92,7 +92,7 @@ const PieChartComponent = () => {
             const dataset = tooltipItem.dataset;
             const total = dataset.data.reduce(
               (a: number, b: number) => a + b,
-              0
+              0,
             );
             const currentValue = dataset.data[tooltipItem.dataIndex];
             const percentage = ((currentValue / total) * 100).toFixed(1) + "%";

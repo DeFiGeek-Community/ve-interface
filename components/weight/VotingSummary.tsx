@@ -23,7 +23,7 @@ const VotingSummary = () => {
   const themeColors = config.themeColors;
   const { tokenName, veTokenName } = config;
   const { address } = useAccount();
-  const { data:  timeTotal }  = useTimeTotal(address);
+  const { data: timeTotal } = useTimeTotal(address);
 
   return (
     <StyledCard>
@@ -46,10 +46,12 @@ const VotingSummary = () => {
         <StyledHStack title={t("NEXT_EFFECTIVE_DATE")} unit={""} mt={2}>
           {typeof timeTotal === "undefined" ? (
             <Spinner mr={3} />
-          ) : timeTotal  === BigInt(0) ? (
+          ) : timeTotal === BigInt(0) ? (
             <>{"-- / -- / --"}</>
           ) : (
-            <>{format(new Date(Number(timeTotal) * 1000), "yyyy/MM/dd HH:mm")}</>
+            <>
+              {format(new Date(Number(timeTotal) * 1000), "yyyy/MM/dd HH:mm")}
+            </>
           )}
         </StyledHStack>
       </CardBody>

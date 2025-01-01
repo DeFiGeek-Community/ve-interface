@@ -3,14 +3,14 @@ import { useReadContracts } from "wagmi";
 import { useContractContext } from "lib/contexts/ContractContext";
 
 export default function useScoreWeights(
-  address?: `0x${string}`
+  address?: `0x${string}`,
 ): ReturnType<typeof useReadContracts> {
   const { addresses, abis, refetchFlag } = useContractContext();
 
   const contracts = (addresses.Score || [])
     .filter(
       (score: { name: string; address?: `0x${string}` }) =>
-        score.address !== undefined
+        score.address !== undefined,
     )
     .map((score: { name: string; address?: `0x${string}` }) => ({
       address: addresses.GaugeController as `0x${string}`,
