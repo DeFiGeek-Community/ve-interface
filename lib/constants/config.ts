@@ -10,6 +10,7 @@ export interface IConfig {
   feeReward: boolean;
   multiTokenFeeDistributor: boolean;
   checkpoint: boolean;
+  vote: boolean;
   rewardTokens: { name: string; address?: `0x${string}` }[];
   homeUrl?: string;
   tokenRewardsDocumentUrl?: string;
@@ -50,6 +51,7 @@ const yamatoConfig: IConfig = {
   feeReward: true,
   multiTokenFeeDistributor: false,
   checkpoint: true,
+  vote: true,
   rewardTokens: [{ name: "ETH" }],
   homeUrl: "https://yamato-interface.vercel.app/#/",
   tokenRewardsDocumentUrl:
@@ -82,12 +84,13 @@ const txjpConfig: IConfig = {
   veTokenName: "veTXJP",
   initialReward: false,
   minterReward: false,
-  feeReward: true,
-  multiTokenFeeDistributor: true,
+  feeReward: false,
+  multiTokenFeeDistributor: false,
   checkpoint: false,
+  vote: false,
   rewardTokens: [
-    { name: "TXJP", address: "0xdca6BcCecd7C25C654DFD80EcF7c63731B12Df5e" },
-    { name: "CJPY", address: "0xDED5F78d4fB19e935eb45dFf9912eB132F046782" },
+    // { name: "TXJP", address: "0xdca6BcCecd7C25C654DFD80EcF7c63731B12Df5e" },
+    // { name: "CJPY", address: "0xDED5F78d4fB19e935eb45dFf9912eB132F046782" },
   ],
   homeUrl: "https://defigeek.xyz/",
   tokenRewardsDocumentUrl: "https://defigeek.xyz/txjp/",
@@ -110,20 +113,20 @@ const txjpConfig: IConfig = {
 };
 
 export const environmentConfig: IEnvironmentConfig = {
-  yamato: {
-    1: {
-      ...yamatoConfig,
-      TokenStartTimestamp: 0,
-    },
-    11155111: {
-      ...yamatoConfig,
-      TokenStartTimestamp: 1710832176,
-    },
-    31337: {
-      ...yamatoConfig,
-      TokenStartTimestamp: 0,
-    },
-  },
+  // yamato: {
+  //   1: {
+  //     ...yamatoConfig,
+  //     TokenStartTimestamp: 0,
+  //   },
+  //   11155111: {
+  //     ...yamatoConfig,
+  //     TokenStartTimestamp: 1710832176,
+  //   },
+  //   31337: {
+  //     ...yamatoConfig,
+  //     TokenStartTimestamp: 0,
+  //   },
+  // },
   txjp: {
     1: {
       ...txjpConfig,
