@@ -24,7 +24,7 @@ export default function FeeReward({ address }: { address?: `0x${string}` }) {
           <QuestionIcon fontSize={"md"} mb={1} ml={1} />
         </StyledTooltip>
       </Text>
-      <VStack spacing={2} align="start">
+      <VStack spacing={2} align="end">
         {rewardTokens.map(({ name, address }) => (
           <TokenReward key={name} token={name} tokenAddress={address} />
         ))}

@@ -8,7 +8,7 @@ import useToastNotifications from "hooks/useToastNotifications";
 
 interface TokenRewardProps {
   token: string;
-  tokenAddress?: `0x${string}`;
+  tokenAddress?: `0x${string}` | undefined;
 }
 
 export default function TokenReward({ token, tokenAddress }: TokenRewardProps) {
@@ -36,7 +36,7 @@ export default function TokenReward({ token, tokenAddress }: TokenRewardProps) {
   return (
     <HStack spacing={2} alignItems="center">
       <Box key={token} fontSize={"2xl"}>
-        <AmountRenderer amount={result} />
+        <AmountRenderer amount={tokenAddress ? result : BigInt(0)} />
         <chakra.span fontSize={"lg"} ml={1}>
           {token}
         </chakra.span>

@@ -11,7 +11,7 @@ export interface IConfig {
   multiTokenFeeDistributor: boolean;
   checkpoint: boolean;
   vote: boolean;
-  rewardTokens: { name: string; address?: `0x${string}` }[];
+  rewardTokens: { name: string; address?: `0x${string}` | undefined }[];
   homeUrl?: string;
   tokenRewardsDocumentUrl?: string;
   veDocumentUrl?: string;
@@ -84,13 +84,15 @@ const txjpConfig: IConfig = {
   veTokenName: "veTXJP",
   initialReward: false,
   minterReward: false,
-  feeReward: false,
-  multiTokenFeeDistributor: false,
+  feeReward: true,
+  multiTokenFeeDistributor: true,
   checkpoint: false,
   vote: false,
   rewardTokens: [
-    // { name: "TXJP", address: "0xdca6BcCecd7C25C654DFD80EcF7c63731B12Df5e" },
-    // { name: "CJPY", address: "0xDED5F78d4fB19e935eb45dFf9912eB132F046782" },
+    { name: "WETH", address: undefined },
+    { name: "CJPY", address: undefined },
+    { name: "CUSD", address: undefined },
+    { name: "CEUR", address: undefined },
   ],
   homeUrl: "https://defigeek.xyz/",
   tokenRewardsDocumentUrl: "https://defigeek.xyz/txjp/",
