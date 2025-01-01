@@ -42,7 +42,7 @@ export const veSystemAbis: IVeSystemAbis = {
     },
     11155111: {
       FeeDistributor: FeePoolV2,
-      GaugeController: ScoreWeightController,
+      GaugeController: ScoreWeightControllerV2,
       Gauge: ScoreRegistry,
       Minter: YmtMinter,
       VotingEscrow: veYMT,
