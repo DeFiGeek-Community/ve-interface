@@ -114,6 +114,47 @@ const txjpConfig: IConfig = {
   ogImage: "image/txjp/DFGC_logo_banner02.png",
 };
 
+const pndConfig: IConfig = {
+  TokenStartTimestamp: 0,
+  TokenDecimals: 8,
+  VestingPeriod: 0,
+  path: "/pnd",
+  tokenName: "PND",
+  veTokenName: "vePND",
+  initialReward: false,
+  minterReward: false,
+  feeReward: true,
+  multiTokenFeeDistributor: true,
+  checkpoint: false,
+  vote: false,
+  rewardTokens: [
+    { name: "WETH", address: undefined },
+    { name: "CJPY", address: undefined },
+    { name: "CUSD", address: undefined },
+    { name: "CEUR", address: undefined },
+  ],
+  homeUrl: "https://pnd.defigeek.xyz/",
+  tokenRewardsDocumentUrl:
+    "https://defigeek.gitbook.io/punodwo-document/pnd-pnd-dao-token",
+  veDocumentUrl:
+    "https://defigeek.gitbook.io/punodwo-document/pnd-pnd-dao-token",
+  themeColors: {
+    backgroundColor: "#f3f1f1",
+    primaryColor: "#3B8593",
+    secondaryColor: "#FF2E6C",
+    secondaryLightColor: "rgba(234, 234, 234, 0.2)",
+    primaryText: "#626060",
+    buttonText: "#FFF",
+  },
+  projectLogoPath: "image/pnd/punodwoɔ-logo-285×60.png",
+  tokenLogoPath: "image/pnd/PND.png",
+  backgroundImagePath: "image/background/Group_390.webp",
+  siteName: "PND VotingEscrow Interface",
+  siteDescription: "VotingEscrow Interface for PND.",
+  siteUrl: "https://pnd.defigeek.xyz/",
+  ogImage: "",
+};
+
 export const environmentConfig: IEnvironmentConfig = {
   // yamato: {
   //   1: {
@@ -138,6 +179,17 @@ export const environmentConfig: IEnvironmentConfig = {
     },
     31337: {
       ...txjpConfig,
+    },
+  },
+  pnd: {
+    1: {
+      ...pndConfig,
+    },
+    11155111: {
+      ...pndConfig,
+    },
+    31337: {
+      ...pndConfig,
     },
   },
 };
