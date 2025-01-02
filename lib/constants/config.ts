@@ -116,7 +116,7 @@ const txjpConfig: IConfig = {
 
 const pndConfig: IConfig = {
   TokenStartTimestamp: 0,
-  TokenDecimals: 8,
+  TokenDecimals: 16,
   VestingPeriod: 0,
   path: "/pnd",
   tokenName: "PND",
