@@ -130,8 +130,8 @@ const pndConfig: IConfig = {
   rewardTokens: [
     { name: "WETH", address: undefined },
     { name: "CJPY", address: undefined },
-    { name: "CUSD", address: undefined },
-    { name: "CEUR", address: undefined },
+    // { name: "CUSD", address: undefined },
+    // { name: "CEUR", address: undefined },
   ],
   homeUrl: "https://pnd.defigeek.xyz/",
   tokenRewardsDocumentUrl:
