@@ -156,20 +156,20 @@ const pndConfig: IConfig = {
 };
 
 export const environmentConfig: IEnvironmentConfig = {
-  // yamato: {
-  //   1: {
-  //     ...yamatoConfig,
-  //     TokenStartTimestamp: 0,
-  //   },
-  //   11155111: {
-  //     ...yamatoConfig,
-  //     TokenStartTimestamp: 1710832176,
-  //   },
-  //   31337: {
-  //     ...yamatoConfig,
-  //     TokenStartTimestamp: 0,
-  //   },
-  // },
+  yamato: {
+    1: {
+      ...yamatoConfig,
+      TokenStartTimestamp: 0,
+    },
+    11155111: {
+      ...yamatoConfig,
+      TokenStartTimestamp: 1710832176,
+    },
+    31337: {
+      ...yamatoConfig,
+      TokenStartTimestamp: 0,
+    },
+  },
   txjp: {
     1: {
       ...txjpConfig,
