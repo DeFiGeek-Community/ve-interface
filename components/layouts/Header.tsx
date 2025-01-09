@@ -48,7 +48,7 @@ export default function Header() {
       <Container maxW="container.2xl" px={{ base: 2, md: 4 }}>
         <Flex
           as="header"
-          py="4"
+          py="3"
           justifyContent="space-between"
           alignItems="center"
         >
@@ -68,6 +68,15 @@ export default function Header() {
                 >
                   HOME
                 </MenuItem>
+
+                <MenuDivider />
+                <MenuItem
+                  as={Link}
+                  href={`${config.path}/weight/`}
+                  bg={themeColors.backgroundColor}
+                >
+                  Vote weight
+                </MenuItem>
                 <MenuDivider />
                 {tokens.map((token) => (
                   <MenuItem
@@ -84,14 +93,6 @@ export default function Header() {
                     {token.name}
                   </MenuItem>
                 ))}
-                <MenuDivider />
-                <MenuItem
-                  as={Link}
-                  href={`${config.path}/weight/`}
-                  bg={themeColors.backgroundColor}
-                >
-                  Vote weight
-                </MenuItem>
               </MenuList>
             </Menu>
           ) : (
@@ -108,10 +109,32 @@ export default function Header() {
               >
                 <Text fontWeight="bold">Home</Text>
               </Link>
+
+              {config.tokenName === "YMT" && (
+                <Link
+                  href={`${config.homeUrl}tools/`}
+                  _hover={{ textDecoration: "none" }}
+                >
+                  <Text fontWeight="bold">Tool</Text>
+                </Link>
+              )}
+              <Link
+                href={`${config.path}/`}
+                _hover={{ textDecoration: "none" }}
+              >
+                <Text fontWeight="bold">{config.veTokenName}</Text>
+              </Link>
+              {config.vote && (
+                <Link
+                  href={`${config.path}/weight/`}
+                  _hover={{ textDecoration: "none" }}
+                >
+                  <Text fontWeight="bold">Vote</Text>
+                </Link>
+              )}
               <Menu>
                 <MenuButton
                   as={Button}
-                  ml={2}
                   variant="link"
                   _hover={{ textDecoration: "none" }}
                 >
@@ -131,14 +154,6 @@ export default function Header() {
                   ))}
                 </MenuList>
               </Menu>
-              {config.vote && (
-                <Link
-                  href={`${config.path}/weight/`}
-                  _hover={{ textDecoration: "none" }}
-                >
-                  <Text fontWeight="bold">Vote</Text>
-                </Link>
-              )}
             </HStack>
           )}
           <HStack ml={2}>
