@@ -66,33 +66,50 @@ export default function Header() {
                   href={config.homeUrl}
                   bg={themeColors.backgroundColor}
                 >
-                  HOME
+                  Home
                 </MenuItem>
-
+                {config.tokenName === "YMT" && (
+                  <MenuItem
+                    as={Link}
+                    href={`${config.homeUrl}tools/`}
+                    bg={themeColors.backgroundColor}
+                  >
+                    Tool
+                  </MenuItem>
+                )}
                 <MenuDivider />
+                <MenuItem
+                  as={Link}
+                  href={`${config.path}/`}
+                  bg={themeColors.backgroundColor}
+                >
+                  {config.veTokenName}
+                </MenuItem>
                 <MenuItem
                   as={Link}
                   href={`${config.path}/weight/`}
                   bg={themeColors.backgroundColor}
                 >
-                  Vote weight
+                  Vote
                 </MenuItem>
                 <MenuDivider />
-                {tokens.map((token) => (
-                  <MenuItem
-                    key={token.name}
-                    as={Link}
-                    href={token.path}
-                    bg={themeColors.backgroundColor}
-                    style={{
-                      pointerEvents:
-                        token.name === config.veTokenName ? "none" : "auto",
-                      opacity: token.name === config.veTokenName ? 0.6 : 1,
-                    }}
-                  >
-                    {token.name}
-                  </MenuItem>
-                ))}
+                {tokens
+                  .filter((token) => token.name !== config.veTokenName)
+                  .map((token) => (
+                    <MenuItem
+                      key={token.name}
+                      as={Link}
+                      href={token.path}
+                      bg={themeColors.backgroundColor}
+                      style={{
+                        pointerEvents:
+                          token.name === config.veTokenName ? "none" : "auto",
+                        opacity: token.name === config.veTokenName ? 0.6 : 1,
+                      }}
+                    >
+                      {token.name}
+                    </MenuItem>
+                  ))}
               </MenuList>
             </Menu>
           ) : (
@@ -144,14 +161,16 @@ export default function Header() {
                   </Text>
                 </MenuButton>
                 <MenuList>
-                  {tokens.map((token) => (
-                    <MenuItem
-                      key={token.name}
-                      onClick={() => router.push(token.path)}
-                    >
-                      {token.name}
-                    </MenuItem>
-                  ))}
+                  {tokens
+                    .filter((token) => token.name !== config.veTokenName)
+                    .map((token) => (
+                      <MenuItem
+                        key={token.name}
+                        onClick={() => router.push(token.path)}
+                      >
+                        {token.name}
+                      </MenuItem>
+                    ))}
                 </MenuList>
               </Menu>
             </HStack>
