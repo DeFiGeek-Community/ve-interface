@@ -82,6 +82,11 @@ export default function Header() {
                   as={Link}
                   href={`${config.path}/`}
                   bg={themeColors.backgroundColor}
+                  style={{
+                    pointerEvents:
+                      router.asPath === `${config.path}` ? "none" : "auto",
+                    opacity: router.asPath === `${config.path}` ? 0.6 : 1,
+                  }}
                 >
                   {config.veTokenName}
                 </MenuItem>
@@ -89,6 +94,14 @@ export default function Header() {
                   as={Link}
                   href={`${config.path}/weight/`}
                   bg={themeColors.backgroundColor}
+                  style={{
+                    pointerEvents:
+                      router.asPath === `${config.path}/weight`
+                        ? "none"
+                        : "auto",
+                    opacity:
+                      router.asPath === `${config.path}/weight` ? 0.6 : 1,
+                  }}
                 >
                   Vote
                 </MenuItem>
@@ -138,6 +151,11 @@ export default function Header() {
               <Link
                 href={`${config.path}/`}
                 _hover={{ textDecoration: "none" }}
+                style={{
+                  pointerEvents:
+                    router.asPath === config.path ? "none" : "auto",
+                  opacity: router.asPath === config.path ? 0.6 : 1,
+                }}
               >
                 <Text fontWeight="bold">{config.veTokenName}</Text>
               </Link>
@@ -145,6 +163,14 @@ export default function Header() {
                 <Link
                   href={`${config.path}/weight/`}
                   _hover={{ textDecoration: "none" }}
+                  style={{
+                    pointerEvents:
+                      router.asPath === `${config.path}/weight`
+                        ? "none"
+                        : "auto",
+                    opacity:
+                      router.asPath === `${config.path}/weight` ? 0.6 : 1,
+                  }}
                 >
                   <Text fontWeight="bold">Vote</Text>
                 </Link>
