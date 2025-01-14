@@ -1,100 +1,101 @@
 # ve-interface
 
-ve-factoryのフロントエンドインターフェースです。Next.js、wagmi、Chakra UIを使用して構築されています。
+Frontend interface for ve-factory built with Next.js, wagmi, and Chakra UI.
 
-## 技術スタック
+## Tech Stack
 
-- **フレームワーク**: Next.js 14
-- **スマートコントラクト連携**: wagmi v2, viem
-- **UIライブラリ**: Chakra UI
-- **状態管理**: TanStack Query (React Query)
-- **グラフ表示**: Chart.js, react-chartjs-2
-- **ウォレット接続**: Web3Modal
-- **多言語対応**: react-i18next
-- **開発言語**: TypeScript
+- **Framework**: Next.js 14
+- **Smart Contract Integration**: wagmi v2, viem
+- **UI Library**: Chakra UI
+- **State Management**: TanStack Query (React Query)
+- **Form Management**: Formik
+- **Charts**: Chart.js, react-chartjs-2
+- **Wallet Connection**: Web3Modal
+- **Internationalization**: react-i18next
+- **Language**: TypeScript
 
-## 必要要件
+## Requirements
 
 - Node.js >= 18.17.0
-- npmまたはyarn
+- npm or yarn
 
-## セットアップ
+## Setup
 
-1. リポジトリのクローン:
+1. Clone the repository:
 ```bash
 git clone https://github.com/DeFiGeek-Community/ve-interface
 cd ve-interface
 ```
 
-2. 依存関係のインストール:
+2. Install dependencies:
 ```bash
 npm install
-# または
+# or
 yarn install
 ```
 
-3. 環境変数の設定:
-`.env.example`ファイルを`.env`にコピーし、以下の環境変数を設定してください：
+3. Configure environment variables:
+Copy `.env.example` to `.env` and set up the following environment variables:
 
 ```bash
-# Alchemyのプロジェクトキー
+# Alchemy Project Key
 NEXT_PUBLIC_ALCHEMY_ID=your_alchemy_key
 
-# WalletConnectのプロジェクトID
+# WalletConnect Project ID
 NEXT_PUBLIC_PROJECT_ID=your_walletconnect_project_id
 
-# InfuraのプロジェクトID
+# Infura Project ID
 NEXT_PUBLIC_INFURA_ID=your_infura_id
 ```
 
-各APIキーは以下のサービスから取得できます：
+You can obtain the API keys from:
 - Alchemy: https://www.alchemy.com/
 - WalletConnect: https://cloud.walletconnect.com/
 - Infura: https://www.infura.io/
 
-4. 開発サーバーの起動:
+4. Start the development server:
 ```bash
 npm run dev
-# または
+# or
 yarn dev
 ```
 
-## 主要機能
+## Key Features
 
-- ve-tokenのロック機能
-- 重み付け投票システム
-- 報酬の確認と請求
-- マルチウォレット対応
-- リアルタイムのブロックチェーンデータ表示
+- ve-token locking mechanism
+- Weighted voting system
+- Reward tracking and claiming
+- Multi-wallet support
+- Real-time blockchain data display
 
-## スクリプト
+## Scripts
 
-- `npm run dev`: 開発サーバーの起動
-- `npm run build`: プロダクションビルドの作成
-- `npm run start`: プロダクションサーバーの起動
-- `npm run lint`: ESLintによるコード検証
-- `npm run format`: Prettierによるコードフォーマット
+- `npm run dev`: Start development server
+- `npm run build`: Create production build
+- `npm run start`: Start production server
+- `npm run lint`: Run ESLint code verification
+- `npm run format`: Run Prettier code formatting
 
-## プロジェクト構造
+## Project Structure
 
 ```
 ve-interface/
-├── components/     # UIコンポーネント
-├── hooks/         # カスタムフック
-│   ├── ScoreWeightController/ # スコア重み付けコントローラー関連のフック
-│   ├── FeeDistributor/        # 手数料分配関連のフック
-│   ├── Gauge/                 # ゲージ関連のフック
-│   ├── Yamato/                # Yamatoプロトコル関連のフック
-│   ├── Token/                 # トークン関連のフック
-│   ├── Minter/                # ミンター関連のフック
-│   ├── VotingEscrow/          # 投票エスクロー関連のフック
-│   ├── Vesting/               # ベスティング関連のフック
-│   └── useToastNotifications  # トースト通知用フック
-├── lib/           # ユーティリティ、定数、コンテキスト
-│   ├── constants/ # コントラクトABI、アドレス、設定
-│   ├── connector/ # ブロックチェーン接続関連
-│   └── contexts/  # Reactコンテキスト
-├── pages/         # Next.jsページコンポーネント
-└── public/        # 静的ファイル
+├── components/     # UI Components
+├── hooks/         # Custom Hooks
+│   ├── ScoreWeightController/ # Score weight controller hooks
+│   ├── FeeDistributor/        # Fee distribution hooks
+│   ├── Gauge/                 # Gauge related hooks
+│   ├── Yamato/                # Yamato protocol hooks
+│   ├── Token/                 # Token operation hooks
+│   ├── Minter/                # Minter functionality hooks
+│   ├── VotingEscrow/          # Voting escrow hooks
+│   ├── Vesting/               # Vesting hooks
+│   └── useToastNotifications  # Toast notification hooks
+├── lib/           # Utilities, Constants, and Contexts
+│   ├── constants/ # Contract ABIs, addresses, and configs
+│   ├── connector/ # Blockchain connection utilities
+│   └── contexts/  # React contexts
+├── pages/         # Next.js page components
+└── public/        # Static files
 ```
 
