@@ -38,7 +38,7 @@ export const veSystemContracts: IVeSystemContracts = {
       Vesting: "0x17A6da7cd6eD06af8598b6EB4238119DcC958E32",
       Yamato: "0xEc8023Bd4BF08993C96F1f23dbE858b42F6A393F",
       Score: [
-        { name: "CJPY", address: "0x830F1F364583D694c2775CA26950084f2f483aeC" },
+        { name: "CJPY", address: "0x8aEf8bC3b148C6163b85504B90718bF308d150ee" },
         { name: "CUSD", address: "0xBe6E51ac27CDF01Af63C6b4cAa9e1037bB2f72b7" },
         { name: "CEUR", address: "0x8aEf8bC3b148C6163b85504B90718bF308d150ee" },
       ],
