@@ -80,7 +80,7 @@ export default function Header() {
                 <MenuDivider />
                 <MenuItem
                   as={Link}
-                  href={`${config.path}`}
+                  href={`${config.path}/`}
                   bg={themeColors.backgroundColor}
                   style={{
                     pointerEvents:
@@ -92,7 +92,7 @@ export default function Header() {
                 </MenuItem>
                 <MenuItem
                   as={Link}
-                  href={`${config.path}/weight`}
+                  href={`${config.path}/weight/`}
                   bg={themeColors.backgroundColor}
                   style={{
                     pointerEvents:
@@ -149,7 +149,7 @@ export default function Header() {
                 </Link>
               )}
               <Link
-                href={`${config.path}`}
+                href={`${config.path}/`}
                 _hover={{ textDecoration: "none" }}
                 style={{
                   pointerEvents:
@@ -161,7 +161,7 @@ export default function Header() {
               </Link>
               {config.vote && (
                 <Link
-                  href={`${config.path}/weight`}
+                  href={`${config.path}/weight/`}
                   _hover={{ textDecoration: "none" }}
                   style={{
                     pointerEvents:
