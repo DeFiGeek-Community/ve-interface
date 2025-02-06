@@ -27,6 +27,7 @@ export default function Header() {
   const themeColors = config.themeColors;
   const [isLessThan700px] = useMediaQuery("(max-width: 800px)");
   const router = useRouter();
+  const { lang } = router.query;
 
   // 動的に画像のパスを設定
   const logoSrc = config ? `/${config.projectLogoPath}` : null;
@@ -35,6 +36,13 @@ export default function Header() {
     name: environmentConfig[env][1].veTokenName,
     path: environmentConfig[env][1].path,
   }));
+
+  const createHref = (path: string) => {
+    if (lang) {
+      return `${path}?lang=${lang}`;
+    }
+    return path;
+  };
 
   return (
     <Box
@@ -63,7 +71,7 @@ export default function Header() {
               <MenuList bg={themeColors.backgroundColor}>
                 <MenuItem
                   as={Link}
-                  href={config.homeUrl}
+                  href={createHref(config.homeUrl)}
                   bg={themeColors.backgroundColor}
                 >
                   Home
@@ -71,7 +79,7 @@ export default function Header() {
                 {config.tokenName === "YMT" && (
                   <MenuItem
                     as={Link}
-                    href={`${config.homeUrl}tools/`}
+                    href={createHref(`${config.homeUrl}tools/`)}
                     bg={themeColors.backgroundColor}
                   >
                     Tool
@@ -80,7 +88,7 @@ export default function Header() {
                 <MenuDivider />
                 <MenuItem
                   as={Link}
-                  href={`${config.path}/`}
+                  href={createHref(`${config.path}/`)}
                   bg={themeColors.backgroundColor}
                   style={{
                     pointerEvents:
@@ -92,7 +100,7 @@ export default function Header() {
                 </MenuItem>
                 <MenuItem
                   as={Link}
-                  href={`${config.path}/weight/`}
+                  href={createHref(`${config.path}/weight/`)}
                   bg={themeColors.backgroundColor}
                   style={{
                     pointerEvents:
@@ -112,7 +120,7 @@ export default function Header() {
                     <MenuItem
                       key={token.name}
                       as={Link}
-                      href={token.path}
+                      href={createHref(token.path)}
                       bg={themeColors.backgroundColor}
                       style={{
                         pointerEvents:
@@ -127,13 +135,13 @@ export default function Header() {
             </Menu>
           ) : (
             <HStack spacing={6}>
-              <Link href="/">
+              <Link href={createHref("/")}>
                 {logoSrc && (
                   <Image src={logoSrc} alt="Logo" width={200} height={30} />
                 )}
               </Link>
               <Link
-                href={config.homeUrl}
+                href={createHref(config.homeUrl)}
                 _hover={{ textDecoration: "none" }}
                 ml={2}
               >
@@ -142,14 +150,14 @@ export default function Header() {
 
               {config.tokenName === "YMT" && (
                 <Link
-                  href={`${config.homeUrl}tools/`}
+                  href={createHref(`${config.homeUrl}tools/`)}
                   _hover={{ textDecoration: "none" }}
                 >
                   <Text fontWeight="bold">Tool</Text>
                 </Link>
               )}
               <Link
-                href={`${config.path}/`}
+                href={createHref(`${config.path}/`)}
                 _hover={{ textDecoration: "none" }}
                 style={{
                   pointerEvents:
@@ -161,7 +169,7 @@ export default function Header() {
               </Link>
               {config.vote && (
                 <Link
-                  href={`${config.path}/weight/`}
+                  href={createHref(`${config.path}/weight/`)}
                   _hover={{ textDecoration: "none" }}
                   style={{
                     pointerEvents:
@@ -192,7 +200,7 @@ export default function Header() {
                     .map((token) => (
                       <MenuItem
                         key={token.name}
-                        onClick={() => router.push(token.path)}
+                        onClick={() => router.push(createHref(token.path))}
                       >
                         {token.name}
                       </MenuItem>

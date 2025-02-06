@@ -12,7 +12,7 @@ export interface IConfig {
   checkpoint: boolean;
   vote: boolean;
   rewardTokens: { name: string; address?: `0x${string}` | undefined }[];
-  homeUrl?: string;
+  homeUrl: string;
   tokenRewardsDocumentUrl?: string;
   veDocumentUrl?: string;
   themeColors: {
