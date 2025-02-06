@@ -5,15 +5,29 @@ import CommunityLogo from "../svgs/CommunityLogo";
 import GitBook from "../svgs/GitBook";
 import StyledTooltip from "components/shared/StyledTooltip";
 import { useContractContext } from "lib/contexts/ContractContext";
+import { useEffect } from "react";
+import { useRouter } from "next/router";
 
 export default function Footer() {
   const { i18n } = useTranslation();
   const { config } = useContractContext();
   const themeColors = config.themeColors;
+  const router = useRouter();
 
-  const changeLanguage = (lang: any) => {
+  const changeLanguage = (lang: string) => {
     i18n.changeLanguage(lang);
+    router.push({
+      pathname: router.pathname,
+      query: { ...router.query, lang },
+    });
   };
+
+  useEffect(() => {
+    const { lang } = router.query;
+    if (lang && typeof lang === "string") {
+      i18n.changeLanguage(lang);
+    }
+  }, [router.query, i18n]);
 
   return (
     <Box
@@ -79,7 +93,7 @@ export default function Footer() {
             <Select
               w={"100px"}
               size={"xs"}
-              defaultValue=""
+              value={i18n.language}
               onChange={(event) => changeLanguage(event.target.value)}
               float={"right"}
             >
