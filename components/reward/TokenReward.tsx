@@ -36,7 +36,7 @@ export default function TokenReward({ token, tokenAddress }: TokenRewardProps) {
   return (
     <HStack spacing={2} alignItems="center">
       <Box key={token} fontSize={"2xl"}>
-        <AmountRenderer amount={tokenAddress ? result : BigInt(0)} />
+        <AmountRenderer amount={result} />
         <chakra.span fontSize={"lg"} ml={1}>
           {token}
         </chakra.span>
