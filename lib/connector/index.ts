@@ -5,7 +5,7 @@ import { http } from "viem";
 import { extendTheme } from "@chakra-ui/react";
 import { SITE_DESCRIPTION, SITE_NAME, SITE_URL } from "./site";
 
-const chains = [sepolia, anvil] as [Chain, ...Chain[]];
+const chains = [mainnet, sepolia] as [Chain, ...Chain[]];
 
 const projectId = process.env.NEXT_PUBLIC_PROJECT_ID ?? "";
 

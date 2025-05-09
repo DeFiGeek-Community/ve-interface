@@ -156,40 +156,40 @@ const pndConfig: IConfig = {
 };
 
 export const environmentConfig: IEnvironmentConfig = {
-  // yamato: {
+  yamato: {
+    1: {
+      ...yamatoConfig,
+      TokenStartTimestamp: 0,
+    },
+    11155111: {
+      ...yamatoConfig,
+      TokenStartTimestamp: 1710832176,
+    },
+    31337: {
+      ...yamatoConfig,
+      TokenStartTimestamp: 0,
+    },
+  },
+  // txjp: {
   //   1: {
-  //     ...yamatoConfig,
-  //     TokenStartTimestamp: 0,
+  //     ...txjpConfig,
   //   },
   //   11155111: {
-  //     ...yamatoConfig,
-  //     TokenStartTimestamp: 1710832176,
+  //     ...txjpConfig,
   //   },
   //   31337: {
-  //     ...yamatoConfig,
-  //     TokenStartTimestamp: 0,
+  //     ...txjpConfig,
   //   },
   // },
-  txjp: {
-    1: {
-      ...txjpConfig,
-    },
-    11155111: {
-      ...txjpConfig,
-    },
-    31337: {
-      ...txjpConfig,
-    },
-  },
-  pnd: {
-    1: {
-      ...pndConfig,
-    },
-    11155111: {
-      ...pndConfig,
-    },
-    31337: {
-      ...pndConfig,
-    },
-  },
+  // pnd: {
+  //   1: {
+  //     ...pndConfig,
+  //   },
+  //   11155111: {
+  //     ...pndConfig,
+  //   },
+  //   31337: {
+  //     ...pndConfig,
+  //   },
+  // },
 };
