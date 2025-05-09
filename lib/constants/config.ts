@@ -51,9 +51,9 @@ const yamatoConfig: IConfig = {
   feeReward: true,
   multiTokenFeeDistributor: false,
   checkpoint: true,
-  vote: true,
+  vote: false,
   rewardTokens: [{ name: "ETH" }],
-  homeUrl: "https://yamato-interface.vercel.app/#/",
+  homeUrl: "https://app.yamato.fi/#/",
   tokenRewardsDocumentUrl:
     "https://docs.yamato.fi/ymt-yamato-dao-token/toveymtniyorufmingubsuto",
   veDocumentUrl: "https://docs.yamato.fi/ymt-yamato-dao-token",
