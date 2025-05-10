@@ -68,8 +68,22 @@ export default function Header() {
                 >
                   HOME
                 </MenuItem>
-                <MenuDivider />
-                {tokens.map((token) => (
+                <MenuItem
+                  as={Link}
+                  href={`${config.path}tool/`}
+                  bg={themeColors.backgroundColor}
+                >
+                  Tool
+                </MenuItem>
+                <MenuItem
+                  as={Link}
+                  href={`/`}
+                  bg={themeColors.backgroundColor}
+                  disabled={true}
+                >
+                  veYMT
+                </MenuItem>
+                {/* {tokens.map((token) => (
                   <MenuItem
                     key={token.name}
                     as={Link}
@@ -83,8 +97,8 @@ export default function Header() {
                   >
                     {token.name}
                   </MenuItem>
-                ))}
-                <MenuDivider />
+                ))} */}
+              {config.vote && (
                 <MenuItem
                   as={Link}
                   href={`${config.path}/weight/`}
@@ -92,8 +106,9 @@ export default function Header() {
                 >
                   Vote weight
                 </MenuItem>
-              </MenuList>
-            </Menu>
+              )}
+            </MenuList>
+          </Menu>
           ) : (
             <HStack spacing={6}>
               <Link href="/">
@@ -108,7 +123,24 @@ export default function Header() {
               >
                 <Text fontWeight="bold">Home</Text>
               </Link>
-              <Menu>
+              
+              <Link
+                href={`${config.path}tool/`}
+                _hover={{ textDecoration: "none" }}
+                ml={2}
+              >
+                <Text fontWeight="bold">Tool</Text>
+              </Link>
+              <Link
+                href={`/`}
+                _hover={{ textDecoration: "none" }}
+                ml={2}
+                pointerEvents="none"
+                opacity={0.5}
+              >
+                <Text fontWeight="bold">veYMT</Text>
+              </Link>
+              {/* <Menu>
                 <MenuButton
                   as={Button}
                   ml={2}
@@ -130,7 +162,7 @@ export default function Header() {
                     </MenuItem>
                   ))}
                 </MenuList>
-              </Menu>
+              </Menu> */}
               {config.vote && (
                 <Link
                   href={`${config.path}/weight/`}
