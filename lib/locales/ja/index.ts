@@ -8,10 +8,10 @@ const ja = {
   CONFIRMATION: "確認",
   EARLY_USER_REWARD: "初期リワード",
   EARLY_USER_REWARD_HELP:
-    "初期リワードの報酬の量は、2024年〇月〇日〇時からスタートし、その時点では0%です。\n時間が経過するにつれ、この報酬の量は徐々に増加し、2025年〇月〇日〇時には、全額の100%を受け取ることが可能になります。\n報酬の受け取り可能量は時間が経つにつれて直線的に増えていきます。",
-  ALLOCATED: "割当量",
-  CLAIMED: "請求済み",
-  CLAIMABLE: "請求可能",
+    "初期リワードの報酬の量は、2025年5月10日からスタートし、その時点では0%です。\n時間が経過するにつれ、この報酬の量は徐々に増加し、2026年5月10日には、全額の100%を受け取ることが可能になります。\n報酬の受け取り可能量は時間が経つにつれて直線的に増えていきます。",
+  ALLOCATED: "1年間の合計割当量",
+  CLAIMED: "請求済みの数量",
+  CLAIMABLE: "現在請求可能の数量",
   VE_TOKEN_REWARD_HELP:
     "{{tokenName}}を一定期間ロックすることで、移転不可の{{veTokenName}}を発行します。\nロック期間の最小単位は1週間、最大期間は4年間（208週）で、ロックした{{tokenName}}はロック期間終了まで引き出しできません。\n\n1{{tokenName}}を4年間ロックすると1{{veTokenName}}が発行され、時間経過により線形に減衰し、4年後に0{{veTokenName}}になります。",
   TOKEN_LOCK_NOTE:
@@ -27,7 +27,7 @@ const ja = {
     "Feeリワードは、Yamato償還により徴収されたETHが、veYMT保有量に応じて分配されます。",
   FEE_REWARDS_HELP:
     "Feeリワードは、{{veTokenName}}保有量に応じて分配されます。",
-  COMMING_SOON: "Comming soon...",
+  COMMING_SOON: "Coming soon...",
   TRANSACTION_SENT: "トランザクションを送信しました",
   TRANSACTION_CONFIRMED: "トランザクションが承認されました",
   APPROVAL_CONFIRMED: "トランザクションが承認されました",

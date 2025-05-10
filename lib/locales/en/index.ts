@@ -8,7 +8,7 @@ const en = {
   CONFIRMATION: "Confirmation",
   EARLY_USER_REWARD: "Early rewards",
   EARLY_USER_REWARD_HELP:
-    "Early User Rewards: 1-year linear vesting from DD MM 2024",
+    "Early User Rewards: 1-year linear vesting from May 10, 2025",
   ALLOCATED: "Allocated",
   CLAIMED: "Claimed",
   CLAIMABLE: "Claimable",
