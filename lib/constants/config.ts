@@ -159,7 +159,7 @@ export const environmentConfig: IEnvironmentConfig = {
   yamato: {
     1: {
       ...yamatoConfig,
-      TokenStartTimestamp: 0,
+      TokenStartTimestamp: 1746333419,
     },
     11155111: {
       ...yamatoConfig,
