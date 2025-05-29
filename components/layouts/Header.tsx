@@ -70,7 +70,7 @@ export default function Header() {
                 </MenuItem>
                 <MenuItem
                   as={Link}
-                  href={`${config.path}tool/`}
+                  href={`${config.homeUrl}tools/`}
                   bg={themeColors.backgroundColor}
                 >
                   Tool
@@ -98,17 +98,17 @@ export default function Header() {
                     {token.name}
                   </MenuItem>
                 ))} */}
-              {config.vote && (
-                <MenuItem
-                  as={Link}
-                  href={`${config.path}/weight/`}
-                  bg={themeColors.backgroundColor}
-                >
-                  Vote weight
-                </MenuItem>
-              )}
-            </MenuList>
-          </Menu>
+                {config.vote && (
+                  <MenuItem
+                    as={Link}
+                    href={`${config.path}/weight/`}
+                    bg={themeColors.backgroundColor}
+                  >
+                    Vote weight
+                  </MenuItem>
+                )}
+              </MenuList>
+            </Menu>
           ) : (
             <HStack spacing={6}>
               <Link href="/">
@@ -123,9 +123,9 @@ export default function Header() {
               >
                 <Text fontWeight="bold">Home</Text>
               </Link>
-              
+
               <Link
-                href={`${config.path}tool/`}
+                href={`${config.homeUrl}tools/`}
                 _hover={{ textDecoration: "none" }}
                 ml={2}
               >
