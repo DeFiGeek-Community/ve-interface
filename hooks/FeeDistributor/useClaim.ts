@@ -45,7 +45,7 @@ export default function useClaim({
   const prepareFn = useSimulateContract({
     ...txConfig,
     query: {
-      enabled: !!address && !!tokenAddress,
+      enabled: !!address,
     },
   }) as ReturnType<typeof useSimulateContract> & {
     data?: {
