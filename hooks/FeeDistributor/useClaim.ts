@@ -20,9 +20,11 @@ export type UseClaimReturn = {
 
 export default function useClaim({
   tokenAddress,
+  targetAddress,
   callbacks,
 }: {
   tokenAddress?: `0x${string}`;
+  targetAddress?: `0x${string}`;
   callbacks?: {
     onSuccessWrite?: (data: any) => void;
     onError?: (error: Error) => void;
@@ -36,7 +38,7 @@ export default function useClaim({
     address: addresses.FeeDistributor as `0x${string}`,
     abi: abis.FeeDistributor,
     functionName: "claim",
-    args: config.multiTokenFeeDistributor ? [tokenAddress || "0x0"] : [],
+    args: config.multiTokenFeeDistributor ? [tokenAddress || "0x0"] : [address || "0x0"],
     chainId: chain?.id,
   };
 
